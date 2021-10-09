@@ -54,7 +54,7 @@ public class Map : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = tris;
 
-        tile.layer = LayerMask.NameToLayer("Hover");
+        tile.layer = LayerMask.NameToLayer("MapTile");
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Numidia";
@@ -110,17 +110,19 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[12];
-        vertices[0] = new Vector3(2.5f, y, 0);
-        vertices[1] = new Vector3(3.5f, y, 3);
-        vertices[2] = new Vector3(3.5f, y, 6.5f);
-        vertices[3] = new Vector3(5.5f, y, 6.5f);
-        vertices[4] = new Vector3(6.5f, y, 6f);
-        vertices[5] = new Vector3(14.7f, y, 3.7f);
-        vertices[6] = new Vector3(14.7f, y, 0f);
+        Vector3[] vertices = new Vector3[10];
+        vertices[0] = new Vector3(14.5f, y, 0f);
+        vertices[1] = new Vector3(2.9f, y, 0);
+        vertices[2] = new Vector3(3.5f, y, 2);
+        vertices[3] = new Vector3(3.7f, y, 3.5f);
+        vertices[4] = new Vector3(3.5f, y, 5.5f);
+        vertices[5] = new Vector3(3.5f, y, 6.5f);
+        vertices[6] = new Vector3(5.5f, y, 6.5f);
+        vertices[7] = new Vector3(7.7f, y, 5.5f);
+        vertices[8] = new Vector3(10.8f, y, 5f);
+        vertices[9] = new Vector3(14.7f, y, 4f);
 
-        //int[] tris = new int[] { 0,1,3,  1,2,3,  1,2,3,  3,4,6, 4,5,6,  3,6,7,  3,7,8,  8,9,10,  1,10,11,  0,3,8,  0,8,10};
-        int[] tris = new int[] { 1, 2, 3, 1, 3, 4, 1, 4, 5, 1, 5, 6, 1, 6, 0 };
+        int[] tris = new int[] { 0,1,2,  0,2,3,  0,3,4,  0,4,5,  0,5,6,  0,6,7,  0,7,8,  0,8,9 };
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
@@ -179,20 +181,21 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[10];
-        vertices[0] = new Vector3(14.7f, y, 0f);
-        vertices[1] = new Vector3(15f, y, 4f);
+        Vector3[] vertices = new Vector3[12];
+        vertices[0] = new Vector3(14.8f, y, 2f);
+        vertices[1] = new Vector3(14.6f, y, 4f);
         vertices[2] = new Vector3(17f, y, 4f);
-        vertices[3] = new Vector3(21.2f, y, 2.5f);
-        vertices[4] = new Vector3(23f, y, 2.5f);
-        vertices[5] = new Vector3(26f, y, 4.4f);
-        vertices[6] = new Vector3(29f, y, 4.9f);
-        vertices[7] = new Vector3(29.8f, y, 3f);
-        vertices[8] = new Vector3(31f, y, 2.5f);
-        vertices[9] = new Vector3(31.5f, y, 0f);
+        vertices[3] = new Vector3(22.5f, y, 2.6f);
+        vertices[4] = new Vector3(14.5f, y, 0f);
+        vertices[5] = new Vector3(31.4f, y, 0f);
+        vertices[6] = new Vector3(31.1f, y, 2f);
+        vertices[7] = new Vector3(29.6f, y, 3f);
+        vertices[8] = new Vector3(29.5f, y, 4f);
+        vertices[9] = new Vector3(29.1f, y, 4.8f);
+        vertices[10] = new Vector3(23.5f, y, 2.8f);
+        vertices[11] = new Vector3(26f, y, 4.2f);
 
-
-        int[] tris = new int[] {0,1,2,  0,2,3,  0,3,4,  0,4,9,  9,4,5,  9,5,7,  9,7,8,  7,5,6};
+        int[] tris = new int[] {0,1,2,  0,2,3,  4,0,3,  4,3,5,  3,6,5,  3,7,6,  3,8,7,  10,9,8,  10,11,9};
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
