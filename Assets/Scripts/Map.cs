@@ -24,6 +24,9 @@ public class Map : MonoBehaviour
         GenerateSynay();
         GenerateIudea();
         GenerateAravia();
+        GenerateBabilon();
+        GenerateSiria();
+        GenerateMesopotamia();
     }
 
 
@@ -495,11 +498,144 @@ public class Map : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = tris;
 
-        tile.layer = LayerMask.NameToLayer("Hover");
+        tile.layer = LayerMask.NameToLayer("MapTile");
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Aravia";
     }
+
+    private void GenerateBabilon()
+    {
+
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[18];
+        vertices[0] = new Vector3(57.7f, y, 18.9f);
+        vertices[1] = new Vector3(57.7f, y, 14f);
+        vertices[2] = new Vector3(55.1f, y, 14.8f);
+        vertices[3] = new Vector3(52.3f, y, 15.3f);
+        vertices[4] = new Vector3(51f, y, 15.3f);
+        vertices[5] = new Vector3(50f, y, 15f);
+        vertices[6] = new Vector3(48.6f, y, 17f);
+        vertices[7] = new Vector3(56.5f, y, 19.8f);
+        vertices[8] = new Vector3(55.2f, y, 20.7f);
+        vertices[9] = new Vector3(54.2f, y, 21f);
+        vertices[10] = new Vector3(53.4f, y, 21.9f);
+        vertices[11] = new Vector3(52.4f, y, 21.2f);
+        vertices[12] = new Vector3(51.3f, y, 21f);
+        vertices[13] = new Vector3(50.3f, y, 21.2f);
+        vertices[14] = new Vector3(48.2f, y, 18f);
+        vertices[15] = new Vector3(48f, y, 19f);
+        vertices[16] = new Vector3(47.9f, y, 21f);
+        vertices[17] = new Vector3(49.5f, y, 21.5f);
+
+        int[] tris = new int[] { 0,1,2,  0,2,3,  0,3,4,  0,4,5,  0,5,6,  6,7,0,  6,8,7,  6,9,8,  6,10,9,  6,11,10,  6,12,11,  6,13,12,
+                                 13,6,14,  13,14,15,  13,15,16,  13,16,17};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Babylon";
+    }
+
+    private void GenerateSiria()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[22];
+        vertices[0] = new Vector3(51.7f, y, 23.5f);
+        vertices[1] = new Vector3(53.2f, y, 21.9f);
+        vertices[2] = new Vector3(51.7f, y, 21.1f);
+        vertices[3] = new Vector3(50.8f, y, 21.1f);
+        vertices[4] = new Vector3(49.6f, y, 21.6f);
+        vertices[5] = new Vector3(47.7f, y, 21f);
+        vertices[6] = new Vector3(45.7f, y, 21f);
+        vertices[7] = new Vector3(44.4f, y, 20.5f);
+        vertices[8] = new Vector3(44.3f, y, 21f);
+        vertices[9] = new Vector3(44.5f, y, 21.5f);
+        vertices[10] = new Vector3(44.5f, y, 22f);
+        vertices[11] = new Vector3(44.7f, y, 22.5f);
+        vertices[12] = new Vector3(44f, y, 23.3f);
+        vertices[13] = new Vector3(44.2f, y, 23.7f);
+        vertices[14] = new Vector3(43.8f, y, 25.4f);
+        vertices[15] = new Vector3(43.5f, y, 25.9f);
+        vertices[16] = new Vector3(44.2f, y, 27.2f);
+        vertices[17] = new Vector3(44.2f, y, 30f);
+        vertices[18] = new Vector3(51.3f, y, 25.3f);
+        vertices[19] = new Vector3(48f, y, 31.8f);
+        vertices[20] = new Vector3(44.5f, y, 30.6f);
+        vertices[21] = new Vector3(46.5f, y, 31.1f);
+
+        int[] tris = new int[] { 0,1,2,  0,2,3,  0,3,4,  0,4,5,  0,5,6,  0,6,7,  0,7,8,  0,8,9,  0,9,10,  0,10,11,  0,11,12,  0,12,13,  0,13,14,
+                                 0,14,15,  0,15,16,  0,16,17,  17,18,0,  17,19,18,  17,20,21 };
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Siria";
+    }
+
+    private void GenerateMesopotamia()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[14];
+        vertices[0] = new Vector3(56.7f, y, 34.8f);
+        vertices[1] = new Vector3(57.7f, y, 35.4f);
+        vertices[2] = new Vector3(57.7f, y, 18.9f);
+        vertices[3] = new Vector3(56.7f, y, 19.6f);
+        vertices[4] = new Vector3(55.7f, y, 20.5f);
+        vertices[5] = new Vector3(54.7f, y, 21f);
+        vertices[6] = new Vector3(54.4f, y, 21f);
+        vertices[7] = new Vector3(52f, y, 23.4f);
+        vertices[8] = new Vector3(51.4f, y, 25.3f);
+        vertices[9] = new Vector3(55.2f, y, 34.7f);
+        vertices[10] = new Vector3(53.5f, y, 34.4f);
+        vertices[11] = new Vector3(50.5f, y, 32.9f);
+        vertices[12] = new Vector3(49.5f, y, 32.7f);
+        vertices[13] = new Vector3(48f, y, 32f);
+
+        int[] tris = new int[] { 0,1,2,  0,2,3,  0,3,4,  0,4,5,  0,5,6,  0,6,7,  0,7,8,  8,9,0,  8,10,9,  8,11,10,  8,12,11,  8,13,12 };
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Mesopotamia";
+    }
+
 
     private void Update()
     {
