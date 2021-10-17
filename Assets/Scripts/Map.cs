@@ -27,6 +27,8 @@ public class Map : MonoBehaviour
         GenerateBabilon();
         GenerateSiria();
         GenerateMesopotamia();
+        GenerateSkifia();
+        GenerateKilikia();
     }
 
 
@@ -636,6 +638,125 @@ public class Map : MonoBehaviour
         tile.name = "Mesopotamia";
     }
 
+    private void GenerateSkifia()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[45];
+        vertices[0] = new Vector3(53.4f, y, 34.5f);
+        vertices[1] = new Vector3(57.5f, y, 42.5f);
+        vertices[2] = new Vector3(57.5f, y, 35.5f);
+        vertices[3] = new Vector3(56.8f, y, 35f);
+        vertices[4] = new Vector3(55f, y, 35f);
+        vertices[5] = new Vector3(51f, y, 33.2f);
+        vertices[6] = new Vector3(49f, y, 32.6f); //
+        vertices[7] = new Vector3(46.7f, y, 37.7f);//
+        vertices[8] = new Vector3(46.7f, y, 42.5f);
+        vertices[9] = new Vector3(46.2f, y, 38.7f);
+        vertices[10] = new Vector3(45f, y, 39.3f);
+        vertices[11] = new Vector3(44f, y, 39.3f);
+        vertices[12] = new Vector3(43.6f, y, 39.7f);
+        vertices[13] = new Vector3(42.8f, y, 39.7f);
+        vertices[14] = new Vector3(42.6f, y, 39.9f);
+        vertices[15] = new Vector3(42.6f, y, 42.5f);
+        vertices[16] = new Vector3(42f, y, 39.7f);
+        vertices[17] = new Vector3(41.5f, y, 40.2f);
+        vertices[18] = new Vector3(40.8f, y, 40f);
+        vertices[19] = new Vector3(40.6f, y, 40.3f);
+        vertices[20] = new Vector3(40.6f, y, 42.5f);
+        vertices[21] = new Vector3(39.8f, y, 39.9f);
+        vertices[22] = new Vector3(39.5f, y, 40.1f);
+        vertices[23] = new Vector3(39.1f, y, 40f);
+        vertices[24] = new Vector3(39f, y, 40.7f);
+        vertices[25] = new Vector3(38.6f, y, 40.7f);
+        vertices[26] = new Vector3(38.6f, y, 41f);
+        vertices[27] = new Vector3(39f, y, 41.3f);
+        vertices[28] = new Vector3(38.9f, y, 41.6f);
+        vertices[29] = new Vector3(39.2f, y, 41.8f);
+        vertices[30] = new Vector3(39.2f, y, 42.5f);
+        vertices[31] = new Vector3(46.4f, y, 37.2f);
+        vertices[32] = new Vector3(46.4f, y, 36.6f);
+        vertices[33] = new Vector3(45.8f, y, 36f);
+        vertices[34] = new Vector3(44.7f, y, 35.5f);
+        vertices[35] = new Vector3(43.7f, y, 34.5f);
+        vertices[36] = new Vector3(48f, y, 32f);
+        vertices[37] = new Vector3(46f, y, 31.1f);
+        vertices[38] = new Vector3(44.5f, y, 30.7f);
+        vertices[39] = new Vector3(43.1f, y, 34.4f);
+        vertices[40] = new Vector3(42.7f, y, 34.4f);
+        vertices[41] = new Vector3(42.3f, y, 34f);
+        vertices[42] = new Vector3(42f, y, 34f);
+        vertices[43] = new Vector3(41.7f, y, 32f);
+        vertices[44] = new Vector3(42.2f, y, 29.5f);
+
+        int[] tris = new int[] { 0,1,2, 2,3,0,  0,5,1, 5,6,1,  6,7,1,  7,8,1,  7,9,8,  9,10,8,  10,11,8,  11,12,8,  12,13,8,  13,14,8,  14,15,8,
+                                 15,14,16,  15,16,17,  15,17,18,  15,18,19,  15,19,20,  20,19,21,  20,21,22,  20,22,23,  20,23,24,  20,24,25,  
+                                 20,25,26,  20,26,27,  20,27,28,  20,28,29,  20,29,30,  7,6,31,  6,32,31,  6,33,32,  6,34,33,  6,35,34,  35,6,36,
+                                 35,36,37,  35,37,38,  35,38,39,  38,40,39,  38,41,40,  38,42,41,  38,43,42,  38,44,43};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Skifia";
+    }
+
+    private void GenerateKilikia()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[21];
+        vertices[0] = new Vector3(42.2f, y, 29.5f);
+        vertices[1] = new Vector3(44.2f, y, 30.4f);
+        vertices[2] = new Vector3(44f, y, 30f);
+        vertices[3] = new Vector3(44f, y, 27f);
+        vertices[4] = new Vector3(43.2f, y, 25.4f);
+        vertices[5] = new Vector3(42.6f, y, 24.7f);
+        vertices[6] = new Vector3(42.2f, y, 24.7f);
+        vertices[7] = new Vector3(41.9f, y, 24.3f);
+        vertices[8] = new Vector3(41.6f, y, 24.5f);
+        vertices[9] = new Vector3(41f, y, 23.1f);
+        vertices[10] = new Vector3(40.5f, y, 22.8f);
+        vertices[11] = new Vector3(40.5f, y, 28.6f);
+        vertices[12] = new Vector3(39.7f, y, 27.8f);
+        vertices[13] = new Vector3(40.2f, y, 22.4f);
+        vertices[14] = new Vector3(39.2f, y, 22.1f);
+        vertices[15] = new Vector3(38.7f, y, 22.5f);
+        vertices[16] = new Vector3(38.3f, y, 22.4f);
+        vertices[17] = new Vector3(37.6f, y, 22.7f);
+        vertices[18] = new Vector3(37.8f, y, 24.7f);
+        vertices[19] = new Vector3(38f, y, 26.4f);
+        vertices[20] = new Vector3(38.7f, y, 27.35f);
+
+        int[] tris = new int[] { 0,1,2,  0,2,3,  0,3,4,  0,4,5,  0,5,6,  0,6,7,  0,7,8,  0,8,9,  0,9,10,  0,10,11,  10,12,11,  10,13,12,  12,13,14,
+                                 12,14,15,  12,15,16,  12,16,17,  12,17,18,  12,18,19,  12,19,20};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("Hover");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Kilikia";
+    }
 
     private void Update()
     {
