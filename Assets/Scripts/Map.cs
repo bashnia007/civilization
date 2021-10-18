@@ -825,17 +825,82 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[31];
+        Vector3[] vertices = new Vector3[61];
         vertices[0] = new Vector3(37.7f, y, 25.3f);
         vertices[1] = new Vector3(37.5f, y, 22.7f);
         vertices[2] = new Vector3(36.5f, y, 22.7f);
 
-        int[] tris = new int[] { 0,1,2,   };
+        vertices[3] = new Vector3(36.2f, y, 22.4f);
+        vertices[4] = new Vector3(36.4f, y, 21.7f);
+        vertices[5] = new Vector3(35.9f, y, 21.1f);
+        vertices[6] = new Vector3(35.5f, y, 21f);
+        vertices[7] = new Vector3(35.2f, y, 20.7f);
+        vertices[8] = new Vector3(35f, y, 20.9f);
+        vertices[9] = new Vector3(34.6f, y, 20.9f);
+        vertices[10] = new Vector3(34.2f, y, 21.3f);
+        vertices[11] = new Vector3(33.9f, y, 21.3f);
+        vertices[12] = new Vector3(33.6f, y, 21.5f);
+
+        vertices[13] = new Vector3(33.4f, y, 21.5f);
+        vertices[14] = new Vector3(32.9f, y, 21.1f);
+        vertices[15] = new Vector3(32.6f, y, 21.3f);
+        vertices[16] = new Vector3(32.6f, y, 21.6f);
+        vertices[17] = new Vector3(32.4f, y, 21.4f);
+        vertices[18] = new Vector3(32.1f, y, 21.3f);
+        vertices[19] = new Vector3(32.1f, y, 21.3f);
+        vertices[20] = new Vector3(32.1f, y, 20.9f);
+        vertices[21] = new Vector3(31.7f, y, 21f);
+        vertices[22] = new Vector3(31.4f, y, 21f);
+        vertices[23] = new Vector3(31.3f, y, 21.2f);
+        vertices[24] = new Vector3(31.4f, y, 21.4f);
+        vertices[25] = new Vector3(31.2f, y, 21.7f);
+        vertices[26] = new Vector3(31.2f, y, 21.7f);
+        vertices[27] = new Vector3(30.9f, y, 21.6f);
+        vertices[28] = new Vector3(30.4f, y, 22f);
+        vertices[29] = new Vector3(30.6f, y, 22.2f);
+        vertices[30] = new Vector3(30.6f, y, 22.6f);
+        vertices[31] = new Vector3(30.5f, y, 22.8f);
+        vertices[32] = new Vector3(30f, y, 22.5f);
+        vertices[33] = new Vector3(29.4f, y, 23.5f);
+        vertices[34] = new Vector3(30.1f, y, 23.4f);
+        vertices[35] = new Vector3(30.2f, y, 23.7f);
+
+        vertices[36] = new Vector3(30.1f, y, 23.7f);
+        vertices[37] = new Vector3(29.6f, y, 23.8f);
+        vertices[38] = new Vector3(29.5f, y, 24.3f);
+        vertices[39] = new Vector3(29.1f, y, 24.8f);
+        vertices[40] = new Vector3(29f, y, 25.4f);
+
+        vertices[41] = new Vector3(28.9f, y, 25.3f);
+        vertices[42] = new Vector3(28.2f, y, 25f);
+        vertices[43] = new Vector3(28.1f, y, 26.1f);
+        vertices[44] = new Vector3(28.9f, y, 27.1f);
+        vertices[45] = new Vector3(29.4f, y, 27.2f);
+        vertices[46] = new Vector3(30.4f, y, 27.8f);
+        vertices[47] = new Vector3(30.8f, y, 27.7f);
+        vertices[48] = new Vector3(31.3f, y, 28f);
+
+        vertices[49] = new Vector3(31.5f, y, 28.1f);
+        vertices[50] = new Vector3(31.3f, y, 28.6f);
+        vertices[51] = new Vector3(31.6f, y, 28.6f);
+        vertices[52] = new Vector3(31.9f, y, 29f);
+        vertices[53] = new Vector3(32.2f, y, 29f);
+        vertices[54] = new Vector3(32.5f, y, 29.2f);
+        vertices[55] = new Vector3(34f, y, 29f);
+        vertices[56] = new Vector3(38.1f, y, 27.3f);
+        vertices[57] = new Vector3(38.5f, y, 27.3f);
+        vertices[58] = new Vector3(38f, y, 26.6f);
+
+        int[] tris = new int[] { 0,1,2, 3,4,5,  3,5,6,  3,6,7,  3,7,8,  3,8,9,  3,9,10,  3,10,11,  3,11,12,  13,14,15,  13,15,16,  16,17,18,
+                                 19,20,21,  19,21,22,  19,22,23,  19,23,24, 24,16,18,  25,16,24,  26,27,28, 26,28,29, 26,29,30,  30,16,25,  30,13,16,
+                                 31,32,33,  31,33,34,  31,34,35,  35,30,31, 35,13,30,  36,37,38,  38,39,40, 40,36,38, 40,35,36, 40,13,35, 40,12,13,
+                                 40,3,12, 40,2,3, 40,0,2,  41,42,43, 41,43,44, 41,44,45, 41,45,40, 45,46,40, 46,47,40, 47,48,40, 48,0,40,
+                                 49,50,51, 51,52,53, 49,51,53, 49,53,54, 49,54,55, 48,49,0, 49,55,56, 56,57,58, 49,56,58,  49,58,0};
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
 
-        tile.layer = LayerMask.NameToLayer("Hover");
+        tile.layer = LayerMask.NameToLayer("MapTile");
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Asia";
