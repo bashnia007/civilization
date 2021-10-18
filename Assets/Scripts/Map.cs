@@ -31,6 +31,7 @@ public class Map : MonoBehaviour
         GenerateKilikia();
         GenerateVifinia();
         GenerateAsia();
+        GenerateCyprus();
     }
 
 
@@ -905,6 +906,50 @@ public class Map : MonoBehaviour
 
         tile.name = "Asia";
     }
+
+    private void GenerateCyprus()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[21];
+        vertices[0] = new Vector3(39.2f, y, 19.2f);
+        vertices[1] = new Vector3(39.3f, y, 19.8f);
+        vertices[2] = new Vector3(41.2f, y, 21f);
+        vertices[3] = new Vector3(42f, y, 21f);
+        vertices[4] = new Vector3(42.1f, y, 20.7f);
+        vertices[5] = new Vector3(39.3f, y, 19f);
+        vertices[6] = new Vector3(39.8f, y, 18.9f);
+        vertices[7] = new Vector3(41.8f, y, 20.4f);
+        vertices[8] = new Vector3(42.2f, y, 20.4f);
+        vertices[9] = new Vector3(42.2f, y, 19.8f);
+        vertices[10] = new Vector3(41.7f, y, 19.8f);
+        vertices[11] = new Vector3(41.5f, y, 19.3f);
+        vertices[12] = new Vector3(41.2f, y, 19.2f);
+        vertices[13] = new Vector3(41.2f, y, 18.8f);
+        vertices[14] = new Vector3(40.4f, y, 18.6f);
+        vertices[15] = new Vector3(42f, y, 22f);
+        vertices[16] = new Vector3(42.4f, y, 22f);
+
+        int[] tris = new int[] { 0,1,2, 0,2,3,  0,3,4, 0,4,5,  5,4,6, 6,4,7,  6,7,10,  7,8,9,  7,9,10, 6,10,11, 6,11,12,  6,12,13,  6,13,14, 2,15,3,
+                                  15,16,3};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Cyprus";
+    }
+
 
     private void Update()
     {
