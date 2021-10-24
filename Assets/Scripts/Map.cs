@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ public class Map : MonoBehaviour
         GenerateVifinia();
         GenerateAsia();
         GenerateCyprus();
+        GenerateFrakia();
+        GenerateMakedonia();
     }
 
 
@@ -948,6 +951,130 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Cyprus";
+    }
+
+    private void GenerateFrakia()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[28];
+        vertices[0] = new Vector3(28f, y, 26.9f);
+        vertices[1] = new Vector3(27.6f, y, 27.2f);
+        vertices[2] = new Vector3(28f, y, 27.7f);
+        vertices[3] = new Vector3(28.3f, y, 27.3f);
+        vertices[4] = new Vector3(29.2f, y, 28f);
+        vertices[5] = new Vector3(29.3f, y, 28.7f);
+        vertices[6] = new Vector3(30f, y, 29f);
+        vertices[7] = new Vector3(30.4f, y, 30.2f);
+        vertices[8] = new Vector3(29.2f, y, 31.2f);
+        vertices[9] = new Vector3(29f, y, 31.8f);
+        vertices[10] = new Vector3(28.6f, y, 31.6f);
+
+        vertices[11] = new Vector3(28.6f, y, 32f);
+        vertices[12] = new Vector3(28.7f, y, 33f);
+        vertices[13] = new Vector3(29f, y, 32.2f);
+        vertices[14] = new Vector3(28.7f, y, 33.5f);
+        vertices[15] = new Vector3(28.7f, y, 35f);
+        vertices[16] = new Vector3(29.2f, y, 33.5f);
+        vertices[17] = new Vector3(28.6f, y, 35.2f);
+        vertices[18] = new Vector3(27.8f, y, 35.7f);
+        vertices[19] = new Vector3(28.7f, y, 35.6f);
+        vertices[20] = new Vector3(26f, y, 35.2f);
+        vertices[21] = new Vector3(24.6f, y, 34.2f);
+        vertices[22] = new Vector3(23.8f, y, 33f);
+        vertices[23] = new Vector3(22.1f, y, 31f);
+        vertices[24] = new Vector3(24.5f, y, 29.4f);
+
+        vertices[25] = new Vector3(27.1f, y, 27.4f);
+        vertices[26] = new Vector3(26.7f, y, 27.6f);
+        vertices[27] = new Vector3(26.3f, y, 27.5f);
+
+        int[] tris = new int[] { 0,1,2, 2,3,0, 2,4,3, 2,5,4,  5,7,6, 5,8,7, 5,9,8, 5,10,9, 2,10,5, 11,12,13, 14,15,16,
+                                 17,18,19, 17,15,18, 18,15,14, 18,14,12, 18,12,11, 20,18,11, 21,20,11, 22,21,11, 23,22,11, 23,11,10, 23,10,24,
+                                 25,10,2, 26,10,25, 27,10,26, 27,24,10 };
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Frakia";
+    }
+
+
+    private void GenerateMakedonia()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[41];
+        //vertices[27] = new Vector3(26.3f, y, 27.5f);
+        vertices[0] = new Vector3(25.7f, y, 26.2f);
+        vertices[1] = new Vector3(26.1f, y, 25.6f);
+        vertices[2] = new Vector3(26f, y, 25.3f);
+        vertices[3] = new Vector3(25.8f, y, 25.6f);
+        vertices[4] = new Vector3(25.65f, y, 25.45f);
+        vertices[5] = new Vector3(25.8f, y, 25.3f);
+        vertices[6] = new Vector3(25.5f, y, 25f);
+        vertices[7] = new Vector3(25.2f, y, 25.4f);
+        vertices[8] = new Vector3(24.9f, y, 25.3f);
+        vertices[9] = new Vector3(25.2f, y, 25f);
+        vertices[10] = new Vector3(25f, y, 24.8f);
+        vertices[11] = new Vector3(24.4f, y, 25.3f);
+        vertices[12] = new Vector3(24.55f, y, 25.6f);
+        vertices[13] = new Vector3(25.5f, y, 26.2f);
+        vertices[14] = new Vector3(25.1f, y, 26.7f);
+        vertices[15] = new Vector3(24.45f, y, 25.8f);
+        vertices[16] = new Vector3(24f, y, 25.7f);
+        vertices[17] = new Vector3(23f, y, 25.7f);
+
+        vertices[18] = new Vector3(25.5f, y, 26.8f);
+        vertices[19] = new Vector3(25.6f, y, 27.1f);
+        vertices[20] = new Vector3(26.1f, y, 27.1f);
+        vertices[21] = new Vector3(26.4f, y, 27.35f);
+        vertices[22] = new Vector3(24.5f, y, 29.4f);
+        vertices[23] = new Vector3(22.1f, y, 30.9f);
+        vertices[24] = new Vector3(19.85f, y, 31.4f);
+        vertices[25] = new Vector3(19.9f, y, 31f);
+        vertices[26] = new Vector3(19.5f, y, 30f);
+        vertices[27] = new Vector3(18.3f, y, 28.5f);
+        vertices[28] = new Vector3(17.9f, y, 27.3f);
+        vertices[29] = new Vector3(18.2f, y, 26.8f);
+        vertices[30] = new Vector3(18.3f, y, 26.2f);
+        vertices[31] = new Vector3(18.5f, y, 25.7f);
+        vertices[32] = new Vector3(18.65f, y, 24.8f);
+        vertices[33] = new Vector3(22.2f, y, 25.2f);
+        vertices[34] = new Vector3(21.5f, y, 24.5f);
+        vertices[35] = new Vector3(19.1f, y, 24.2f);
+        vertices[36] = new Vector3(20f, y, 23.7f);
+
+        int[] tris = new int[] { 0,1,2, 0,2,3, 0,3,4, 4,5,6, 4,6,7, 0,4,7, 0,7,8, 8,9,10, 8,10,11, 11,12,8, 12,0,8, 12,13,0, 12,14,13, 12,15,14,
+                                 15,16,14, 17,14,16, 14,19,18, 19,21,20, 22,21,19, 22,19,14, 22,14,17, 22,17,23,  23,25,24, 23,26,25, 23,27,26,
+                                 23,28,27, 23,29,28, 23,30,29, 23,31,30, 23,17,31, 17,32,31, 17,33,32, 32,33,34, 32,34,35, 35,34,36};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Makedonia";
     }
 
 
