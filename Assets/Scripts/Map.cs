@@ -35,6 +35,7 @@ public class Map : MonoBehaviour
         GenerateCyprus();
         GenerateFrakia();
         GenerateMakedonia();
+        GenerateRhodos();
     }
 
 
@@ -1010,7 +1011,6 @@ public class Map : MonoBehaviour
         tile.name = "Frakia";
     }
 
-
     private void GenerateMakedonia()
     {
         GameObject tile = new GameObject();
@@ -1023,8 +1023,7 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[41];
-        //vertices[27] = new Vector3(26.3f, y, 27.5f);
+        Vector3[] vertices = new Vector3[37];
         vertices[0] = new Vector3(25.7f, y, 26.2f);
         vertices[1] = new Vector3(26.1f, y, 25.6f);
         vertices[2] = new Vector3(26f, y, 25.3f);
@@ -1043,7 +1042,6 @@ public class Map : MonoBehaviour
         vertices[15] = new Vector3(24.45f, y, 25.8f);
         vertices[16] = new Vector3(24f, y, 25.7f);
         vertices[17] = new Vector3(23f, y, 25.7f);
-
         vertices[18] = new Vector3(25.5f, y, 26.8f);
         vertices[19] = new Vector3(25.6f, y, 27.1f);
         vertices[20] = new Vector3(26.1f, y, 27.1f);
@@ -1075,6 +1073,36 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Makedonia";
+    }
+
+    private void GenerateRhodos()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[5];
+        vertices[0] = new Vector3(32.8f, y, 19f);
+        vertices[1] = new Vector3(32.3f, y, 20.4f);
+        vertices[2] = new Vector3(33.4f, y, 21f);
+        vertices[3] = new Vector3(33.1f, y, 18.9f);
+        vertices[4] = new Vector3(34f, y, 20.5f);
+
+        int[] tris = new int[] { 0,1,2, 0,2,3, 2,4,3 };
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Rhodos";
     }
 
 
