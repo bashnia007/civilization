@@ -36,6 +36,7 @@ public class Map : MonoBehaviour
         GenerateFrakia();
         GenerateMakedonia();
         GenerateRhodos();
+        GenerateDakia();
     }
 
 
@@ -1103,6 +1104,103 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Rhodos";
+    }
+
+    private void GenerateDakia()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[68];
+        vertices[0] = new Vector3(34.6f, y, 38.4f);
+        vertices[1] = new Vector3(34.8f, y, 37.7f);
+        vertices[2] = new Vector3(34.5f, y, 37.9f);
+        vertices[3] = new Vector3(34.9f, y, 37.5f);
+        vertices[4] = new Vector3(35.2f, y, 37.6f);
+        vertices[5] = new Vector3(35.4f, y, 38.1f);
+        vertices[6] = new Vector3(35.4f, y, 38.6f);
+        vertices[7] = new Vector3(35.8f, y, 39f);
+        vertices[8] = new Vector3(36f, y, 39.5f); 
+        vertices[9] = new Vector3(33.9f, y, 38.8f);
+        vertices[10] = new Vector3(33.2f, y, 39.7f); 
+        vertices[11] = new Vector3(32.9f, y, 39.3f); 
+        vertices[12] = new Vector3(32.9f, y, 38.9f);
+        vertices[13] = new Vector3(33.4f, y, 38.7f);
+        vertices[14] = new Vector3(33.1f, y, 38.5f);
+        vertices[15] = new Vector3(32.7f, y, 38.6f);
+        vertices[16] = new Vector3(35.8f, y, 40.2f); 
+        vertices[17] = new Vector3(36.4f, y, 40.5f);
+        vertices[18] = new Vector3(36.7f, y, 40.5f);
+        vertices[19] = new Vector3(36.9f, y, 40.1f);
+        vertices[20] = new Vector3(37.3f, y, 40.1f);
+        vertices[21] = new Vector3(37.6f, y, 40.7f);
+        vertices[22] = new Vector3(37.1f, y, 40.7f);
+        vertices[23] = new Vector3(35.4f, y, 40.6f);
+        vertices[24] = new Vector3(34.4f, y, 40.6f); 
+        vertices[25] = new Vector3(33f, y, 40.4f); 
+        vertices[26] = new Vector3(34.3f, y, 40.9f); 
+        vertices[27] = new Vector3(31.5f, y, 40.7f); 
+        vertices[28] = new Vector3(31.4f, y, 40.2f);
+        vertices[29] = new Vector3(31.1f, y, 40.1f);
+        vertices[30] = new Vector3(31.2f, y, 39.8f);
+        vertices[31] = new Vector3(34.8f, y, 41.2f);
+        vertices[32] = new Vector3(35.1f, y, 41.5f); 
+        vertices[33] = new Vector3(35.1f, y, 40.8f);
+        vertices[34] = new Vector3(35.5f, y, 41.1f);
+        vertices[35] = new Vector3(35.2f, y, 41.7f);
+        vertices[36] = new Vector3(36.5f, y, 42.5f);
+        vertices[37] = new Vector3(31.5f, y, 42.5f);// top right
+        vertices[38] = new Vector3(31.3f, y, 40.9f);
+        vertices[39] = new Vector3(30.1f, y, 40.2f);
+        vertices[40] = new Vector3(28f, y, 42.5f); // top left
+        vertices[41] = new Vector3(30.1f, y, 39.5f);
+        vertices[42] = new Vector3(29.6f, y, 39.3f);
+        vertices[43] = new Vector3(29.7f, y, 38.7f);
+        vertices[44] = new Vector3(29.3f, y, 38.1f);
+        vertices[45] = new Vector3(28.9f, y, 36.2f); //
+        vertices[46] = new Vector3(29.24f, y, 37.9f);
+        vertices[47] = new Vector3(29.5f, y, 37.6f);
+        vertices[48] = new Vector3(29.4f, y, 36.6f);
+        vertices[49] = new Vector3(29f, y, 36.26f);
+        vertices[50] = new Vector3(29.3f, y, 36.54f);
+        vertices[51] = new Vector3(29.2f, y, 35.9f);
+        vertices[52] = new Vector3(28.7f, y, 35.7f);
+        vertices[53] = new Vector3(27.7f, y, 35.8f);
+        vertices[54] = new Vector3(26f, y, 35.2f);
+        vertices[55] = new Vector3(25f, y, 42.5f); // top left
+        vertices[56] = new Vector3(24.5f, y, 34.2f);
+        vertices[57] = new Vector3(23.8f, y, 33f);
+        vertices[58] = new Vector3(22f, y, 31f);
+        vertices[59] = new Vector3(20f, y, 31.4f);
+        vertices[60] = new Vector3(17.5f, y, 32.4f);
+        vertices[61] = new Vector3(15.3f, y, 33.7f);
+        vertices[62] = new Vector3(16.8f, y, 35.3f);
+        vertices[63] = new Vector3(17.2f, y, 36f);
+        vertices[64] = new Vector3(17.6f, y, 37.5f);
+        vertices[65] = new Vector3(19.1f, y, 39.2f);
+        vertices[66] = new Vector3(19.3f, y, 41.4f);
+        vertices[67] = new Vector3(18.9f, y, 42.5f);
+
+        int[] tris = new int[] { 0,1,2, 0,3,1, 0,4,3, 0,5,4, 0,6,5, 0,7,6, 0,8,7, 0,9,8, 9,10,8, 9,11,10, 9,12,11, 9,13,12, 13,14,12, 14,15,12, 8,10,16,
+                                 16,17,8, 17,18,8, 8,18,19, 19,18,20, 20,18,21, 18,22,21, 10,23,16, 10,24,23, 10,25,24, 25,26,24, 25,27,26, 25,28,27,
+                                 25,29,28, 25,30,29, 27,31,26, 27,32,31, 31,32,33, 32,34,33, 27,35,32, 27,36,35, 27,37,36, 27,38,37, 38,39,37, 39,40,37,
+                                 40,39,41, 40,41,42, 40,42,43, 40,43,44, 40,44,45, 46,47,48, 46,48,45, 49,50,51, 40,45,52, 40,52,53, 40,53,54, 40,54,55, 
+                                 55,54,56, 55,56,57, 55,57,58, 55,58,59, 55,59,60, 60,61,62, 60,62,63, 60,63,64, 60,64,65, 60,65,55, 65,66,55, 66,67,55 };
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Dakia";
     }
 
 
