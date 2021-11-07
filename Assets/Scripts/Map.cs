@@ -97,22 +97,44 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[12];
+        Vector3[] vertices = new Vector3[33];
         vertices[0] = new Vector3(2.2f, y, 16.2f);
-        vertices[1] = new Vector3(1.7f, y, 14);
+        vertices[1] = new Vector3(2.3f, y, 15f);
         vertices[2] = new Vector3(3.5f, y, 6.5f);
         vertices[3] = new Vector3(5.5f, y, 6.5f);
         vertices[4] = new Vector3(6.5f, y, 6f);
         vertices[5] = new Vector3(9.5f, y, 5.5f);
-        vertices[6] = new Vector3(10.8f, y, 9.2f);
-        vertices[7] = new Vector3(7.3f, y, 10.5f);
-        vertices[8] = new Vector3(7f, y, 11.5f);
-        vertices[9] = new Vector3(8.5f, y, 12.5f);
-        vertices[10] = new Vector3(7.3f, y, 15f);
-        vertices[11] = new Vector3(8.2f, y, 16.5f);
+        vertices[6] = new Vector3(10.7f, y, 9.1f);
+        vertices[7] = new Vector3(9.5f, y, 9.6f);
+        vertices[8] = new Vector3(8.7f, y, 9.6f);
+        vertices[9] = new Vector3(8.2f, y, 10.2f);
+        vertices[10] = new Vector3(7.3f, y, 10.2f);
+        vertices[11] = new Vector3(6.8f, y, 10.8f);
+        vertices[12] = new Vector3(6.9f, y, 11.5f);
+        vertices[13] = new Vector3(7.2f, y, 11.5f);
+        vertices[14] = new Vector3(7.7f, y, 12.1f);
+        vertices[15] = new Vector3(8f, y, 12.1f);
+        vertices[16] = new Vector3(8.3f, y, 12.5f);
+        vertices[17] = new Vector3(8.3f, y, 13.1f);
+        vertices[18] = new Vector3(7.8f, y, 14f);
+        vertices[19] = new Vector3(7.2f, y, 15f);
+        vertices[20] = new Vector3(8f, y, 16.1f);
+        vertices[21] = new Vector3(7f, y, 16.1f);
+        vertices[22] = new Vector3(7.9f, y, 16.6f);
+        vertices[23] = new Vector3(7.5f, y, 16.6f);
+        vertices[24] = new Vector3(6.5f, y, 16.7f);
+        vertices[25] = new Vector3(6f, y, 17f);
+        vertices[26] = new Vector3(5.5f, y, 17f);
+        vertices[27] = new Vector3(4.7f, y, 16.8f);
+        vertices[28] = new Vector3(4f, y, 16.7f);
+        vertices[29] = new Vector3(3.4f, y, 16.3f);
+        vertices[30] = new Vector3(2f, y, 13.1f);
+        vertices[31] = new Vector3(2.8f, y, 9f);
+        vertices[32] = new Vector3(3.43f, y, 7f);
 
-        //int[] tris = new int[] { 0,1,3,  1,2,3,  1,2,3,  3,4,6, 4,5,6,  3,6,7,  3,7,8,  8,9,10,  1,10,11,  0,3,8,  0,8,10};
-        int[] tris = new int[] { 3,1,0,  3,2,1,  3,2,1,  6,4,3,  6,5,4,  7,6,3,  8,7,3,  10,9,8,  11,10,0,  8,3,0,  10,8,0};
+        int[] tris = new int[] { 3,1,0, 3,2,1, 6,4,3, 6,5,4, 7,6,3, 8,7,3, 9,8,3, 10,9,3, 11,10,3, 11,3,0, 11,0,12, 12,0,13, 13,0,14, 14,0,15, 15,0,16,
+                                16,0,17, 17,0,18, 18,0,19, 19,21,20, 21,22,20, 21,23,22, 19,25,24, 19,24,21, 19,26,25, 19,27,26, 19,28,27, 19,29,28, 19,0,29,
+                                1,31,30, 1,32,31};
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
