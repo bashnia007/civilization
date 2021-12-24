@@ -51,6 +51,7 @@ public class Map : MonoBehaviour
         GenerateWestMeditarianSea();
         GenerateTirreneyenSea();
         GenerateIonicSea();
+        GenerateEastMeditarianSea();
     }
 
 
@@ -2100,6 +2101,69 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Ionic Sea";
+    }
+
+    private void GenerateEastMeditarianSea()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[49];
+        vertices[0] = new Vector3(30.5f, y, 11.4f);
+        vertices[1] = new Vector3(30.7f, y, 14f);
+        vertices[2] = new Vector3(32f, y, 11f);
+        vertices[3] = new Vector3(33.2f, y, 11.4f);
+        vertices[4] = new Vector3(33.3f, y, 11.3f);
+        vertices[5] = new Vector3(34.3f, y, 11.6f);
+        vertices[6] = new Vector3(35.3f, y, 11.5f);
+        vertices[7] = new Vector3(35.9f, y, 11.6f);
+        vertices[8] = new Vector3(37.9f, y, 11.4f);
+        vertices[9] = new Vector3(38.2f, y, 11.5f); 
+        vertices[10] = new Vector3(29.9f, y, 16.6f);
+        vertices[11] = new Vector3(30.9f, y, 17.1f);
+        vertices[12] = new Vector3(31.2f, y, 17f);
+        vertices[13] = new Vector3(31.5f, y, 17.5f);
+        vertices[14] = new Vector3(31.6f, y, 17.8f);
+        vertices[15] = new Vector3(33.1f, y, 17.9f);
+        vertices[16] = new Vector3(35.1f, y, 17.9f);
+        vertices[17] = new Vector3(40f, y, 13.3f);
+        vertices[18] = new Vector3(40.5f, y, 13.5f);
+        vertices[19] = new Vector3(41f, y, 13.9f);
+        vertices[20] = new Vector3(37f, y, 18.3f);
+        vertices[21] = new Vector3(39.3f, y, 19f);
+        vertices[22] = new Vector3(39.8f, y, 18.9f);
+        vertices[23] = new Vector3(40.4f, y, 18.6f);
+        vertices[24] = new Vector3(41.2f, y, 18.8f);
+        vertices[25] = new Vector3(41.2f, y, 19.2f);
+        vertices[26] = new Vector3(41.5f, y, 19.3f);
+        vertices[27] = new Vector3(41.7f, y, 19.8f);
+        vertices[28] = new Vector3(43.1f, y, 14.2f);
+        vertices[29] = new Vector3(42.2f, y, 19.8f);
+        vertices[30] = new Vector3(42.3f, y, 20f);
+        vertices[31] = new Vector3(44f, y, 18.6f);
+        vertices[32] = new Vector3(44.6f, y, 18.3f);
+        vertices[33] = new Vector3(43.7f, y, 14.6f);
+        vertices[34] = new Vector3(44.2f, y, 14.6f);
+        vertices[35] = new Vector3(44.7f, y, 15.2f);
+
+        int[] tris = new int[] { 0,1,2, 1,3,2, 3,5,4, 1,5,3, 1,6,5, 1,7,6, 1,8,7, 1,9,8, 1,10,9, 10,11,9, 11,12,9, 12,13,9, 13,14,9, 14,15,9, 15,16,9, 16,17,9,
+        16,18,17, 16,19,18, 16,20,19, 20,21,19, 21,22,19, 22,23,19, 23,24,19, 24,25,26, 24,26,19, 26,27,19, 27,28,19, 27,29,28, 29,30,28, 30,31,28, 31,32,28,
+        32,33,28, 32,34,33, 32,35,34};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "East Meditarian sea";
     }
     private void Update()
     {
