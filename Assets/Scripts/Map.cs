@@ -52,6 +52,7 @@ public class Map : MonoBehaviour
         GenerateTirreneyenSea();
         GenerateIonicSea();
         GenerateEastMeditarianSea();
+        GenerateRedSea();
     }
 
 
@@ -2115,7 +2116,7 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[49];
+        Vector3[] vertices = new Vector3[36];
         vertices[0] = new Vector3(30.5f, y, 11.4f);
         vertices[1] = new Vector3(30.7f, y, 14f);
         vertices[2] = new Vector3(32f, y, 11f);
@@ -2165,6 +2166,50 @@ public class Map : MonoBehaviour
 
         tile.name = "East Meditarian sea";
     }
+
+    private void GenerateRedSea()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[18];
+        vertices[0] = new Vector3(57.6f, y, 0f);
+        vertices[1] = new Vector3(53f, y, 3.1f);
+        vertices[2] = new Vector3(57.6f, y, 6f);
+        vertices[3] = new Vector3(52.8f, y, 3.8f);
+        vertices[4] = new Vector3(48.5f, y, 6.4f);
+        vertices[5] = new Vector3(49f, y, 10.2f);
+        vertices[6] = new Vector3(47.1f, y, 8f);
+        vertices[7] = new Vector3(47.5f, y, 9f);
+        vertices[8] = new Vector3(48f, y, 10.2f);
+        vertices[9] = new Vector3(46.8f, y, 8.8f);
+        vertices[10] = new Vector3(46f, y, 10f);
+        vertices[11] = new Vector3(46f, y, 9.5f);
+        vertices[12] = new Vector3(44.8f, y, 10f);
+        vertices[13] = new Vector3(44.8f, y, 10.2f);
+        vertices[14] = new Vector3(45.9f, y, 10.3f);
+        vertices[15] = new Vector3(44.7f, y, 10.8f);
+        vertices[16] = new Vector3(44f, y, 11.5f);
+        vertices[17] = new Vector3(44.5f, y, 11.5f);
+
+        int[] tris = new int[] { 0,1,2, 1,3,2, 3,4,2, 4,5,2, 4,6,5, 6,7,5, 7,8,5, 6,9,7, 9,10,7, 9,11,10, 11,12,10, 12,13,10, 13,14,10, 13,15,14, 13,16,15, 16,17,15 };
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Red sea";
+    }
+
     private void Update()
     {
         if (!currentCamera)
