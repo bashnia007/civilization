@@ -53,6 +53,7 @@ public class Map : MonoBehaviour
         GenerateIonicSea();
         GenerateEastMeditarianSea();
         GenerateRedSea();
+        GenerateCyprysSea();
     }
 
 
@@ -2208,6 +2209,85 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Red sea";
+    }
+
+    private void GenerateCyprysSea()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[51];
+        vertices[0] = new Vector3(33.1f, y, 17.9f);
+        vertices[1] = new Vector3(33.1f, y, 18.9f);
+        vertices[2] = new Vector3(34f, y, 20.5f);
+        vertices[3] = new Vector3(35.1f, y, 17.9f);
+        vertices[4] = new Vector3(34.6f, y, 20.9f); 
+        vertices[5] = new Vector3(34.2f, y, 21.3f);
+        vertices[6] = new Vector3(33.9f, y, 21.3f);
+        vertices[7] = new Vector3(33.4f, y, 21f);
+        vertices[8] = new Vector3(35f, y, 20.9f);
+        vertices[9] = new Vector3(35.2f, y, 20.7f);
+        vertices[10] = new Vector3(35.5f, y, 21f);
+        vertices[11] = new Vector3(35.9f, y, 21.1f);
+        vertices[12] = new Vector3(37f, y, 18.3f); 
+        vertices[13] = new Vector3(36.4f, y, 21.7f);
+        vertices[14] = new Vector3(37.5f, y, 22.7f); 
+        vertices[15] = new Vector3(36.5f, y, 22.7f);
+        vertices[16] = new Vector3(36.2f, y, 22.4f);
+        vertices[17] = new Vector3(39.2f, y, 19.1f);
+        vertices[18] = new Vector3(39.2f, y, 19.2f);
+        vertices[19] = new Vector3(39.3f, y, 19.8f); 
+        vertices[20] = new Vector3(37.6f, y, 22.7f);
+        vertices[21] = new Vector3(38.3f, y, 22.4f);
+        vertices[22] = new Vector3(38.7f, y, 22.5f);
+        vertices[23] = new Vector3(39.2f, y, 22.1f);
+        vertices[24] = new Vector3(40.2f, y, 22.4f);
+        vertices[25] = new Vector3(40.5f, y, 22.8f);
+        vertices[26] = new Vector3(41.2f, y, 21f);
+        vertices[27] = new Vector3(42f, y, 22f);
+        vertices[28] = new Vector3(41f, y, 23.1f);
+        vertices[29] = new Vector3(41.6f, y, 24.5f);
+        vertices[30] = new Vector3(41.9f, y, 24.3f);
+        vertices[31] = new Vector3(42.2f, y, 24.7f);
+        vertices[32] = new Vector3(42.6f, y, 24.7f);
+        vertices[33] = new Vector3(43.2f, y, 25.4f);
+        vertices[34] = new Vector3(42.4f, y, 22f);//
+        vertices[35] = new Vector3(43.5f, y, 25.9f);
+        vertices[36] = new Vector3(43.8f, y, 25.4f);
+        vertices[37] = new Vector3(44.2f, y, 23.7f);
+        vertices[38] = new Vector3(44f, y, 23.3f);
+        vertices[39] = new Vector3(44.7f, y, 22.5f);
+        vertices[40] = new Vector3(44.5f, y, 22f);
+        vertices[41] = new Vector3(44.5f, y, 21.5f);
+        vertices[42] = new Vector3(44.3f, y, 21f);
+        vertices[43] = new Vector3(44.4f, y, 20.5f);
+        vertices[44] = new Vector3(42f, y, 21f);
+        vertices[45] = new Vector3(42.1f, y, 20.7f);
+        vertices[46] = new Vector3(41.8f, y, 20.4f);
+        vertices[47] = new Vector3(42.2f, y, 20.4f);
+        vertices[48] = new Vector3(42.3f, y, 20f);
+        vertices[49] = new Vector3(44.55f, y, 18.35f);
+        vertices[50] = new Vector3(44f, y, 18.6f);
+
+        int[] tris = new int[] { 0,1,2, 0,2,3, 2,4,3, 2,5,4, 2,6,5, 2,7,6, 4,8,3, 3,8,9, 3,9,10, 3,10,11, 3,11,12, 12,11,13, 13,14,12, 13,15,14, 13,16,15, 12,14,17,
+        17,14,18, 14,19,18, 14,20,19, 20,21,19, 21,22,19, 22,23,19, 23,24,19, 24,25,19, 25,26,19, 25,27,26, 25,28,27, 28,29,27, 29,30,27, 30,31,27, 31,32,27,
+        32,33,27, 27,33,34, 33,35,34, 35,36,34, 36,37,34, 37,38,34, 38,39,34, 39,40,34, 40,41,34, 41,42,34, 42,43,34, 34,43,44, 44,43,45, 45,43,46, 47,46,43,
+        43,48,47, 43,49,48, 49,50,48};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Cyprys sea";
     }
 
     private void Update()
