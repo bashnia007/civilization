@@ -46,14 +46,15 @@ public class Map : MonoBehaviour
         GenerateGreece();
         GenerateSardinia();
         GenerateCrit();
-        GenerateCentralMeditarianSea();
 
+        GenerateCentralMeditarianSea();
         GenerateWestMeditarianSea();
         GenerateTirreneyenSea();
         GenerateIonicSea();
         GenerateEastMeditarianSea();
         GenerateRedSea();
         GenerateCyprysSea();
+        GenerateAdriaticSea();
     }
 
 
@@ -2288,6 +2289,95 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Cyprys sea";
+    }
+
+    private void GenerateAdriaticSea()
+    {
+        GameObject tile = new GameObject();
+        tile.transform.parent = transform;
+        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
+        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
+        Mesh mesh = new Mesh();
+        tile.AddComponent<MeshFilter>().mesh = mesh;
+        tile.AddComponent<MeshRenderer>().material = material;
+
+        int y = 0;
+
+        Vector3[] vertices = new Vector3[61];
+        vertices[0] = new Vector3(7.8f, y, 32f);
+        vertices[1] = new Vector3(7.6f, y, 32.7f);
+        vertices[2] = new Vector3(7.7f, y, 32.8f);
+        vertices[3] = new Vector3(8.3f, y, 32.9f);
+        vertices[4] = new Vector3(8.9f, y, 33.3f);
+        vertices[5] = new Vector3(9.5f, y, 32.5f);
+        vertices[6] = new Vector3(9.25f, y, 32.3f);
+        vertices[7] = new Vector3(9.45f, y, 32f);
+        vertices[8] = new Vector3(9.75f, y, 31.4f); 
+        vertices[9] = new Vector3(8f, y, 31.5f);
+        vertices[10] = new Vector3(7.9f, y, 30.9f); 
+        vertices[11] = new Vector3(10.2f, y, 31.4f);
+        vertices[12] = new Vector3(10.3f, y, 32f);
+        vertices[13] = new Vector3(10.6f, y, 31.5f);
+        vertices[14] = new Vector3(10.3f, y, 32.5f);
+        vertices[15] = new Vector3(10.4f, y, 32.5f);
+        vertices[16] = new Vector3(10.7f, y, 32.1f);
+        vertices[17] = new Vector3(10.9f, y, 31.1f);
+        vertices[18] = new Vector3(11.9f, y, 30.2f); 
+        vertices[19] = new Vector3(11.2f, y, 31.5f);
+        vertices[20] = new Vector3(7.9f, y, 30.8f);
+        vertices[21] = new Vector3(8.2f, y, 30.1f);
+        vertices[22] = new Vector3(8.6f, y, 29.7f);
+        vertices[23] = new Vector3(8.9f, y, 29.7f);
+        vertices[24] = new Vector3(9.1f, y, 29.2f);
+        vertices[25] = new Vector3(10.5f, y, 28f);
+        vertices[26] = new Vector3(12.8f, y, 29.8f);
+        vertices[27] = new Vector3(12.8f, y, 29.3f);
+        vertices[28] = new Vector3(13.2f, y, 29.1f); 
+        vertices[29] = new Vector3(10.5f, y, 27.8f);
+        vertices[30] = new Vector3(11f, y, 27.3f);
+        vertices[31] = new Vector3(11.5f, y, 27.1f);
+        vertices[32] = new Vector3(12f, y, 26.5f);
+        vertices[33] = new Vector3(13.7f, y, 29.3f);
+        vertices[34] = new Vector3(14.6f, y, 29.1f);
+        vertices[35] = new Vector3(14.3f, y, 28.8f);
+        vertices[36] = new Vector3(14.6f, y, 28.5f);
+        vertices[37] = new Vector3(14.8f, y, 28.5f);
+        vertices[38] = new Vector3(15.1f, y, 28.2f);
+        vertices[39] = new Vector3(12.6f, y, 26.5f);
+        vertices[40] = new Vector3(12.9f, y, 26.2f);
+        vertices[41] = new Vector3(13.5f, y, 26.5f);
+        vertices[42] = new Vector3(14.1f, y, 26f);
+        vertices[43] = new Vector3(15.9f, y, 28.5f);
+        vertices[44] = new Vector3(16.2f, y, 28f);
+        vertices[45] = new Vector3(16.7f, y, 28f);
+        vertices[46] = new Vector3(14.1f, y, 25.7f);
+        vertices[47] = new Vector3(14.7f, y, 25.3f);
+        vertices[48] = new Vector3(15f, y, 25.3f);
+        vertices[49] = new Vector3(15.1f, y, 25.2f);
+        vertices[50] = new Vector3(15.7f, y, 24.8f);
+        vertices[51] = new Vector3(16.8f, y, 24.8f);
+        vertices[52] = new Vector3(16.8f, y, 28.3f);
+        vertices[53] = new Vector3(17.8f, y, 27.2f);
+        vertices[54] = new Vector3(17.9f, y, 27.3f);
+        vertices[55] = new Vector3(18.2f, y, 26.8f);
+        vertices[56] = new Vector3(18.3f, y, 26.2f);
+        vertices[57] = new Vector3(18.5f, y, 25.7f);
+        vertices[58] = new Vector3(18.6f, y, 24.8f);
+        vertices[59] = new Vector3(17.5f, y, 24f);
+        vertices[60] = new Vector3(18.8f, y, 24.6f);
+
+        int[] tris = new int[] { 0,1,2, 0,2,3, 0,3,4, 0,4,5, 0,5,6, 0,6,7, 0,7,8, 0,8,9, 9,8,10, 10,8,11, 11,12,13, 12,14,13, 14,15,13, 15,16,13, 11,13,17, 10,11,17,
+        10,17,18, 17,19,18, 10,18,20, 21,20,18, 18,22,21, 18,23,22, 18,24,23, 18,25,24, 18,26,25, 25,26,27, 25,27,28, 25,28,29, 28,30,29, 28,31,30, 28,32,31,
+        28,33,32, 33,34,35, 33,35,32, 32,35,36, 32,36,37, 32,37,38, 32,38,39, 38,40,39, 38,41,40, 38,42,41, 38,43,42, 42,43,44, 42,44,45, 42,45,46, 45,47,46,
+        45,48,47, 45,49,48, 45,50,49, 45,51,50, 45,52,51, 51,52,53, 51,53,54, 51,54,55, 51,55,56, 51,56,57, 51,57,58, 51,58,59, 59,58,60};
+
+        mesh.vertices = vertices;
+        mesh.triangles = tris;
+
+        tile.layer = LayerMask.NameToLayer("MapTile");
+        tile.AddComponent<MeshCollider>();
+
+        tile.name = "Adriatic sea";
     }
 
     private void Update()
