@@ -3277,6 +3277,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 707d761a7455d2f4a84fab98990477ae, type: 2}
+  greenColor: {fileID: 2100000, guid: af425975c96224e449c6da54349255e9, type: 2}
+  influenceTile: {fileID: 6171968550673856723, guid: 581d8fd1656914d498ec9abab11cab5f, type: 3}
+  resourceTile: {fileID: 1629115402155190517, guid: 4bee254846a45f940b832ddb5c8e976e, type: 3}
+  cityTile: {fileID: 6564478137342897829, guid: 2ab603e7ad6b96c4794211cd68e7ad24, type: 3}
+  templeTile: {fileID: 8349557907351073136, guid: df259f48a5069534abf9fdc10ae1f8fc, type: 3}
+  marketTile: {fileID: 1533910653760889669, guid: 139494895d156364aabbcb9ce8eba98e, type: 3}
 --- !u!4 &774481950
 Transform:
   m_ObjectHideFlags: 0

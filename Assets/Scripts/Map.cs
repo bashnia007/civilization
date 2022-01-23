@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,9 +9,17 @@ public class Map : MonoBehaviour
 {
     [Header("Art stuff")]
     [SerializeField] private Material material;
+    [SerializeField] private Material greenColor;
+    [SerializeField] private GameObject influenceTile;
+    [SerializeField] private GameObject resourceTile;
+    [SerializeField] private GameObject cityTile;
+    [SerializeField] private GameObject templeTile;
+    [SerializeField] private GameObject marketTile;
 
     private Camera currentCamera;
     private GameObject hoveredMapTile;
+
+    private List<Region> Regions = new List<Region>();
     void Start()
     {
         GenerateNumidia();
@@ -57,9 +66,11 @@ public class Map : MonoBehaviour
         GenerateAdriaticSea();
         GenerateAegeanSea();
         GenerateBlackSea();
+
+        PlaceCenter();
     }
 
-    private void GenerateTile()
+    /*private void GenerateTile()
     {
         GameObject tile = new GameObject();
         tile.transform.parent = transform;
@@ -97,11 +108,27 @@ public class Map : MonoBehaviour
 
         //Name = name
         //tile.name = "Mesopotamia";
+    }*/
+
+
+    private void PlaceCenter()
+    {
+        foreach (Region region in Regions)
+        {
+            var influence = Instantiate(influenceTile, region.Area.transform.localPosition + region.InternalPositions.InfluenceTilePosition, Quaternion.Euler(90, 0, 0));
+            influence.GetComponent<MeshRenderer>().material = greenColor;
+
+            foreach(var resources in region.InternalPositions.ResourcesPositions)
+            {
+                var resource = Instantiate(resourceTile, region.Area.transform.localPosition + resources, Quaternion.identity);
+            }
+
+            foreach (var cities in region.InternalPositions.CitiesPositions)
+            {
+                var city = Instantiate(cityTile, region.Area.transform.localPosition + cities, Quaternion.identity);
+            }
+        }
     }
-
-
-
-
 
 
     private void GenerateNumidia()
@@ -113,8 +140,13 @@ public class Map : MonoBehaviour
         Mesh mesh = new Mesh();
         tile.AddComponent<MeshFilter>().mesh = mesh;
         tile.AddComponent<MeshRenderer>().material = material;
-
         int y = 0;
+
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-2, 3, y);
+        positions.TowerPosition = new Vector3(-1.5f, 8, y);
+        positions.AddResource(new Vector3(-1.7f, 5, y));
+        positions.AddResource(new Vector3(-1.7f, 8.7f, y));
 
         Vector3[] vertices = new Vector3[11];
         vertices[0] = new Vector3(0, y, 0);
@@ -138,6 +170,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Numidia";
+
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateCarthago()
@@ -151,6 +185,13 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-6, 9, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-5f, 11.5f, y));
+        positions.AddResource(new Vector3(-7.7f, 8.7f, y));
+        positions.AddCity(new Vector3(-6, 16, y));
 
         Vector3[] vertices = new Vector3[33];
         vertices[0] = new Vector3(2.2f, y, 16.2f);
@@ -196,6 +237,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Carthago";
+
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateWestMavritania()
@@ -209,6 +252,11 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-6, 4, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-9f, 3f, y));
 
         Vector3[] vertices = new Vector3[10];
         vertices[0] = new Vector3(14.5f, y, 0f);
@@ -231,6 +279,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "West Mavritania";
+
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateLivia()
@@ -244,6 +294,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-11, 6, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-15f, 6f, y));
+        positions.AddResource(new Vector3(-18f, 5.6f, y));
 
         Vector3[] vertices = new Vector3[11];
         vertices[0] = new Vector3(9.5f, y, 5.5f);
@@ -267,6 +323,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Livia";
+
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateEastMavritania()
@@ -280,6 +338,10 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-21, 2, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-25.5f, 2f, y));
 
         Vector3[] vertices = new Vector3[12];
         vertices[0] = new Vector3(14.8f, y, 2f);
@@ -304,6 +366,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "East Mawritania";
+
+        Regions.Add(new Region(tile, positions));
     }
     private void GenerateNorthKirenaika()
     {
@@ -316,6 +380,11 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-26, 5, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-30f, 8f, y));
+        positions.AddCity(new Vector3(-26f, 11f, y));
 
         Vector3[] vertices = new Vector3[32];
         vertices[0] = new Vector3(22f, y, 2.7f);
@@ -359,6 +428,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "North Kirenaika";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateSouthKirenaika()
@@ -372,6 +442,10 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-32, 5, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-35f, 2.5f, y));
 
         Vector3[] vertices = new Vector3[20];
         vertices[0] = new Vector3(31.4f, y, 0f);
@@ -402,6 +476,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "South Kirenaika";
+        Regions.Add(new Region(tile, positions));
     }
     private void GenerateLowerEgypt()
     {
@@ -414,6 +489,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-45, 7, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-39.5f, 7f, y));
+        positions.AddCity(new Vector3(-39.5f, 12f, y));
+        positions.AddCity(new Vector3(-40f, 10f, y));
 
         Vector3[] vertices = new Vector3[21];
         vertices[0] = new Vector3(40.3f, y, 5.3f);
@@ -447,6 +528,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Lower Egypt";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateUpperEgypt()
@@ -460,6 +542,11 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-47, 5, y);
+        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.AddResource(new Vector3(-44f, 2f, y));
+        positions.AddCity(new Vector3(-48f, 2f, y));
 
         Vector3[] vertices = new Vector3[20];
         vertices[0] = new Vector3(57f, y, 0f);
@@ -484,6 +571,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Upper Egypt";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateSynay()

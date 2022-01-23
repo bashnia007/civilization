@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
     #region Art stuff
 
@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        BuyMenu.SetActive(true);
+        BuyMenu.SetActive(false);
     }
 
     #region Buy Menu
