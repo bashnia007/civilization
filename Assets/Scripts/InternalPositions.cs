@@ -20,6 +20,7 @@ namespace Assets.Scripts
         public List<Vector3> CitiesPositions { get; set; }
         public Vector3 MarketPosition { get; set; }
         public Vector3 TemplePosition { get; set; }
+        public Vector3 ArmyPosition { get; set; }
 
         public void AddResource(Vector3 resource)
         {

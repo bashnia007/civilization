@@ -15,6 +15,8 @@ public class Map : MonoBehaviour
     [SerializeField] private GameObject cityTile;
     [SerializeField] private GameObject templeTile;
     [SerializeField] private GameObject marketTile;
+    [SerializeField] private GameObject armyFigure;
+    [SerializeField] private GameObject towerFigure;
 
     private Camera currentCamera;
     private GameObject hoveredMapTile;
@@ -127,6 +129,26 @@ public class Map : MonoBehaviour
             {
                 var city = Instantiate(cityTile, region.Area.transform.localPosition + cities, Quaternion.identity);
             }
+
+            if (region.InternalPositions.MarketPosition != Vector3.zero)
+            {
+                var market = Instantiate(marketTile, region.Area.transform.localPosition + region.InternalPositions.MarketPosition, Quaternion.identity);
+            }
+
+            if (region.InternalPositions.TemplePosition != Vector3.zero)
+            {
+                var temple = Instantiate(templeTile, region.Area.transform.localPosition + region.InternalPositions.TemplePosition, Quaternion.identity);
+            }
+
+            if (region.InternalPositions.ArmyPosition != Vector3.zero)
+            {
+                var warrior = Instantiate(armyFigure, region.Area.transform.localPosition + region.InternalPositions.ArmyPosition, Quaternion.Euler(0, -60, 0));
+            }
+
+            if (region.InternalPositions.TowerPosition != Vector3.zero)
+            {
+                var tower = Instantiate(towerFigure, region.Area.transform.localPosition + region.InternalPositions.TowerPosition, Quaternion.identity);
+            }
         }
     }
 
@@ -144,9 +166,11 @@ public class Map : MonoBehaviour
 
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-2, 3, y);
-        positions.TowerPosition = new Vector3(-1.5f, 8, y);
+        positions.TowerPosition = new Vector3(-1.5f, 14, 1f);
+        positions.ArmyPosition = new Vector3(-1f, 12, y);
         positions.AddResource(new Vector3(-1.7f, 5, y));
         positions.AddResource(new Vector3(-1.7f, 8.7f, y));
+        positions.MarketPosition = new Vector3(-1.5f, 1.5f, y);
 
         Vector3[] vertices = new Vector3[11];
         vertices[0] = new Vector3(0, y, 0);
@@ -188,10 +212,13 @@ public class Map : MonoBehaviour
 
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-6, 9, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-6.5f, 14, 1);
+        positions.ArmyPosition = new Vector3(-4f, 14, y);
         positions.AddResource(new Vector3(-5f, 11.5f, y));
         positions.AddResource(new Vector3(-7.7f, 8.7f, y));
+        positions.MarketPosition = new Vector3(-4.5f, 9, y);
         positions.AddCity(new Vector3(-6, 16, y));
+        positions.TemplePosition = new Vector3(-9, 7, y); ;
 
         Vector3[] vertices = new Vector3[33];
         vertices[0] = new Vector3(2.2f, y, 16.2f);
@@ -255,8 +282,10 @@ public class Map : MonoBehaviour
 
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-6, 4, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-7f, 2, 1);
+        positions.ArmyPosition = new Vector3(-12f, 2, y);
         positions.AddResource(new Vector3(-9f, 3f, y));
+        positions.MarketPosition = new Vector3(-5f, 1, y);
 
         Vector3[] vertices = new Vector3[10];
         vertices[0] = new Vector3(14.5f, y, 0f);
@@ -297,9 +326,11 @@ public class Map : MonoBehaviour
 
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-11, 6, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-13f, 9, 1);
+        positions.ArmyPosition = new Vector3(-20f, 7, 1);
         positions.AddResource(new Vector3(-15f, 6f, y));
         positions.AddResource(new Vector3(-18f, 5.6f, y));
+        positions.MarketPosition = new Vector3(-13.5f, 5.5f, y);
 
         Vector3[] vertices = new Vector3[11];
         vertices[0] = new Vector3(9.5f, y, 5.5f);
@@ -340,8 +371,10 @@ public class Map : MonoBehaviour
         int y = 0;
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-21, 2, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-16f, 2, 1);
+        positions.ArmyPosition = new Vector3(-18f, 1.5f, y);
         positions.AddResource(new Vector3(-25.5f, 2f, y));
+        positions.MarketPosition = new Vector3(-28, 1.7f, y);
 
         Vector3[] vertices = new Vector3[12];
         vertices[0] = new Vector3(14.8f, y, 2f);
@@ -382,9 +415,12 @@ public class Map : MonoBehaviour
         int y = 0;
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-26, 5, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-35f, 10, 1); 
+        positions.ArmyPosition = new Vector3(-24f, 8, y);
         positions.AddResource(new Vector3(-30f, 8f, y));
+        positions.MarketPosition = new Vector3(-28f, 9, y);
         positions.AddCity(new Vector3(-26f, 11f, y));
+        positions.TemplePosition = new Vector3(-33f, 8, y);
 
         Vector3[] vertices = new Vector3[32];
         vertices[0] = new Vector3(22f, y, 2.7f);
@@ -444,8 +480,10 @@ public class Map : MonoBehaviour
         int y = 0;
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-32, 5, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-36f, 6, 1);
+        positions.ArmyPosition = new Vector3(-32f, 1.5f, y);
         positions.AddResource(new Vector3(-35f, 2.5f, y));
+        positions.MarketPosition = new Vector3(-38f, 2, y);
 
         Vector3[] vertices = new Vector3[20];
         vertices[0] = new Vector3(31.4f, y, 0f);
@@ -491,10 +529,13 @@ public class Map : MonoBehaviour
         int y = 0;
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-45, 7, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-43f, 11, 1);
+        positions.ArmyPosition = new Vector3(-36f, 11, y);
         positions.AddResource(new Vector3(-39.5f, 7f, y));
+        positions.MarketPosition = new Vector3(-42f, 8.5f, y);
         positions.AddCity(new Vector3(-39.5f, 12f, y));
         positions.AddCity(new Vector3(-40f, 10f, y));
+        positions.TemplePosition = new Vector3(-42f, 6.5f, y);
 
         Vector3[] vertices = new Vector3[21];
         vertices[0] = new Vector3(40.3f, y, 5.3f);
@@ -544,9 +585,12 @@ public class Map : MonoBehaviour
         int y = 0;
         InternalPositions positions = new InternalPositions();
         positions.InfluenceTilePosition = new Vector3(-47, 5, y);
-        positions.TowerPosition = new Vector3(-5f, 12, y);
+        positions.TowerPosition = new Vector3(-51f, 2.5f, 1);
+        positions.ArmyPosition = new Vector3(-40f, 3.5f, y);
         positions.AddResource(new Vector3(-44f, 2f, y));
+        positions.MarketPosition = new Vector3(-44.5f, 4f, y);
         positions.AddCity(new Vector3(-48f, 2f, y));
+        positions.TemplePosition = new Vector3(-46f, 1.5f, y);
 
         Vector3[] vertices = new Vector3[20];
         vertices[0] = new Vector3(57f, y, 0f);
@@ -584,7 +628,13 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshFilter>().mesh = mesh;
         tile.AddComponent<MeshRenderer>().material = material;
 
-        int y = 0;
+        int y = 0; 
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-47, 10.5f, y);
+        positions.TowerPosition = new Vector3(-47f, 13, 1);
+        positions.ArmyPosition = new Vector3(-43f, 13.5f, y);
+        positions.AddResource(new Vector3(-45.5f, 12.7f, y));
+        positions.MarketPosition = new Vector3(-45.5f, 11, y);
 
         Vector3[] vertices = new Vector3[14];
         vertices[0] = new Vector3(43.1f, y, 14.2f);
@@ -611,6 +661,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Synay";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateIudea()
