@@ -24,6 +24,7 @@ public class Map : MonoBehaviour
     private List<Region> Regions = new List<Region>();
     void Start()
     {
+        //Land
         GenerateNumidia();
         GenerateCarthago();
         GenerateWestMavritania();
@@ -58,6 +59,7 @@ public class Map : MonoBehaviour
         GenerateSardinia();
         GenerateCrit();
 
+        //Sea
         GenerateCentralMeditarianSea();
         GenerateWestMeditarianSea();
         GenerateTirreneyenSea();
@@ -71,47 +73,6 @@ public class Map : MonoBehaviour
 
         PlaceCenter();
     }
-
-    /*private void GenerateTile()
-    {
-        GameObject tile = new GameObject();
-        tile.transform.parent = transform;
-        tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
-        tile.transform.eulerAngles = new Vector3(-90, 0, 180);
-        Mesh mesh = new Mesh();
-        tile.AddComponent<MeshFilter>().mesh = mesh;
-        tile.AddComponent<MeshRenderer>().material = material;
-
-        //Generate vectors
-        //Vector3[] vertices = new Vector3[14];
-        //vertices[0] = new Vector3(56.7f, y, 34.8f);
-        //vertices[1] = new Vector3(57.7f, y, 35.4f);
-        //vertices[2] = new Vector3(57.7f, y, 18.9f);
-        //vertices[3] = new Vector3(56.7f, y, 19.6f);
-        //vertices[4] = new Vector3(55.7f, y, 20.5f);
-        //vertices[5] = new Vector3(54.7f, y, 21f);
-        //vertices[6] = new Vector3(54.4f, y, 21f);
-        //vertices[7] = new Vector3(52f, y, 23.4f);
-        //vertices[8] = new Vector3(51.4f, y, 25.3f);
-        //vertices[9] = new Vector3(55.2f, y, 34.7f);
-        //vertices[10] = new Vector3(53.5f, y, 34.4f);
-        //vertices[11] = new Vector3(50.5f, y, 32.9f);
-        //vertices[12] = new Vector3(49.5f, y, 32.7f);
-        //vertices[13] = new Vector3(48f, y, 32f);
-
-        //generate triangles
-        //int[] tris = new int[] { 0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 5, 0, 5, 6, 0, 6, 7, 0, 7, 8, 8, 9, 0, 8, 10, 9, 8, 11, 10, 8, 12, 11, 8, 13, 12 };
-
-        mesh.vertices = vertices;
-        mesh.triangles = tris;
-
-        tile.layer = LayerMask.NameToLayer("MapTile");
-        tile.AddComponent<MeshCollider>();
-
-        //Name = name
-        //tile.name = "Mesopotamia";
-    }*/
-
 
     private void PlaceCenter()
     {
@@ -422,7 +383,7 @@ public class Map : MonoBehaviour
         positions.AddCity(new Vector3(-26f, 11f, y));
         positions.TemplePosition = new Vector3(-33f, 8, y);
 
-        Vector3[] vertices = new Vector3[32];
+        Vector3[] vertices = new Vector3[28];
         vertices[0] = new Vector3(22f, y, 2.7f);
         vertices[1] = new Vector3(22.3f, y, 4.4f);
         vertices[2] = new Vector3(22.2f, y, 5.9f);
@@ -444,18 +405,17 @@ public class Map : MonoBehaviour
         vertices[18] = new Vector3(36.3f, y, 11f);
         vertices[19] = new Vector3(36.6f, y, 9.2f);
         vertices[20] = new Vector3(36.3f, y, 8.2f);
-
-        vertices[25] = new Vector3(36.8f, y, 6.8f);
-        vertices[26] = new Vector3(35.8f, y, 6.4f);
-        vertices[27] = new Vector3(33.2f, y, 6.3f);
-        vertices[28] = new Vector3(30.7f, y, 5.8f);
-        vertices[29] = new Vector3(29.2f, y, 4.9f);
-        vertices[30] = new Vector3(26f, y, 4.4f);
-        vertices[31] = new Vector3(23f, y, 2.5f);
-
+        vertices[21] = new Vector3(36.8f, y, 6.8f);
+        vertices[22] = new Vector3(35.8f, y, 6.4f);
+        vertices[23] = new Vector3(33.2f, y, 6.3f);
+        vertices[24] = new Vector3(30.7f, y, 5.8f);
+        vertices[25] = new Vector3(29.2f, y, 4.9f);
+        vertices[26] = new Vector3(26f, y, 4.4f);
+        vertices[27] = new Vector3(23f, y, 2.5f);
 
 
-        int[] tris = new int[] {0,1,31,  1,2,31,  2,3,31,  3,4,31, 31,4,30,  4,5,30, 5,6,30,  6,7,30,  7,8,30, 8,9,30,  9,10,30, 29,30,10,  10,11,29,  28,29,11,  11,12,28,  27,28,12,  12,13,27,  13,14,27,  14,15,27,  26,27,15, 15,16,26,  16,17,26,  17,18,26, 18,19,26,  25,26,20};
+
+        int[] tris = new int[] {0,1,27,  1,2,27,  2,3,27,  3,4,27, 27,4,26,  4,5,26, 5,6,26,  6,7,26,  7,8,26, 8,9,26,  9,10,26, 25,26,10,  10,11,25,  24,25,11,  11,12,24,  23,24,12,  12,13,23,  13,14,23,  14,15,23,  22,23,15, 15,16,22,  16,17,22,  17,18,22, 18,19,22,  21,22,20};
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
@@ -485,7 +445,7 @@ public class Map : MonoBehaviour
         positions.AddResource(new Vector3(-35f, 2.5f, y));
         positions.MarketPosition = new Vector3(-38f, 2, y);
 
-        Vector3[] vertices = new Vector3[20];
+        Vector3[] vertices = new Vector3[17];
         vertices[0] = new Vector3(31.4f, y, 0f);
         vertices[1] = new Vector3(31.2f, y, 2f);
         vertices[2] = new Vector3(30.6f, y, 2.5f);
@@ -499,13 +459,12 @@ public class Map : MonoBehaviour
         vertices[10] = new Vector3(36.7f, y, 6.8f);
         vertices[11] = new Vector3(38.7f, y, 5.4f);
         vertices[12] = new Vector3(40.3f, y, 5.3f);
+        vertices[13] = new Vector3(39.3f, y, 3.8f);
+        vertices[14] = new Vector3(39.1f, y, 2.7f);
+        vertices[15] = new Vector3(39.4f, y, 2f);
+        vertices[16] = new Vector3(38.5f, y, 0f);
 
-        vertices[16] = new Vector3(39.3f, y, 3.8f);
-        vertices[17] = new Vector3(39.1f, y, 2.7f);
-        vertices[18] = new Vector3(39.4f, y, 2f);
-        vertices[19] = new Vector3(38.5f, y, 0f);
-
-        int[] tris = new int[] {0,1,19,  1,18,19,  1,17,18,  1,2,17,  2,16,17,  2,3,16,  3,4,16,  4,5,16,  5,6,16,  6,7,16,  7,8,16,  8,9,16, 9,10,16,  10,11,16,  11,12,16};
+        int[] tris = new int[] {0,1,16,  1,15,16,  1,14,15,  1,2,14,  2,13,14,  2,3,13,  3,4,13,  4,5,13,  5,6,13,  6,7,13,  7,8,13,  8,9,13, 9,10,13,  10,11,13,  11,12,13};
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
@@ -592,7 +551,7 @@ public class Map : MonoBehaviour
         positions.AddCity(new Vector3(-48f, 2f, y));
         positions.TemplePosition = new Vector3(-46f, 1.5f, y);
 
-        Vector3[] vertices = new Vector3[20];
+        Vector3[] vertices = new Vector3[12];
         vertices[0] = new Vector3(57f, y, 0f);
         vertices[1] = new Vector3(38.5f, y, 0f);
         vertices[2] = new Vector3(39.4f, y, 2f);
@@ -711,7 +670,7 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[10];
+        Vector3[] vertices = new Vector3[9];
         vertices[0] = new Vector3(47.2f, y, 13.8f);
         vertices[1] = new Vector3(51f, y, 15.3f);
         vertices[2] = new Vector3(52.5f, y, 15.3f);
@@ -882,8 +841,8 @@ public class Map : MonoBehaviour
         vertices[3] = new Vector3(56.8f, y, 35f);
         vertices[4] = new Vector3(55f, y, 35f);
         vertices[5] = new Vector3(51f, y, 33.2f);
-        vertices[6] = new Vector3(49f, y, 32.6f); //
-        vertices[7] = new Vector3(46.7f, y, 37.7f);//
+        vertices[6] = new Vector3(49f, y, 32.6f); 
+        vertices[7] = new Vector3(46.7f, y, 37.7f);
         vertices[8] = new Vector3(46.7f, y, 42.5f);
         vertices[9] = new Vector3(46.2f, y, 38.7f);
         vertices[10] = new Vector3(45f, y, 39.3f);
@@ -1043,11 +1002,10 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[61];
+        Vector3[] vertices = new Vector3[59];
         vertices[0] = new Vector3(37.7f, y, 25.3f);
         vertices[1] = new Vector3(37.5f, y, 22.7f);
         vertices[2] = new Vector3(36.5f, y, 22.7f);
-
         vertices[3] = new Vector3(36.2f, y, 22.4f);
         vertices[4] = new Vector3(36.4f, y, 21.7f);
         vertices[5] = new Vector3(35.9f, y, 21.1f);
@@ -1058,7 +1016,6 @@ public class Map : MonoBehaviour
         vertices[10] = new Vector3(34.2f, y, 21.3f);
         vertices[11] = new Vector3(33.9f, y, 21.3f);
         vertices[12] = new Vector3(33.6f, y, 21.5f);
-
         vertices[13] = new Vector3(33.4f, y, 21.5f);
         vertices[14] = new Vector3(32.9f, y, 21.1f);
         vertices[15] = new Vector3(32.6f, y, 21.3f);
@@ -1082,13 +1039,11 @@ public class Map : MonoBehaviour
         vertices[33] = new Vector3(29.4f, y, 23.5f);
         vertices[34] = new Vector3(30.1f, y, 23.4f);
         vertices[35] = new Vector3(30.2f, y, 23.7f);
-
         vertices[36] = new Vector3(30.1f, y, 23.7f);
         vertices[37] = new Vector3(29.6f, y, 23.8f);
         vertices[38] = new Vector3(29.5f, y, 24.3f);
         vertices[39] = new Vector3(29.1f, y, 24.8f);
         vertices[40] = new Vector3(29f, y, 25.4f);
-
         vertices[41] = new Vector3(28.9f, y, 25.3f);
         vertices[42] = new Vector3(28.2f, y, 25f);
         vertices[43] = new Vector3(28.1f, y, 26.1f);
@@ -1097,7 +1052,6 @@ public class Map : MonoBehaviour
         vertices[46] = new Vector3(30.4f, y, 27.8f);
         vertices[47] = new Vector3(30.8f, y, 27.7f);
         vertices[48] = new Vector3(31.3f, y, 28f);
-
         vertices[49] = new Vector3(31.5f, y, 28.1f);
         vertices[50] = new Vector3(31.3f, y, 28.6f);
         vertices[51] = new Vector3(31.6f, y, 28.6f);
@@ -1132,7 +1086,7 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[21];
+        Vector3[] vertices = new Vector3[17];
         vertices[0] = new Vector3(39.2f, y, 19.2f);
         vertices[1] = new Vector3(39.3f, y, 19.8f);
         vertices[2] = new Vector3(41.2f, y, 21f);
@@ -1186,7 +1140,6 @@ public class Map : MonoBehaviour
         vertices[8] = new Vector3(29.2f, y, 31.2f);
         vertices[9] = new Vector3(29f, y, 31.8f);
         vertices[10] = new Vector3(28.6f, y, 31.6f);
-
         vertices[11] = new Vector3(28.6f, y, 32f);
         vertices[12] = new Vector3(28.7f, y, 33f);
         vertices[13] = new Vector3(29f, y, 32.2f);
@@ -1201,7 +1154,6 @@ public class Map : MonoBehaviour
         vertices[22] = new Vector3(23.8f, y, 33f);
         vertices[23] = new Vector3(22.1f, y, 31f);
         vertices[24] = new Vector3(24.5f, y, 29.4f);
-
         vertices[25] = new Vector3(27.1f, y, 27.4f);
         vertices[26] = new Vector3(26.7f, y, 27.6f);
         vertices[27] = new Vector3(26.3f, y, 27.5f);
@@ -1359,15 +1311,15 @@ public class Map : MonoBehaviour
         vertices[34] = new Vector3(35.5f, y, 41.1f);
         vertices[35] = new Vector3(35.2f, y, 41.7f);
         vertices[36] = new Vector3(36.5f, y, 42.5f);
-        vertices[37] = new Vector3(31.5f, y, 42.5f);// top right
+        vertices[37] = new Vector3(31.5f, y, 42.5f);
         vertices[38] = new Vector3(31.3f, y, 40.9f);
         vertices[39] = new Vector3(30.1f, y, 40.2f);
-        vertices[40] = new Vector3(28f, y, 42.5f); // top left
+        vertices[40] = new Vector3(28f, y, 42.5f);
         vertices[41] = new Vector3(30.1f, y, 39.5f);
         vertices[42] = new Vector3(29.6f, y, 39.3f);
         vertices[43] = new Vector3(29.7f, y, 38.7f);
         vertices[44] = new Vector3(29.3f, y, 38.1f);
-        vertices[45] = new Vector3(28.9f, y, 36.2f); //
+        vertices[45] = new Vector3(28.9f, y, 36.2f);
         vertices[46] = new Vector3(29.24f, y, 37.9f);
         vertices[47] = new Vector3(29.5f, y, 37.6f);
         vertices[48] = new Vector3(29.4f, y, 36.6f);
@@ -1377,7 +1329,7 @@ public class Map : MonoBehaviour
         vertices[52] = new Vector3(28.7f, y, 35.7f);
         vertices[53] = new Vector3(27.7f, y, 35.8f);
         vertices[54] = new Vector3(26f, y, 35.2f);
-        vertices[55] = new Vector3(25f, y, 42.5f); // top left
+        vertices[55] = new Vector3(25f, y, 42.5f);
         vertices[56] = new Vector3(24.5f, y, 34.2f);
         vertices[57] = new Vector3(23.8f, y, 33f);
         vertices[58] = new Vector3(22f, y, 31f);
@@ -1462,7 +1414,7 @@ public class Map : MonoBehaviour
         vertices[2] = new Vector3(2.5f, y, 41.5f);
         vertices[3] = new Vector3(3.2f, y, 38f);
         vertices[4] = new Vector3(3.3f, y, 37.2f);
-        vertices[5] = new Vector3(0f, y, 35.2f); //
+        vertices[5] = new Vector3(0f, y, 35.2f);
         vertices[6] = new Vector3(4.3f, y, 37f);
         vertices[7] = new Vector3(6f, y, 36.3f);
         vertices[8] = new Vector3(8.6f, y, 35.9f);
@@ -1471,7 +1423,7 @@ public class Map : MonoBehaviour
         vertices[11] = new Vector3(11.6f, y, 34.3f);
         vertices[12] = new Vector3(11.3f, y, 34f);
         vertices[13] = new Vector3(10.8f, y, 33.7f);
-        vertices[14] = new Vector3(8.9f, y, 33.3f); //
+        vertices[14] = new Vector3(8.9f, y, 33.3f); 
         vertices[15] = new Vector3(10.5f, y, 33.3f);
         vertices[16] = new Vector3(9.5f, y, 32.5f);
         vertices[17] = new Vector3(10.3f, y, 32.5f);
@@ -1522,7 +1474,7 @@ public class Map : MonoBehaviour
         Vector3[] vertices = new Vector3[30];
         vertices[0] = new Vector3(11.9f, y, 30.2f);
         vertices[1] = new Vector3(11.2f, y, 31.5f);
-        vertices[2] = new Vector3(12.8f, y, 29.8f); //
+        vertices[2] = new Vector3(12.8f, y, 29.8f); 
         vertices[3] = new Vector3(10.9f, y, 31.1f);
         vertices[4] = new Vector3(10.6f, y, 31.5f);
         vertices[5] = new Vector3(10.7f, y, 32.1f);
@@ -1531,7 +1483,7 @@ public class Map : MonoBehaviour
         vertices[8] = new Vector3(10.8f, y, 33.6f);
         vertices[9] = new Vector3(10.5f, y, 33.2f);
         vertices[10] = new Vector3(10.4f, y, 32.5f);
-        vertices[11] = new Vector3(15.3f, y, 33.6f);//
+        vertices[11] = new Vector3(15.3f, y, 33.6f);
         vertices[12] = new Vector3(12.8f, y, 29.3f);
         vertices[13] = new Vector3(13.2f, y, 29.1f);
         vertices[14] = new Vector3(13.7f, y, 29.3f);
@@ -1544,7 +1496,7 @@ public class Map : MonoBehaviour
         vertices[21] = new Vector3(16.2f, y, 28f);
         vertices[22] = new Vector3(16.7f, y, 28f);
         vertices[23] = new Vector3(16.8f, y, 28.3f);
-        vertices[24] = new Vector3(17.3f, y, 32.4f); //
+        vertices[24] = new Vector3(17.3f, y, 32.4f); 
         vertices[25] = new Vector3(17.8f, y, 27.2f);
         vertices[26] = new Vector3(18.2f, y, 28.5f);
         vertices[27] = new Vector3(19.4f, y, 30f);
@@ -1592,7 +1544,7 @@ public class Map : MonoBehaviour
         vertices[14] = new Vector3(10.5f, y, 28f);
         vertices[15] = new Vector3(10.5f, y, 27.8f);
         vertices[16] = new Vector3(11f, y, 27.3f);
-        vertices[17] = new Vector3(9.3f, y, 25f); //
+        vertices[17] = new Vector3(9.3f, y, 25f); 
         vertices[18] = new Vector3(11.5f, y, 27.1f);
         vertices[19] = new Vector3(12f, y, 26.5f);
         vertices[20] = new Vector3(11.5f, y, 25.7f);
@@ -1640,7 +1592,7 @@ public class Map : MonoBehaviour
         vertices[12] = new Vector3(12.6f, y, 23.2f);
         vertices[13] = new Vector3(13f, y, 22.5f);
         vertices[14] = new Vector3(13.7f, y, 22.2f);
-        vertices[15] = new Vector3(15.5f, y, 23.2f);//
+        vertices[15] = new Vector3(15.5f, y, 23.2f);
         vertices[16] = new Vector3(15f, y, 25.3f);
         vertices[17] = new Vector3(15.1f, y, 25.2f);
         vertices[18] = new Vector3(15.7f, y, 24.8f);
@@ -1686,34 +1638,34 @@ public class Map : MonoBehaviour
 
         int y = 0;
 
-        Vector3[] vertices = new Vector3[26];
+        Vector3[] vertices = new Vector3[25];
         vertices[0] = new Vector3(13.6f, y, 19.8f);
         vertices[1] = new Vector3(13.8f, y, 19.3f);
         vertices[2] = new Vector3(13.3f, y, 18.5f);
-        vertices[4] = new Vector3(13.2f, y, 19.5f);
-        vertices[5] = new Vector3(12.8f, y, 19.5f);
-        vertices[6] = new Vector3(12f, y, 19f);
-        vertices[7] = new Vector3(13.6f, y, 17f);
-        vertices[8] = new Vector3(13.2f, y, 16.5f);
-        vertices[9] = new Vector3(13.1f, y, 16.1f);
-        vertices[10] = new Vector3(12.7f, y, 16f);
-        vertices[11] = new Vector3(12.6f, y, 16.3f);
-        vertices[12] = new Vector3(12.2f, y, 16.3f);
-        vertices[13] = new Vector3(11.8f, y, 17f);
-        vertices[14] = new Vector3(11.3f, y, 17f);
-        vertices[15] = new Vector3(10.9f, y, 17.4f);
-        vertices[16] = new Vector3(11.7f, y, 19.2f);
-        vertices[17] = new Vector3(11.4f, y, 19f);
-        vertices[18] = new Vector3(10.4f, y, 17.3f);
-        vertices[19] = new Vector3(10.4f, y, 17.8f);
-        vertices[20] = new Vector3(9.4f, y, 18.2f);
-        vertices[21] = new Vector3(10.6f, y, 19.5f);
-        vertices[22] = new Vector3(10.4f, y, 19.3f);
-        vertices[23] = new Vector3(10.1f, y, 19.3f);
-        vertices[24] = new Vector3(9.9f, y, 19.6f);
-        vertices[25] = new Vector3(9.2f, y, 18.9f);
+        vertices[3] = new Vector3(13.2f, y, 19.5f);
+        vertices[4] = new Vector3(12.8f, y, 19.5f);
+        vertices[5] = new Vector3(12f, y, 19f);
+        vertices[6] = new Vector3(13.6f, y, 17f);
+        vertices[7] = new Vector3(13.2f, y, 16.5f);
+        vertices[8] = new Vector3(13.1f, y, 16.1f);
+        vertices[9] = new Vector3(12.7f, y, 16f);
+        vertices[10] = new Vector3(12.6f, y, 16.3f);
+        vertices[11] = new Vector3(12.2f, y, 16.3f);
+        vertices[12] = new Vector3(11.8f, y, 17f);
+        vertices[13] = new Vector3(11.3f, y, 17f);
+        vertices[14] = new Vector3(10.9f, y, 17.4f);
+        vertices[15] = new Vector3(11.7f, y, 19.2f);
+        vertices[16] = new Vector3(11.4f, y, 19f);
+        vertices[17] = new Vector3(10.4f, y, 17.3f);
+        vertices[18] = new Vector3(10.4f, y, 17.8f);
+        vertices[19] = new Vector3(9.4f, y, 18.2f);
+        vertices[20] = new Vector3(10.6f, y, 19.5f);
+        vertices[21] = new Vector3(10.4f, y, 19.3f);
+        vertices[22] = new Vector3(10.1f, y, 19.3f);
+        vertices[23] = new Vector3(9.9f, y, 19.6f);
+        vertices[24] = new Vector3(9.2f, y, 18.9f);
 
-        int[] tris = new int[] { 0,1,2, 4,0,2, 5,4,2, 6,5,2, 2,7,6, 6,7,8, 6,8,9, 6,9,10, 6,10,11, 6,11,12, 6,12,13, 6,13,14, 6,14,15, 6,15,16, 16,15,17, 15,18,17, 18,19,17, 19,20,17, 17,20,21, 20,22,21, 20,23,22, 20,24,23, 20,25,24 };
+        int[] tris = new int[] { 0,1,2, 3,0,2, 4,3,2, 5,4,2, 2,6,5, 5,6,7, 5,7,8, 5,8,9, 5,9,10, 5,10,11, 5,11,12, 5,12,13, 5,13,14, 5,14,15, 15,14,16, 14,17,16, 17,18,16, 18,19,16, 16,19,20, 19,21,20, 19,22,21, 19,23,22, 19,24,23 };
 
         mesh.vertices = vertices;
         mesh.triangles = tris;
@@ -1767,13 +1719,13 @@ public class Map : MonoBehaviour
         vertices[27] = new Vector3(25.7f, y, 22.2f);
         vertices[28] = new Vector3(26f, y, 21.6f);
         vertices[29] = new Vector3(25.4f, y, 20.7f);
-        vertices[30] = new Vector3(24.3f, y, 21.4f); //
+        vertices[30] = new Vector3(24.3f, y, 21.4f);
         vertices[31] = new Vector3(25.5f, y, 20.4f);
-        vertices[32] = new Vector3(24.8f, y, 20.4f);//
+        vertices[32] = new Vector3(24.8f, y, 20.4f);
         vertices[33] = new Vector3(25.2f, y, 20f);
         vertices[34] = new Vector3(23.9f, y, 21.6f);
         vertices[35] = new Vector3(23f, y, 21.5f);
-        vertices[36] = new Vector3(22.5f, y, 21.1f); //
+        vertices[36] = new Vector3(22.5f, y, 21.1f);
         vertices[37] = new Vector3(22.2f, y, 21.1f);
         vertices[38] = new Vector3(21.8f, y, 20.5f);
         vertices[39] = new Vector3(22f, y, 20.1f);
@@ -1836,12 +1788,11 @@ public class Map : MonoBehaviour
         vertices[11] = new Vector3(3.9f, y, 28.5f);
         vertices[12] = new Vector3(3.6f, y, 28.8f);
         vertices[13] = new Vector3(3.4f, y, 28.5f);
-
         vertices[14] = new Vector3(4.1f, y, 25.4f);
         vertices[15] = new Vector3(4.2f, y, 25f);
         vertices[16] = new Vector3(3.8f, y, 25.3f);
         vertices[17] = new Vector3(3.8f, y, 25f);
-        vertices[18] = new Vector3(3.1f, y, 24.3f);//
+        vertices[18] = new Vector3(3.1f, y, 24.3f);
         vertices[19] = new Vector3(4.6f, y, 24.4f);
         vertices[20] = new Vector3(4.6f, y, 24f);
         vertices[21] = new Vector3(4.8f, y, 23.7f);
@@ -2388,7 +2339,7 @@ public class Map : MonoBehaviour
         vertices[31] = new Vector3(42.2f, y, 24.7f);
         vertices[32] = new Vector3(42.6f, y, 24.7f);
         vertices[33] = new Vector3(43.2f, y, 25.4f);
-        vertices[34] = new Vector3(42.4f, y, 22f);//
+        vertices[34] = new Vector3(42.4f, y, 22f);
         vertices[35] = new Vector3(43.5f, y, 25.9f);
         vertices[36] = new Vector3(43.8f, y, 25.4f);
         vertices[37] = new Vector3(44.2f, y, 23.7f);
