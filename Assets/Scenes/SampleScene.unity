@@ -3283,6 +3283,9 @@ MonoBehaviour:
   cityTile: {fileID: 6564478137342897829, guid: 2ab603e7ad6b96c4794211cd68e7ad24, type: 3}
   templeTile: {fileID: 8349557907351073136, guid: df259f48a5069534abf9fdc10ae1f8fc, type: 3}
   marketTile: {fileID: 1533910653760889669, guid: 139494895d156364aabbcb9ce8eba98e, type: 3}
+  armyFigure: {fileID: 4907187961869495699, guid: ffb38afbd0388734aabe602c38d30914, type: 3}
+  towerFigure: {fileID: 3254797244620606024, guid: b029aa3e07471e14db13b6719436629d, type: 3}
+  fleetFigure: {fileID: 7619466573623357510, guid: 855b03c97d7bb9747a70b40b05090dda, type: 3}
 --- !u!4 &774481950
 Transform:
   m_ObjectHideFlags: 0

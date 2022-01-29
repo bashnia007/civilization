@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ public class Map : MonoBehaviour
     [SerializeField] private GameObject marketTile;
     [SerializeField] private GameObject armyFigure;
     [SerializeField] private GameObject towerFigure;
+    [SerializeField] private GameObject fleetFigure;
 
     private Camera currentCamera;
     private GameObject hoveredMapTile;
@@ -83,7 +85,7 @@ public class Map : MonoBehaviour
 
             foreach(var resources in region.InternalPositions.ResourcesPositions)
             {
-                var resource = Instantiate(resourceTile, region.Area.transform.localPosition + resources, Quaternion.identity);
+                var resource = Instantiate(resourceTile, region.Area.transform.localPosition + resources.Key, Quaternion.identity);
             }
 
             foreach (var cities in region.InternalPositions.CitiesPositions)
@@ -110,6 +112,16 @@ public class Map : MonoBehaviour
             {
                 var tower = Instantiate(towerFigure, region.Area.transform.localPosition + region.InternalPositions.TowerPosition, Quaternion.identity);
             }
+
+            if (region.InternalPositions.FleetPosition != Vector3.zero)
+            {
+                var fleet = Instantiate(fleetFigure, region.Area.transform.localPosition + region.InternalPositions.FleetPosition, Quaternion.Euler(0, 0, 45));
+
+                foreach (Transform child in fleet.transform)
+                {
+                    child.GetComponent<MeshRenderer>().material = greenColor;
+                }
+            }
         }
     }
 
@@ -129,8 +141,8 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-2, 3, y);
         positions.TowerPosition = new Vector3(-1.5f, 14, 1f);
         positions.ArmyPosition = new Vector3(-1f, 12, y);
-        positions.AddResource(new Vector3(-1.7f, 5, y));
-        positions.AddResource(new Vector3(-1.7f, 8.7f, y));
+        positions.AddResource(new Vector3(-1.7f, 5, y), Resource.Gold);
+        positions.AddResource(new Vector3(-1.7f, 8.7f, y), Resource.Slaves);
         positions.MarketPosition = new Vector3(-1.5f, 1.5f, y);
 
         Vector3[] vertices = new Vector3[11];
@@ -175,8 +187,8 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-6, 9, y);
         positions.TowerPosition = new Vector3(-6.5f, 14, 1);
         positions.ArmyPosition = new Vector3(-4f, 14, y);
-        positions.AddResource(new Vector3(-5f, 11.5f, y));
-        positions.AddResource(new Vector3(-7.7f, 8.7f, y));
+        positions.AddResource(new Vector3(-5f, 11.5f, y), Resource.Incence);
+        positions.AddResource(new Vector3(-7.7f, 8.7f, y), Resource.Fruits);
         positions.MarketPosition = new Vector3(-4.5f, 9, y);
         positions.AddCity(new Vector3(-6, 16, y));
         positions.TemplePosition = new Vector3(-9, 7, y); ;
@@ -245,7 +257,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-6, 4, y);
         positions.TowerPosition = new Vector3(-7f, 2, 1);
         positions.ArmyPosition = new Vector3(-12f, 2, y);
-        positions.AddResource(new Vector3(-9f, 3f, y));
+        positions.AddResource(new Vector3(-9f, 3f, y), Resource.Slaves);
         positions.MarketPosition = new Vector3(-5f, 1, y);
 
         Vector3[] vertices = new Vector3[10];
@@ -289,8 +301,8 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-11, 6, y);
         positions.TowerPosition = new Vector3(-13f, 9, 1);
         positions.ArmyPosition = new Vector3(-20f, 7, 1);
-        positions.AddResource(new Vector3(-15f, 6f, y));
-        positions.AddResource(new Vector3(-18f, 5.6f, y));
+        positions.AddResource(new Vector3(-15f, 6f, y), Resource.Fish);
+        positions.AddResource(new Vector3(-18f, 5.6f, y), Resource.Fruits);
         positions.MarketPosition = new Vector3(-13.5f, 5.5f, y);
 
         Vector3[] vertices = new Vector3[11];
@@ -334,7 +346,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-21, 2, y);
         positions.TowerPosition = new Vector3(-16f, 2, 1);
         positions.ArmyPosition = new Vector3(-18f, 1.5f, y);
-        positions.AddResource(new Vector3(-25.5f, 2f, y));
+        positions.AddResource(new Vector3(-25.5f, 2f, y), Resource.Jems);
         positions.MarketPosition = new Vector3(-28, 1.7f, y);
 
         Vector3[] vertices = new Vector3[12];
@@ -378,7 +390,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-26, 5, y);
         positions.TowerPosition = new Vector3(-35f, 10, 1); 
         positions.ArmyPosition = new Vector3(-24f, 8, y);
-        positions.AddResource(new Vector3(-30f, 8f, y));
+        positions.AddResource(new Vector3(-30f, 8f, y), Resource.Papirus);
         positions.MarketPosition = new Vector3(-28f, 9, y);
         positions.AddCity(new Vector3(-26f, 11f, y));
         positions.TemplePosition = new Vector3(-33f, 8, y);
@@ -442,7 +454,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-32, 5, y);
         positions.TowerPosition = new Vector3(-36f, 6, 1);
         positions.ArmyPosition = new Vector3(-32f, 1.5f, y);
-        positions.AddResource(new Vector3(-35f, 2.5f, y));
+        positions.AddResource(new Vector3(-35f, 2.5f, y), Resource.Slaves);
         positions.MarketPosition = new Vector3(-38f, 2, y);
 
         Vector3[] vertices = new Vector3[17];
@@ -490,7 +502,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-45, 7, y);
         positions.TowerPosition = new Vector3(-43f, 11, 1);
         positions.ArmyPosition = new Vector3(-36f, 11, y);
-        positions.AddResource(new Vector3(-39.5f, 7f, y));
+        positions.AddResource(new Vector3(-39.5f, 7f, y), Resource.Papirus);
         positions.MarketPosition = new Vector3(-42f, 8.5f, y);
         positions.AddCity(new Vector3(-39.5f, 12f, y));
         positions.AddCity(new Vector3(-40f, 10f, y));
@@ -546,7 +558,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-47, 5, y);
         positions.TowerPosition = new Vector3(-51f, 2.5f, 1);
         positions.ArmyPosition = new Vector3(-40f, 3.5f, y);
-        positions.AddResource(new Vector3(-44f, 2f, y));
+        positions.AddResource(new Vector3(-44f, 2f, y), Resource.Corn);
         positions.MarketPosition = new Vector3(-44.5f, 4f, y);
         positions.AddCity(new Vector3(-48f, 2f, y));
         positions.TemplePosition = new Vector3(-46f, 1.5f, y);
@@ -592,7 +604,7 @@ public class Map : MonoBehaviour
         positions.InfluenceTilePosition = new Vector3(-47, 10.5f, y);
         positions.TowerPosition = new Vector3(-47f, 13, 1);
         positions.ArmyPosition = new Vector3(-43f, 13.5f, y);
-        positions.AddResource(new Vector3(-45.5f, 12.7f, y));
+        positions.AddResource(new Vector3(-45.5f, 12.7f, y), Resource.Livestock);
         positions.MarketPosition = new Vector3(-45.5f, 11, y);
 
         Vector3[] vertices = new Vector3[14];
@@ -634,6 +646,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-48f, 17f, y);
+        positions.TowerPosition = new Vector3(-46f, 20, 1);
+        positions.ArmyPosition = new Vector3(-46f, 19f, y);
+        positions.AddCity(new Vector3(-46f, 17f, y));
+        positions.TemplePosition = new Vector3(-46.5f, 15, y);
 
         Vector3[] vertices = new Vector3[10];
         vertices[0] = new Vector3(44.7f, y, 15.2f);
@@ -656,6 +674,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Iudea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateAravia()
@@ -669,6 +688,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-56.5f, 10.5f, y);
+        positions.TowerPosition = new Vector3(-48.5f, 13, 1);
+        positions.ArmyPosition = new Vector3(-50f, 13f, y);
+        positions.AddResource(new Vector3(-54.5f, 11.5f, y), Resource.Slaves);
+        positions.MarketPosition = new Vector3(-52.5f, 14, y);
 
         Vector3[] vertices = new Vector3[9];
         vertices[0] = new Vector3(47.2f, y, 13.8f);
@@ -690,6 +715,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Aravia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateBabilon()
@@ -704,6 +730,15 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-57f, 17.7f, y);
+        positions.TowerPosition = new Vector3(-53f, 20, 1);
+        positions.ArmyPosition = new Vector3(-48.6f, 19.5f, y);
+        positions.AddResource(new Vector3(-54f, 17f, y), Resource.Incence);
+        positions.AddResource(new Vector3(-51f, 18.5f, y), Resource.Corn);
+        positions.MarketPosition = new Vector3(-52.5f, 16, y);
+        positions.AddCity(new Vector3(-56f, 16.5f, y));
+        positions.TemplePosition = new Vector3(-51f, 16.5f, y);
 
         Vector3[] vertices = new Vector3[18];
         vertices[0] = new Vector3(57.7f, y, 18.9f);
@@ -734,6 +769,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Babylon";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateSiria()
@@ -747,6 +783,14 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-46.2f, 28.7f, y);
+        positions.TowerPosition = new Vector3(-47f, 23f, 1);
+        positions.ArmyPosition = new Vector3(-48.6f, 24.5f, y);
+        positions.AddResource(new Vector3(-48.5f, 25, y), Resource.Wine);
+        positions.MarketPosition = new Vector3(-46.5f, 24, y);
+        positions.AddCity(new Vector3(-44.5f, 24.5f, y));
+        positions.TemplePosition = new Vector3(-47f, 26.5f, y);
 
         Vector3[] vertices = new Vector3[22];
         vertices[0] = new Vector3(51.7f, y, 23.5f);
@@ -780,7 +824,8 @@ public class Map : MonoBehaviour
         tile.layer = LayerMask.NameToLayer("MapTile");
         tile.AddComponent<MeshCollider>();
 
-        tile.name = "Siria";
+        tile.name = "Siria"; 
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateMesopotamia()
@@ -794,6 +839,13 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-52.2f, 28.7f, y);
+        positions.TowerPosition = new Vector3(-54f, 33f, 1);
+        positions.ArmyPosition = new Vector3(-50f, 31f, y);
+        positions.AddResource(new Vector3(-55.5f, 26, y), Resource.Livestock);
+        positions.AddResource(new Vector3(-55.5f, 30, y), Resource.Slaves);
+        positions.MarketPosition = new Vector3(-53f, 24, y);
 
         Vector3[] vertices = new Vector3[14];
         vertices[0] = new Vector3(56.7f, y, 34.8f);
@@ -820,6 +872,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Mesopotamia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateSkifia()
@@ -833,6 +886,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-52.2f, 40.7f, y);
+        positions.TowerPosition = new Vector3(-51f, 35f, 1);
+        positions.ArmyPosition = new Vector3(-48f, 34f, y);
+        positions.AddResource(new Vector3(-51f, 37.5f, y), Resource.Gold);
+        positions.MarketPosition = new Vector3(-53f, 36f, y);
 
         Vector3[] vertices = new Vector3[45];
         vertices[0] = new Vector3(53.4f, y, 34.5f);
@@ -890,6 +949,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Skifia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateKilikia()
@@ -903,6 +963,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-42.2f, 28.7f, y);
+        positions.TowerPosition = new Vector3(-42.5f, 27f, 1);
+        positions.ArmyPosition = new Vector3(-38.5f, 26f, y);
+        positions.AddResource(new Vector3(-41f, 26.5f, y), Resource.Fish);
+        positions.MarketPosition = new Vector3(-38.5f, 24f, y);
 
         Vector3[] vertices = new Vector3[21];
         vertices[0] = new Vector3(42.2f, y, 29.5f);
@@ -936,11 +1002,11 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Kilikia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateVifinia()
     {
-
         GameObject tile = new GameObject();
         tile.transform.parent = transform;
         tile.transform.position = new Vector3(28.76f, -21.15f, 0.6f);
@@ -950,6 +1016,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-41f, 32.5f, y);
+        positions.TowerPosition = new Vector3(-37.5f, 32.3f, 1);
+        positions.ArmyPosition = new Vector3(-38f, 29f, y);
+        positions.AddResource(new Vector3(-39f, 30.7f, y), Resource.Fish);
+        positions.MarketPosition = new Vector3(-35.5f, 30f, y);
 
         Vector3[] vertices = new Vector3[26];
         vertices[0] = new Vector3(41.6f, y, 32f);
@@ -988,6 +1060,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Vifinia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateAsia()
@@ -1001,6 +1074,14 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-36f, 27f, y);
+        positions.TowerPosition = new Vector3(-33.5f, 23f, 1);
+        positions.ArmyPosition = new Vector3(-32f, 27f, y);
+        positions.AddResource(new Vector3(-34f, 25f, y), Resource.Oil);
+        positions.MarketPosition = new Vector3(-35.5f, 23f, y);
+        positions.AddCity(new Vector3(-30f, 25f, y));
+        positions.TemplePosition = new Vector3(-31.5f, 23.5f, y);
 
         Vector3[] vertices = new Vector3[59];
         vertices[0] = new Vector3(37.7f, y, 25.3f);
@@ -1072,6 +1153,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Asia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateCyprus()
@@ -1085,6 +1167,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-41.5f, 21f, y);
+        positions.TowerPosition = new Vector3(-40f, 20f, 1);
+        positions.ArmyPosition = new Vector3(-40f, 20f, y);
+        positions.AddResource(new Vector3(-40f, 20f, y), Resource.Iron);
+        positions.MarketPosition= new Vector3(-41f, 20.5f, y);
 
         Vector3[] vertices = new Vector3[17];
         vertices[0] = new Vector3(39.2f, y, 19.2f);
@@ -1114,6 +1202,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Cyprus";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateFrakia()
@@ -1127,6 +1216,14 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-28f, 35f, y);
+        positions.TowerPosition = new Vector3(-28.5f, 33f, 1);
+        positions.ArmyPosition = new Vector3(-25f, 33f, y);
+        positions.AddResource(new Vector3(-27f, 31f, y), Resource.Fish);
+        positions.MarketPosition = new Vector3(-25f, 31f, y);
+        positions.AddCity(new Vector3(-30f, 30f, y));
+        positions.TemplePosition = new Vector3(-28.5f, 28.5f, y);
 
         Vector3[] vertices = new Vector3[28];
         vertices[0] = new Vector3(28f, y, 26.9f);
@@ -1167,6 +1264,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Frakia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateMakedonia()
@@ -1179,7 +1277,14 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshFilter>().mesh = mesh;
         tile.AddComponent<MeshRenderer>().material = material;
 
-        int y = 0;
+        int y = 0; 
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-22f, 26f, y);
+        positions.TowerPosition = new Vector3(-25f, 28f, 1);
+        positions.ArmyPosition = new Vector3(-21f, 30f, y);
+        positions.AddResource(new Vector3(-23f, 28f, y), Resource.Corn);
+        positions.AddResource(new Vector3(-20f, 27f, y), Resource.Wine);
+        positions.MarketPosition = new Vector3(-20f, 25.5f, y);
 
         Vector3[] vertices = new Vector3[37];
         vertices[0] = new Vector3(25.7f, y, 26.2f);
@@ -1229,6 +1334,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Makedonia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateRhodos()
@@ -1242,6 +1348,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-32.5f, 20f, y);
+        positions.TowerPosition = new Vector3(-33f, 20f, 1);
+        positions.ArmyPosition = new Vector3(-33f, 20f, y);
+        positions.AddCity(new Vector3(-33f, 20f, y));
+        positions.TemplePosition = new Vector3(-34f, 19.5f, y);
 
         Vector3[] vertices = new Vector3[5];
         vertices[0] = new Vector3(32.8f, y, 19f);
@@ -1259,6 +1371,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Rhodos";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateDakia()
@@ -1272,6 +1385,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-28f, 40f, y);
+        positions.TowerPosition = new Vector3(-25f, 38f, 1);
+        positions.ArmyPosition = new Vector3(-18f, 34f, y);
+        positions.AddResource(new Vector3(-22f, 36f, y), Resource.Corn);
+        positions.MarketPosition = new Vector3(-20f, 37f, y);
 
         Vector3[] vertices = new Vector3[68];
         vertices[0] = new Vector3(34.6f, y, 38.4f);
@@ -1352,6 +1471,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Dakia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateNorik()
@@ -1365,6 +1485,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-16f, 40f, y);
+        positions.TowerPosition = new Vector3(-10f, 38f, 1);
+        positions.ArmyPosition = new Vector3(-6f, 38f, y);
+        positions.AddResource(new Vector3(-13f, 39f, y), Resource.Jems);
+        positions.MarketPosition = new Vector3(-15f, 37f, y);
 
         Vector3[] vertices = new Vector3[17];
         vertices[0] = new Vector3(2.1f, y, 42.5f);
@@ -1394,6 +1520,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Norik";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateLombardia()
@@ -1406,7 +1533,14 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshFilter>().mesh = mesh;
         tile.AddComponent<MeshRenderer>().material = material;
 
-        int y = 0;
+        int y = 0; 
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-3f, 31f, y);
+        positions.TowerPosition = new Vector3(-2f, 36f, 1);
+        positions.ArmyPosition = new Vector3(-4f, 35f, y);
+        positions.AddResource(new Vector3(-7f, 34f, y), Resource.Corn);
+        positions.AddResource(new Vector3(-3.5f, 33f, y), Resource.Livestock);
+        positions.MarketPosition = new Vector3(-6f, 32f, y);
 
         Vector3[] vertices = new Vector3[38];
         vertices[0] = new Vector3(0, y, 42.5f);
@@ -1457,6 +1591,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Lombardia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateDalmacia()
@@ -1470,6 +1605,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-17f, 29f, y);
+        positions.TowerPosition = new Vector3(-18f, 31f, 1);
+        positions.ArmyPosition = new Vector3(-13.5f, 33f, y);
+        positions.AddResource(new Vector3(-15f, 31f, y), Resource.Fish);
+        positions.MarketPosition = new Vector3(-13f, 31f, y);
 
         Vector3[] vertices = new Vector3[30];
         vertices[0] = new Vector3(11.9f, y, 30.2f);
@@ -1512,6 +1653,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Dalmacia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateItalia()
@@ -1525,6 +1667,15 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-6f, 28f, y);
+        positions.TowerPosition = new Vector3(-8f, 31f, 1);
+        positions.ArmyPosition = new Vector3(-9f, 28.5f, y);
+        positions.AddResource(new Vector3(-7f, 29f, y), Resource.Iron);
+        positions.AddResource(new Vector3(-10f, 26.5f, y), Resource.Wine);
+        positions.MarketPosition = new Vector3(-5.5f, 29.5f, y);
+        positions.AddCity(new Vector3(-7.5f, 27f, y));
+        positions.TemplePosition = new Vector3(-10.5f, 25f, y);
 
         Vector3[] vertices = new Vector3[25];
         vertices[0] = new Vector3(4f, y, 29.8f);
@@ -1562,6 +1713,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Italia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateApulea()
@@ -1575,6 +1727,13 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-13.5f, 26f, y);
+        positions.TowerPosition = new Vector3(-16f, 25f, 1);
+        positions.ArmyPosition = new Vector3(-14f, 21f, y);
+        positions.AddResource(new Vector3(-13f, 24.5f, y), Resource.Fruits);
+        positions.AddResource(new Vector3(-15f, 23f, y), Resource.Oil);
+        positions.MarketPosition = new Vector3(-13.5f, 23f, y);
 
         Vector3[] vertices = new Vector3[37];
         vertices[0] = new Vector3(11.5f, y, 25.7f);
@@ -1624,6 +1783,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Apulea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateSicilia()
@@ -1637,6 +1797,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-13f, 17f, y);
+        positions.TowerPosition = new Vector3(-10.5f, 19.5f, 1);
+        positions.ArmyPosition = new Vector3(-11f, 18.5f, y);
+        positions.AddCity(new Vector3(-13f, 18f, y));
+        positions.TemplePosition = new Vector3(-13f, 19.5f, y);
 
         Vector3[] vertices = new Vector3[25];
         vertices[0] = new Vector3(13.6f, y, 19.8f);
@@ -1674,6 +1840,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Sicilia";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateGreece()
@@ -1687,6 +1854,15 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-23.3f, 25f, y);
+        positions.TowerPosition = new Vector3(-23.5f, 21.5f, 1);
+        positions.ArmyPosition = new Vector3(-21.5f, 21.5f, y);
+        positions.AddResource(new Vector3(-23f, 23.5f, y), Resource.Oil);
+        positions.MarketPosition = new Vector3(-24.5f, 23.5f, y);
+        positions.AddCity(new Vector3(-23.5f, 19.5f, y));
+        positions.AddCity(new Vector3(-25f, 21.5f, y));
+        positions.TemplePosition = new Vector3(-21.5f, 23.5f, y);
 
         Vector3[] vertices = new Vector3[60];
         vertices[0] = new Vector3(23f, y, 25.7f);
@@ -1759,6 +1935,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Greece";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateSardinia()
@@ -1772,6 +1949,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-4f, 24.5f, y);
+        positions.TowerPosition = new Vector3(-3.5f, 25f, 1);
+        positions.ArmyPosition = new Vector3(-3.5f, 27.5f, y);
+        positions.AddResource(new Vector3(-3.7f, 23f, y), Resource.Iron);
+        positions.MarketPosition = new Vector3(-3.7f, 21.5f, y);
 
         Vector3[] vertices = new Vector3[37];
         vertices[0] = new Vector3(3.1f, y, 27.5f);
@@ -1821,6 +2004,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Sardinia and Korsika";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateCrit()
@@ -1834,6 +2018,12 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.InfluenceTilePosition = new Vector3(-29f, 17.5f, y);
+        positions.TowerPosition = new Vector3(-28f, 18f, 1);
+        positions.ArmyPosition = new Vector3(-28f, 17.5f, y);
+        positions.AddCity(new Vector3(-30f, 17.5f, y));
+        positions.TemplePosition = new Vector3(-30.7f, 18f, y);
 
         Vector3[] vertices = new Vector3[25];
         vertices[0] = new Vector3(31.5f, y, 17.8f);
@@ -1871,6 +2061,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Crit";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateWestMeditarianSea()
@@ -1884,6 +2075,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-5f, 19f, y);
 
         Vector3[] vertices = new Vector3[33];
         vertices[0] = new Vector3(0f, y, 21.5f);
@@ -1929,6 +2122,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "West Meditatian sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateTirreneyenSea()
@@ -1941,7 +2135,9 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshFilter>().mesh = mesh;
         tile.AddComponent<MeshRenderer>().material = material;
 
-        int y = 0;
+        int y = 0; 
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-10f, 23f, y);
 
         Vector3[] vertices = new Vector3[74];
         vertices[0] = new Vector3(0f, y, 28f);
@@ -2028,6 +2224,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Tirrereyen sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateCentralMeditarianSea()
@@ -2041,6 +2238,9 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-20f, 13f, y);
+
 
         Vector3[] vertices = new Vector3[49];
         vertices[0] = new Vector3(8.3f, y, 13.4f);
@@ -2102,6 +2302,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Central Meditarian sea";
+        Regions.Add(new Region(tile, positions));
     }
     
     private void GenerateIonicSea()
@@ -2115,6 +2316,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-19f, 21f, y);
 
         Vector3[] vertices = new Vector3[59];
         vertices[0] = new Vector3(13.7f, y, 19.7f);
@@ -2186,6 +2389,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Ionic Sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateEastMeditarianSea()
@@ -2199,6 +2403,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-35f, 16f, y);
 
         Vector3[] vertices = new Vector3[36];
         vertices[0] = new Vector3(30.5f, y, 11.4f);
@@ -2247,6 +2453,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "East Meditarian sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateRedSea()
@@ -2260,6 +2467,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-52f, 8f, y);
 
         Vector3[] vertices = new Vector3[18];
         vertices[0] = new Vector3(57.6f, y, 0f);
@@ -2290,6 +2499,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Red sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateCyprysSea()
@@ -2303,6 +2513,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-38f, 21f, y);
 
         Vector3[] vertices = new Vector3[51];
         vertices[0] = new Vector3(33.1f, y, 17.9f);
@@ -2366,6 +2578,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Cyprys sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateAdriaticSea()
@@ -2379,6 +2592,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-14f, 28f, y);
 
         Vector3[] vertices = new Vector3[61];
         vertices[0] = new Vector3(7.8f, y, 32f);
@@ -2452,6 +2667,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Adriatic sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateAegeanSea()
@@ -2465,6 +2681,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-29f, 21f, y);
 
         Vector3[] vertices = new Vector3[112]; 
         vertices[0] = new Vector3(24.6f, y, 16.5f);
@@ -2589,6 +2807,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Aegean sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void GenerateBlackSea()
@@ -2602,6 +2821,8 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshRenderer>().material = material;
 
         int y = 0;
+        InternalPositions positions = new InternalPositions();
+        positions.FleetPosition = new Vector3(-38f, 37f, y);
 
         Vector3[] vertices = new Vector3[116];
         vertices[0] = new Vector3(31.3f, y, 28.6f);
@@ -2730,6 +2951,7 @@ public class Map : MonoBehaviour
         tile.AddComponent<MeshCollider>();
 
         tile.name = "Black sea";
+        Regions.Add(new Region(tile, positions));
     }
 
     private void Update()
