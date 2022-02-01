@@ -8,5 +8,16 @@ namespace CivilizationMapParser
 		public int NumberOfVectors;
 		public List<int> Triangles;
 		public string[] Vertices;
+
+		public RegionTile()
+		{
+			Triangles = new List<int>();
+		}
+
+		public void InitializeVertices(int numberOfVertices)
+		{
+			Vertices = new string[numberOfVertices];
+		}
 	}
+
 }

@@ -14,22 +14,23 @@ namespace CivilizationMapParser
 			WriteRegionTileInfo();
 		}
 
-		public static List<RegionTile> Regions = new List<RegionTile>();
+		static readonly List<RegionTile> Regions = new List<RegionTile>();
 
-		public static string AskForPath()
+		static string AskForPath()
 		{
-			string path;
 			Console.WriteLine("Provide path to Source file below:");
-			return path = Console.ReadLine();
+			return Console.ReadLine();
 		}
 
-		public static void ReadSourceFile(string path)
+		static void ReadSourceFile(string path)
 		{
 			string[] lines = File.ReadAllLines(path);
 			RegionTile Region = null;
 
 			for (int i = 0; i < lines.Length; i++)
 			{
+				char[] chrasToTrim = new char[] { ' ', ';', '"', '(', ')', '[', ']', '{', '}' };
+
 				if (Region == null)
 				{
 					Region = new RegionTile();
@@ -44,66 +45,46 @@ namespace CivilizationMapParser
 					Region = new RegionTile();
 				}
 
-				if (Region != null && lines[i].Contains("tile.name = "))
+				if (lines[i].Contains("tile.name = "))
 				{
 					string name = lines[i].Substring(lines[i].IndexOf('"'));
-					name = name.Trim(' ', ';', '"');
+					name = name.Trim(chrasToTrim);
 					Region.Name = name;
-
-					Console.WriteLine();
-					Console.WriteLine(Region.Name);
-					Console.WriteLine();
 				}
-				if (Region != null && lines[i].Contains("int[] tris = new int[]"))
+				if (lines[i].Contains("int[] tris = new int[]"))
 				{
-					string trianglesString = lines[i].Substring(32);
-					trianglesString = trianglesString.Trim(' ', '}', '{', ';').Replace(" ", "");
-					Console.WriteLine(trianglesString);
+					string trianglesString = lines[i].Substring(lines[i].IndexOf('{'));
+					trianglesString = trianglesString.Trim(chrasToTrim).Replace(" ", "");
 					string[] numAsStr = trianglesString.Split(',');
 
-					Region.Triangles = new List<int>();
 					for (int k = 0; k < numAsStr.Length - 1; k++)
 					{
 						int n = Convert.ToInt32(numAsStr[k]);
 						Region.Triangles.Add(n);
 					}
-
-					for (int y = 0; y < Region.Triangles.Count - 1; y++)
-					{
-						Console.Write(Region.Triangles[y] + " ");
-					}
 				}
 				if (lines[i].Contains("Vector3[] vertices = new Vector3"))
 				{
-					string numOfVString = lines[i].Substring(40);
-					int numOfVectors = Convert.ToInt32(numOfVString.Trim(' ', ']', '[', ';').Replace(" ", ""));
+					string numOfVString = lines[i].Substring(lines[i].LastIndexOf('['));
+					int numOfVectors = Convert.ToInt32(numOfVString.Trim(chrasToTrim).Replace(" ", ""));
 					Region.NumberOfVectors = numOfVectors;
-
-					Console.WriteLine(Region.NumberOfVectors);
 				}
-				if (Region != null && lines[i].Contains("vertices["))
+				if (lines[i].Contains("vertices["))
 				{
 					string vertices = lines[i].Substring(lines[i].IndexOf('('), lines[i].IndexOf(')') - lines[i].IndexOf('('));
 					int indexOfVLength = lines[i].IndexOf(']') - lines[i].IndexOf('[') - 1;
-					int indexOfVertice = Convert.ToInt32(lines[i].Substring(lines[i].IndexOf('[') + 1, indexOfVLength));
-					vertices = vertices.Trim(' ', ')', '(', ';').Replace("y", "0");
+					string pieceOfLineWithIndexOfVertice = lines[i].Substring(lines[i].IndexOf('[') + 1, indexOfVLength);
+					int indexOfVertice = Convert.ToInt32(pieceOfLineWithIndexOfVertice);
+					vertices = vertices.Trim(chrasToTrim).Replace("y", "0");
 
 					if (Region.Vertices == null)
 					{
-						Region.Vertices = new string[Region.NumberOfVectors];
+						Region.InitializeVertices(Region.NumberOfVectors);
 						Region.Vertices[indexOfVertice] = vertices;
-
-						Console.Write(indexOfVertice + ": " + Region.Vertices[indexOfVertice] + "; ");
-					}
-					else if (Region.Vertices.Where(x => x == null).Count() == 0)
-					{
-						Console.WriteLine();
 					}
 					else
 					{
 						Region.Vertices[indexOfVertice] = vertices;
-
-						Console.Write(indexOfVertice + ": " + Region.Vertices[indexOfVertice] + "; ");
 					}
 				}
 			}
