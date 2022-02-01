@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace CivilizationMapParser
 {
@@ -29,7 +27,7 @@ namespace CivilizationMapParser
 
 			for (int i = 0; i < lines.Length; i++)
 			{
-				char[] chrasToTrim = new char[] { ' ', ';', '"', '(', ')', '[', ']', '{', '}' };
+				char[] charsToTrim = new char[] { ' ', ';', '"', '(', ')', '[', ']', '{', '}' };
 
 				if (Region == null)
 				{
@@ -48,13 +46,13 @@ namespace CivilizationMapParser
 				if (lines[i].Contains("tile.name = "))
 				{
 					string name = lines[i].Substring(lines[i].IndexOf('"'));
-					name = name.Trim(chrasToTrim);
+					name = name.Trim(charsToTrim);
 					Region.Name = name;
 				}
 				if (lines[i].Contains("int[] tris = new int[]"))
 				{
 					string trianglesString = lines[i].Substring(lines[i].IndexOf('{'));
-					trianglesString = trianglesString.Trim(chrasToTrim).Replace(" ", "");
+					trianglesString = trianglesString.Trim(charsToTrim).Replace(" ", "");
 					string[] numAsStr = trianglesString.Split(',');
 
 					for (int k = 0; k < numAsStr.Length - 1; k++)
@@ -66,7 +64,7 @@ namespace CivilizationMapParser
 				if (lines[i].Contains("Vector3[] vertices = new Vector3"))
 				{
 					string numOfVString = lines[i].Substring(lines[i].LastIndexOf('['));
-					int numOfVectors = Convert.ToInt32(numOfVString.Trim(chrasToTrim).Replace(" ", ""));
+					int numOfVectors = Convert.ToInt32(numOfVString.Trim(charsToTrim).Replace(" ", ""));
 					Region.NumberOfVectors = numOfVectors;
 				}
 				if (lines[i].Contains("vertices["))
@@ -75,7 +73,7 @@ namespace CivilizationMapParser
 					int indexOfVLength = lines[i].IndexOf(']') - lines[i].IndexOf('[') - 1;
 					string pieceOfLineWithIndexOfVertice = lines[i].Substring(lines[i].IndexOf('[') + 1, indexOfVLength);
 					int indexOfVertice = Convert.ToInt32(pieceOfLineWithIndexOfVertice);
-					vertices = vertices.Trim(chrasToTrim).Replace("y", "0");
+					vertices = vertices.Trim(charsToTrim).Replace("y", "0");
 
 					if (Region.Vertices == null)
 					{
