@@ -88,7 +88,7 @@ namespace CivilizationMapParser
 			}
 		}
 
-		public static void WriteRegionTileInfo()
+		static void WriteRegionTileInfo()
 		{
 			using StreamWriter file = new("RegionsInfo.txt");
 
