@@ -24,6 +24,7 @@ namespace CivilizationMapParser
 		{
 			string[] lines = File.ReadAllLines(path);
 			RegionTile Region = null;
+			int count = 0;
 
 			for (int i = 0; i < lines.Length; i++)
 			{
@@ -43,11 +44,16 @@ namespace CivilizationMapParser
 					Region = new RegionTile();
 				}
 
+
+				//Region initial info: name, borders, squares
 				if (lines[i].Contains("tile.name = "))
 				{
 					string name = lines[i].Substring(lines[i].IndexOf('"'));
 					name = name.Trim(charsToTrim);
 					Region.Name = name;
+
+					Console.WriteLine(Region.Name);
+					Console.WriteLine();
 				}
 				if (lines[i].Contains("int[] tris = new int[]"))
 				{
@@ -85,6 +91,87 @@ namespace CivilizationMapParser
 						Region.Vertices[indexOfVertice] = vertices;
 					}
 				}
+
+				//Region additional info: positions of temple, city, market, influence token, tower, army and resourses in the region
+				if (lines[i].Contains("positions.AddCity(new Vector3"))
+				{
+					if (Region.CityPosition == null)
+					{
+						Region.InitializeCityPosition();
+						count = 0;
+
+					}
+					if (Region.CityPosition != null)
+					{
+						string cityPosition = lines[i].Substring(lines[i].LastIndexOf('('));
+						cityPosition = cityPosition.Trim(charsToTrim).Replace(" ", "");
+						Region.CityPosition[count] = cityPosition.Replace("y", "0");
+						count += 1;
+					}
+
+					Console.WriteLine(Region.CityPosition[0]);
+					Console.WriteLine(Region.CityPosition[1]);
+				}
+				if (lines[i].Contains("positions.AddResource(new Vector3"))
+				{
+					if (Region.ResoursePositionAndType == null)
+					{
+						Region.InitializeResoursePositionAndType();
+						count = 0;
+					}
+					if (Region.ResoursePositionAndType != null)
+					{
+						string resoursePosition = lines[i].Substring(lines[i].LastIndexOf('('), lines[i].IndexOf(')') - lines[i].LastIndexOf('('));
+						resoursePosition = resoursePosition.Trim(charsToTrim).Replace(" ", "");
+						string resourseType = lines[i].Substring(lines[i].LastIndexOf('.') + 1);
+						resourseType = resourseType.Trim(charsToTrim).Replace(" ", "");
+						Region.ResoursePositionAndType[count] = resoursePosition.Replace("y", "0") + "; " + resourseType.Replace("y", "0");
+						count += 1;
+					}
+
+					Console.WriteLine(Region.ResoursePositionAndType[0]);
+					Console.WriteLine(Region.ResoursePositionAndType[1]);
+				}
+				if (lines[i].Contains("positions.TemplePosition = new Vector3"))
+				{
+					string templePosition = lines[i].Substring(lines[i].LastIndexOf('('));
+					templePosition = templePosition.Trim(charsToTrim).Replace(" ", "");
+					Region.TemplePosition = templePosition.Replace("y", "0");
+
+					Console.WriteLine(Region.TemplePosition);
+				}
+				if (lines[i].Contains("positions.InfluenceTilePosition = new Vector3"))
+				{
+					string influenceTilePosition = lines[i].Substring(lines[i].LastIndexOf('('));
+					influenceTilePosition = influenceTilePosition.Trim(charsToTrim).Replace(" ", "");
+					Region.InfluenceTilePosition = influenceTilePosition.Replace("y", "0");
+
+					Console.WriteLine(Region.InfluenceTilePosition);
+				}
+				if (lines[i].Contains("positions.TowerPosition = new Vector3("))
+				{
+					string towerPosition = lines[i].Substring(lines[i].LastIndexOf('('));
+					towerPosition = towerPosition.Trim(charsToTrim).Replace(" ", "");
+					Region.TowerPosition = towerPosition.Replace("y", "0");
+
+					Console.WriteLine(Region.TowerPosition);
+				}
+				if (lines[i].Contains("positions.ArmyPosition = new Vector3"))
+				{
+					string armyPosition = lines[i].Substring(lines[i].LastIndexOf('('));
+					armyPosition = armyPosition.Trim(charsToTrim).Replace(" ", "");
+					Region.ArmyPosition = armyPosition.Replace("y", "0");
+
+					Console.WriteLine(Region.ArmyPosition);
+				}
+				if (lines[i].Contains("positions.MarketPosition = new Vector3"))
+				{
+					string marketPosition = lines[i].Substring(lines[i].LastIndexOf('('));
+					marketPosition = marketPosition.Trim(charsToTrim).Replace(" ", "");
+					Region.MarketPosition = marketPosition.Replace("y", "0");
+
+					Console.WriteLine(Region.MarketPosition);
+				}
 			}
 		}
 
@@ -108,8 +195,60 @@ namespace CivilizationMapParser
 					file.Write(angle.ToString() + ", ");
 				}
 				file.WriteLine();
-				file.WriteLine();
 
+				if (region.CityPosition != null)
+				{
+					if (region.CityPosition[0] != null)
+					{
+						file.Write("City Tiles: 1: " + region.CityPosition[0]);
+					}
+					if (region.CityPosition[1] != null)
+					{
+						file.Write("; 2: " + region.CityPosition[1]);
+						file.WriteLine();
+					}
+					else file.WriteLine();
+				}
+				
+				if (region.TemplePosition != null)
+				{
+					file.WriteLine("Temple Tile: " + region.TemplePosition);
+				}
+
+				if (region.MarketPosition != null)
+				{
+					file.WriteLine("Market Tile: " + region.MarketPosition);
+				}
+
+				if (region.ResoursePositionAndType != null)
+				{
+					if (region.ResoursePositionAndType[0] != null)
+					{
+						file.Write("Resourse Tiles: 1: " + region.ResoursePositionAndType[0]);
+					}
+					if (region.ResoursePositionAndType[1] != null)
+					{
+						file.Write("; 2: " + region.ResoursePositionAndType[1]);
+						file.WriteLine();
+					}
+					else file.WriteLine();
+				}
+				
+				if (region.TowerPosition != null)
+				{
+					file.WriteLine("Tower Tile: " + region.TowerPosition);
+				}
+
+				if (region.ArmyPosition != null)
+				{
+					file.WriteLine("Army Tile: " + region.ArmyPosition);
+				}
+
+				if (region.InfluenceTilePosition != null)
+				{
+					file.WriteLine("Influence Tile: " + region.InfluenceTilePosition);
+				}
+				file.WriteLine();
 			}
 		}
 	}
