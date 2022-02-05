@@ -79,7 +79,7 @@ namespace CivilizationMapParser
 			{
 				string[] numAsStr = ExtractDataFromLine(line, '{', charsToTrim).Split(',');
 
-				for (int k = 0; k < numAsStr.Length - 1; k++)
+				for (int k = 0; k < numAsStr.Length; k++)
 				{
 					int n = Convert.ToInt32(numAsStr[k]);
 					Region.Triangles.Add(n);
