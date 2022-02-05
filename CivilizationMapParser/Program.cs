@@ -36,12 +36,13 @@ namespace CivilizationMapParser
 				ReadVectors(lines[i], charsToTrim, Region);
 
 				ReadCityPosition(lines[i], charsToTrim, Region, ref count);
-				ReadResoursePosition(lines[i], charsToTrim, Region, ref count);
+				ReadResourcePosition(lines[i], charsToTrim, Region, ref count);
 				ReadTemplePosition(lines[i], charsToTrim, Region);
 				ReadInfluenceTilePosition(lines[i], charsToTrim, Region);
 				ReadTowerPosition(lines[i], charsToTrim, Region);
 				ReadArmyPosition(lines[i], charsToTrim, Region);
 				ReadMarketPosition(lines[i], charsToTrim, Region);
+				ReadFleetPosition(lines[i], charsToTrim, Region);
 			}
 		}
 
@@ -130,22 +131,22 @@ namespace CivilizationMapParser
 			}
 		}
 
-		static void ReadResoursePosition(string line, char[] charsToTrim, RegionTile Region, ref int count)
+		static void ReadResourcePosition(string line, char[] charsToTrim, RegionTile Region, ref int count)
 		{
 			if (line.Contains("positions.AddResource(new Vector3"))
 			{
-				if (Region.ResoursePositionAndType == null)
+				if (Region.ResourcePositionAndType == null)
 				{
-					Region.InitializeResoursePositionAndType();
+					Region.InitializeResourcePositionAndType();
 					count = 0;
 				}
-				if (Region.ResoursePositionAndType != null)
+				if (Region.ResourcePositionAndType != null)
 				{
-					string resoursePosition = line.Substring(line.LastIndexOf('('), line.IndexOf(')') - line.LastIndexOf('('));
-					resoursePosition = resoursePosition.Trim(charsToTrim).Replace(" ", "");
-					string resourseType = line.Substring(line.LastIndexOf('.') + 1);
-					resourseType = resourseType.Trim(charsToTrim).Replace(" ", "");
-					Region.ResoursePositionAndType[count] = resoursePosition.Replace("y", "0") + "; " + resourseType.Replace("y", "0");
+					string resourcePosition = line.Substring(line.LastIndexOf('('), line.IndexOf(')') - line.LastIndexOf('('));
+					resourcePosition = resourcePosition.Trim(charsToTrim).Replace(" ", "");
+					string resourceType = line.Substring(line.LastIndexOf('.') + 1);
+					resourceType = resourceType.Trim(charsToTrim).Replace(" ", "");
+					Region.ResourcePositionAndType[count] = resourcePosition.Replace("y", "0") + "; " + resourceType.Replace("y", "0");
 					count += 1;
 				}
 			}
@@ -191,6 +192,14 @@ namespace CivilizationMapParser
 			}
 		}
 
+		static void ReadFleetPosition(string line, char[] charsToTrim, RegionTile Region)
+		{
+			if (line.Contains("positions.FleetPosition = new Vector3"))
+			{
+				Region.FleetPosition = ExtractDataFromLine(line, '(', charsToTrim);
+			}
+		}
+
 		static string ExtractDataFromLine(string line, char character, char[] charsToTrim)
 		{
 			string position = line.Substring(line.LastIndexOf(character));
@@ -211,10 +220,11 @@ namespace CivilizationMapParser
 				WriteCityPosition(file, region);
 				WriteTemplePosition(file, region);
 				WriteMarketPosition(file, region);
-				WriteResoursePositionAndType(file, region);
+				WriteResourcePositionAndType(file, region);
 				WriteTowerPosition(file, region);
 				WriteArmyPosition(file, region);
 				WriteInfluenceTilePosition(file, region);
+				WriteFleetPosition(file, region);
 
 				file.WriteLine();
 			}
@@ -276,17 +286,17 @@ namespace CivilizationMapParser
 			}
 		}
 
-		static void WriteResoursePositionAndType(StreamWriter file, RegionTile region)
+		static void WriteResourcePositionAndType(StreamWriter file, RegionTile region)
 		{
-			if (region.ResoursePositionAndType != null)
+			if (region.ResourcePositionAndType != null)
 			{
-				if (region.ResoursePositionAndType[0] != null)
+				if (region.ResourcePositionAndType[0] != null)
 				{
-					file.Write("Resourse Tiles: 1: " + region.ResoursePositionAndType[0]);
+					file.Write("Resource Tiles: 1: " + region.ResourcePositionAndType[0]);
 				}
-				if (region.ResoursePositionAndType[1] != null)
+				if (region.ResourcePositionAndType[1] != null)
 				{
-					file.Write("; 2: " + region.ResoursePositionAndType[1]);
+					file.Write("; 2: " + region.ResourcePositionAndType[1]);
 					file.WriteLine();
 				}
 				else file.WriteLine();
@@ -314,6 +324,14 @@ namespace CivilizationMapParser
 			if (region.InfluenceTilePosition != null)
 			{
 				file.WriteLine("Influence Tile: " + region.InfluenceTilePosition);
+			}
+		}
+
+		static void WriteFleetPosition(StreamWriter file, RegionTile region)
+		{
+			if (region.FleetPosition != null)
+			{
+				file.WriteLine("Fleet Tile: " + region.FleetPosition);
 			}
 		}
 	}

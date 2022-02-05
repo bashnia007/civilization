@@ -13,8 +13,9 @@ namespace CivilizationMapParser
 		public string InfluenceTilePosition;
 		public string TowerPosition;
 		public string ArmyPosition;
-		public string[] ResoursePositionAndType;
+		public string[] ResourcePositionAndType;
 		public string MarketPosition;
+		public string FleetPosition;
 		public const int MaxAmountOfCities = 2;
 		public const int MaxAmountOfResourses = 2;
 
@@ -33,9 +34,9 @@ namespace CivilizationMapParser
 			CityPosition = new string[MaxAmountOfCities];
 		}
 
-		public void InitializeResoursePositionAndType()
+		public void InitializeResourcePositionAndType()
 		{
-			ResoursePositionAndType = new string[MaxAmountOfResourses];
+			ResourcePositionAndType = new string[MaxAmountOfResourses];
 		}
 	}
 
