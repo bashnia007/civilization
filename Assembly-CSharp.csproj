@@ -56,11 +56,20 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\InternalPositions.cs" />
-    <Compile Include="Assets\Scripts\MapManager.cs" />
-    <Compile Include="Assets\Scripts\Region.cs" />
+    <Compile Include="Assets\Scripts\Legion.cs" />
+    <Compile Include="Assets\Scripts\Tower.cs" />
+    <Compile Include="Assets\Scripts\MapCreator.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
+    <Compile Include="Assets\Scripts\Country.cs" />
+    <Compile Include="Assets\Scripts\InternalPositions.cs" />
+    <Compile Include="Assets\Scripts\Shop.cs" />
+    <Compile Include="Assets\Scripts\MapManager.cs" />
+    <Compile Include="Assets\Scripts\GameProcess.cs" />
+    <Compile Include="Assets\Scripts\Fleet.cs" />
     <Compile Include="Assets\Scripts\Enums\Resource.cs" />
+    <Compile Include="Assets\Scripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\Region.cs" />
+    <Compile Include="Assets\Scripts\Regions\RegionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -83,6 +92,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\DataFiles\RegionsInfo.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>E:\Unity\2020.3.9f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

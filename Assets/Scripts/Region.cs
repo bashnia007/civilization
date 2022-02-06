@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Regions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,12 @@ namespace Assets.Scripts
     {
         public GameObject Area { get; private set; }
         public InternalPositions InternalPositions { get; private set; }
+        public RegionInfo Info { get; private set; }
 
-        public Region(GameObject area, InternalPositions positions)
+        public Region(GameObject area, RegionInfo info)
         {
             Area = area;
-            InternalPositions = positions;
+            Info = info;
         }
     }
 }
