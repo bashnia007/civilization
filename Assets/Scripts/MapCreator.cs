@@ -9,7 +9,6 @@ namespace Assets.Scripts
 {
     public static class MapCreator
     {
-        public static List<Country> Countries = new List<Country>();
         public static List<Region> Regions = new List<Region>();
         private static readonly List<RegionInfo> RegionsInfo = new List<RegionInfo>();
 
@@ -27,40 +26,6 @@ namespace Assets.Scripts
             {
                 Debug.LogError("Data file with regions was not found");
             }            
-        }
-
-        public static void PrepareInitialSets()
-        {
-            var greece = new Country("Greece");
-            greece.Regions.Add(Regions.First(r => r.Area.name == "Greece"));
-            greece.Regions.Add(Regions.First(r => r.Area.name == "Makedonia"));
-            greece.Regions.Add(Regions.First(r => r.Area.name == "Frakia"));
-
-            var rome = new Country("Rome");
-            rome.Regions.Add(Regions.First(r => r.Area.name == "Italia"));
-            rome.Regions.Add(Regions.First(r => r.Area.name == "Apulea"));
-            rome.Regions.Add(Regions.First(r => r.Area.name == "Lombardia"));
-
-            var carthago = new Country("Carthago");
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Carthago"));
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Numidia"));
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "West Mavritania"));
-
-            var babylon = new Country("Babylon");
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Babylon"));
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Mesopotamia"));
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Aravia"));
-
-            var egypt = new Country("Egypt");
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Lower Egypt"));
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "Upper Egypt"));
-            carthago.Regions.Add(Regions.First(r => r.Area.name == "South Kirenaika"));
-
-            Countries.Add(greece);
-            Countries.Add(rome);
-            Countries.Add(carthago);
-            Countries.Add(babylon);
-            Countries.Add(egypt);
         }
 
         public static void DrawMap(Transform transform, Material material)

@@ -29,11 +29,15 @@ public class Map : MonoBehaviour
     private Camera currentCamera;
     private GameObject hoveredMapTile;
 
+    public static List<Country> Countries = new List<Country>();
+
     void Start()
     {
         MapCreator.GenerateRegions();
         MapCreator.DrawMap(transform, material);
-        MapCreator.PrepareInitialSets();
+
+        PrepareInitialSets();
+        DrawInitialSets();
     }
     /*
     private void PlaceFigures()
@@ -118,6 +122,58 @@ public class Map : MonoBehaviour
                 hoveredMapTile = null;
             }
         }
+    }
+
+    private void PrepareInitialSets()
+    {
+        var greece = new Country("Greece", blueColor);
+        greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Greece"));
+        greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Makedonia"));
+        greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Frakia"));
+
+        var rome = new Country("Rome", greenColor);
+        rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Italia"));
+        rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Apulea"));
+        rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Lombardia"));
+
+        var carthago = new Country("Carthago", redColor);
+        carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Carthago"));
+        carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Numidia"));
+        carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "West Mavritania"));
+
+        var babylon = new Country("Babylon", whiteColor);
+        babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Babylon"));
+        babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Mesopotamia"));
+        babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Aravia"));
+
+        var egypt = new Country("Egypt", yellowColor);
+        egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Lower Egypt"));
+        egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Upper Egypt"));
+        egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "South Kirenaika"));
+
+        Countries.Add(greece);
+        Countries.Add(rome);
+        Countries.Add(carthago);
+        Countries.Add(babylon);
+        Countries.Add(egypt);
+    }
+
+    private void DrawInitialSets()
+    {
+        foreach (var country in Countries)
+        {
+            foreach (var region in country.Regions)
+            {
+                DrawInfluence(region, country.Material);
+            }
+        }
+    }
+
+    private void DrawInfluence(Region region, Material material)
+    {
+        var influence = Instantiate(influenceTile, region.Area.transform.localPosition + region.Info.GetInfluence().Value, Quaternion.Euler(90, 0, 0));
+        influence.GetComponent<MeshRenderer>().material = material;
+        influence.transform.parent = region.Area.transform;
     }
 
 }
