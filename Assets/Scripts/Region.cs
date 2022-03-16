@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Regions;
+﻿using Assets.Scripts.Buildings;
+using Assets.Scripts.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace Assets.Scripts
         {
             Area = area;
             Info = info;
+        }
+        public bool HasPlace(int buildingId, Building building)
+        {
+            return true;
         }
     }
 }

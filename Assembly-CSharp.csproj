@@ -56,23 +56,25 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MapSettings.cs" />
     <Compile Include="Assets\Scripts\MapCreator.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
+    <Compile Include="Assets\Scripts\Units\Legion.cs" />
     <Compile Include="Assets\Scripts\Country.cs" />
+    <Compile Include="Assets\Scripts\Regions\RegionInfo.cs" />
+    <Compile Include="Assets\Scripts\Regions\Tile.cs" />
     <Compile Include="Assets\Scripts\InternalPositions.cs" />
+    <Compile Include="Assets\Scripts\Units\Fleet.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\GameProcess.cs" />
     <Compile Include="Assets\Scripts\Enums\ResourceType.cs" />
-    <Compile Include="Assets\Scripts\Region.cs" />
-    <Compile Include="Assets\Scripts\Regions\RegionInfo.cs" />
-    <Compile Include="Assets\Scripts\Units\Fleet.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
-    <Compile Include="Assets\Scripts\Units\Legion.cs" />
     <Compile Include="Assets\Scripts\Units\Tower.cs" />
-    <Compile Include="Assets\Scripts\MapSettings.cs" />
-    <Compile Include="Assets\Scripts\Regions\City.cs" />
-    <Compile Include="Assets\Scripts\Regions\Tile.cs" />
+    <Compile Include="Assets\Scripts\Region.cs" />
+    <Compile Include="Assets\Scripts\Buildings\Market.cs" />
+    <Compile Include="Assets\Scripts\Buildings\Building.cs" />
+    <Compile Include="Assets\Scripts\Buildings\City.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

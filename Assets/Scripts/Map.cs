@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Buildings;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Regions;
 using System;
@@ -133,6 +134,7 @@ public class Map : MonoBehaviour
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Makedonia"));
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Frakia"));
         greece.AddUnit(new Tower(), greece.CapitalRegion);
+        greece.ConstructBuilding(new City(), greece.CapitalRegion, greece.CapitalRegion.Info.GetCities()[0].Value);
 
         var rome = new Country("Rome", greenColor);
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Italia"));
@@ -173,6 +175,10 @@ public class Map : MonoBehaviour
             {
                 DrawInfluence(region, country.Material);
                 DrawTower(region, country.Material);
+                foreach (var city in country.Buildings)
+                {
+                    DrawCity(region, city);
+                }
             }
         }
     }
@@ -192,5 +198,11 @@ public class Map : MonoBehaviour
             mesh.material = material;
         }
         tower.transform.parent = region.Area.transform;
+    }
+
+    private void DrawCity(Region region, Building city)
+    {
+        var building = Instantiate(cityTile, region.Area.transform.localPosition + city.Position, Quaternion.identity);
+        building.transform.parent = region.Area.transform;
     }
 }
