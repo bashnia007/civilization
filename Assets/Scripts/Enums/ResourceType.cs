@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums
 {
-    public enum Resource
+    public enum ResourceType
     {
         Corn,
         Fish,

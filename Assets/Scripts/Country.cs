@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,6 +20,19 @@ namespace Assets.Scripts
             Name = name;
             Material = material;
             Regions = new List<Region>();
+            Units = new List<Unit>();
+        }
+        public bool AddUnit(Unit unit, Region region)
+        {
+            Type type = unit.GetType();
+            if (Units.Where(u => u.GetType() == type).Count() < MapSettings.UnitsCount[type])
+            {
+                unit.Location = region;
+                Units.Add(unit);
+                return true;
+            }
+
+            return false;
         }
     }
 }

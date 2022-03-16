@@ -126,30 +126,37 @@ public class Map : MonoBehaviour
 
     private void PrepareInitialSets()
     {
+        MapSettings map = new MapSettings(5);
+
         var greece = new Country("Greece", blueColor);
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Greece"));
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Makedonia"));
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Frakia"));
+        greece.AddUnit(new Tower(), greece.CapitalRegion);
 
         var rome = new Country("Rome", greenColor);
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Italia"));
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Apulea"));
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Lombardia"));
+        rome.AddUnit(new Tower(), rome.CapitalRegion);
 
         var carthago = new Country("Carthago", redColor);
         carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Carthago"));
         carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Numidia"));
         carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "West Mavritania"));
+        carthago.AddUnit(new Tower(), carthago.CapitalRegion);
 
         var babylon = new Country("Babylon", whiteColor);
         babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Babylon"));
         babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Mesopotamia"));
         babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Aravia"));
+        babylon.AddUnit(new Tower(), babylon.CapitalRegion);
 
         var egypt = new Country("Egypt", yellowColor);
         egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Lower Egypt"));
         egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Upper Egypt"));
         egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "South Kirenaika"));
+        egypt.AddUnit(new Tower(), egypt.CapitalRegion);
 
         Countries.Add(greece);
         Countries.Add(rome);
@@ -165,6 +172,7 @@ public class Map : MonoBehaviour
             foreach (var region in country.Regions)
             {
                 DrawInfluence(region, country.Material);
+                DrawTower(region, country.Material);
             }
         }
     }
@@ -176,4 +184,13 @@ public class Map : MonoBehaviour
         influence.transform.parent = region.Area.transform;
     }
 
+    private void DrawTower(Region region, Material material)
+    {
+        var tower = Instantiate(towerFigure, region.Area.transform.localPosition + region.Info.GetTower().Value, Quaternion.identity);
+        foreach (var mesh in tower.GetComponentsInChildren<MeshRenderer>())
+        {
+            mesh.material = material;
+        }
+        tower.transform.parent = region.Area.transform;
+    }
 }
