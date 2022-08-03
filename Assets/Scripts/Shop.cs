@@ -17,6 +17,7 @@ public class Shop : MonoBehaviour
     public static bool LegionToBuild;
     public static bool ShipToBuild;
     public static bool TowerToBuild;
+    public static bool ResourceToBuild;
 
     void Start()
     {

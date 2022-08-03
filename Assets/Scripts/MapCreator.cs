@@ -11,6 +11,7 @@ namespace Assets.Scripts
     {
         public static List<Region> Regions = new List<Region>();
         private static readonly List<RegionInfo> RegionsInfo = new List<RegionInfo>();
+        private static List<GameObject> Places = new List<GameObject>();
 
         public static void GenerateRegions()
         {
@@ -88,5 +89,6 @@ namespace Assets.Scripts
 
             Regions.Add(new Region(tile, regionInfo));
         }
+
     }
 }

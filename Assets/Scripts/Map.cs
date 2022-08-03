@@ -27,10 +27,13 @@ public class Map : MonoBehaviour
     [SerializeField] private GameObject towerFigure;
     [SerializeField] private GameObject fleetFigure;
 
+    [SerializeField] private GameObject placeTile;
+
     private Camera currentCamera;
     private GameObject hoveredMapTile;
 
     public static List<Country> Countries = new List<Country>();
+    public static List<GameObject> Places = new List<GameObject>();
     public static GameObject Highligthed;
     public static Country CurrentCountry;
 
@@ -38,7 +41,7 @@ public class Map : MonoBehaviour
     {
         MapCreator.GenerateRegions();
         MapCreator.DrawMap(transform, material);
-
+        DrawInitialPlaces();
         PrepareInitialSets();
         DrawInitialSets();
     }
@@ -102,11 +105,37 @@ public class Map : MonoBehaviour
             return;
         }
 
-        HighligtHover();
-        BuildOnMap();
+        if (Shop.AdministrationToBuild || Shop.LegionToBuild || Shop.ShipToBuild || Shop.TowerToBuild)
+        {
+            HighligtHoverRegion();
+            BuildOnMap();
+        } 
+        else if (Shop.ResourceToBuild)
+        {
+
+        }
     }
 
-    private void HighligtHover()
+    private void DrawInitialPlaces()
+    {
+        foreach (var region in MapCreator.Regions)
+        {
+            var resources = region.Info.GetResources(resourceTile);
+
+            foreach (var resource in resources)
+            {
+                var buildingObj = Instantiate(placeTile, region.Area.transform.localPosition + resource.Position, Quaternion.identity);
+                buildingObj.transform.parent = region.Area.transform;
+                buildingObj.layer = LayerMask.NameToLayer("PlaceTile");
+                buildingObj.name = resource.Id.ToString();
+
+                Places.Add(buildingObj);
+
+            }
+        }
+    }
+
+    private void HighligtHoverRegion()
     {
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
