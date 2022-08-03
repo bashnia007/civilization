@@ -50,7 +50,7 @@ namespace Assets.Scripts
                 {
                     var line = regionsInfoLines[firstLine];
                     if (line.StartsWith("Market")) regionInfo.Market = line;
-                    if (line.StartsWith("Resourse")) regionInfo.Resources = line;
+                    if (line.StartsWith("Resource")) regionInfo.Resources = line;
                     if (line.StartsWith("Tower")) regionInfo.Tower = line;
                     if (line.StartsWith("Army")) regionInfo.Army = line;
                     if (line.StartsWith("Influence")) regionInfo.Influence = line;

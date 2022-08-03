@@ -31,6 +31,8 @@ public class Map : MonoBehaviour
     private GameObject hoveredMapTile;
 
     public static List<Country> Countries = new List<Country>();
+    public static GameObject Highligthed;
+    public static Country CurrentCountry;
 
     void Start()
     {
@@ -100,19 +102,33 @@ public class Map : MonoBehaviour
             return;
         }
 
+        HighligtHover();
+        BuildOnMap();
+    }
+
+    private void HighligtHover()
+    {
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("MapTile", "Hover")))
         {
-            GameObject hited = info.transform.gameObject;
-            //GameObject mapTile = mapTiles.FirstOrDefault(m => m.name == hited.name);
+            Highligthed = info.transform.gameObject;
 
             if (hoveredMapTile == null)
             {
-                hited.layer = LayerMask.NameToLayer("Hover");
-                hoveredMapTile = hited;
+                Highligthed.layer = LayerMask.NameToLayer("Hover");
+                hoveredMapTile = Highligthed;
+            }
+            else
+            {
+                if (hoveredMapTile.name != Highligthed.name)
+                {
+                    hoveredMapTile.layer = LayerMask.NameToLayer("MapTile");
 
+                    Highligthed.layer = LayerMask.NameToLayer("Hover");
+                    hoveredMapTile = Highligthed;
+                }
             }
         }
         else
@@ -125,6 +141,31 @@ public class Map : MonoBehaviour
         }
     }
 
+    private void BuildOnMap()
+    {
+        if (!Input.GetMouseButtonDown(0) || Highligthed == null)
+        {
+            return;
+        }
+        // TODO add validation
+        if (Shop.AdministrationToBuild)
+        {
+            AddInfluenceToken();
+        }
+        if (Shop.LegionToBuild)
+        {
+            AddLegion();
+        }
+        if (Shop.ShipToBuild)
+        {
+            AddShip();
+        }
+        if (Shop.TowerToBuild)
+        {
+            AddTower();
+        }
+    }
+
     private void PrepareInitialSets()
     {
         MapSettings map = new MapSettings(5);
@@ -134,50 +175,97 @@ public class Map : MonoBehaviour
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Makedonia"));
         greece.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Frakia"));
         greece.AddUnit(new Tower(), greece.CapitalRegion);
-        greece.ConstructBuilding(new City(), greece.CapitalRegion, greece.CapitalRegion.Info.GetCities()[0].Value);
+        foreach (var city in greece.Regions[1].Info.GetResources(resourceTile))
+        {
+            greece.AddBuilding(city);
+        }
 
         var rome = new Country("Rome", greenColor);
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Italia"));
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Apulea"));
         rome.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Lombardia"));
         rome.AddUnit(new Tower(), rome.CapitalRegion);
+        foreach (var resource in rome.Regions[1].Info.GetResources(resourceTile))
+        {
+            rome.AddBuilding(resource);
+        }
 
         var carthago = new Country("Carthago", redColor);
         carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Carthago"));
         carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Numidia"));
         carthago.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "West Mavritania"));
         carthago.AddUnit(new Tower(), carthago.CapitalRegion);
+        foreach (var resource in carthago.Regions[1].Info.GetResources(resourceTile))
+        {
+            carthago.AddBuilding(resource);
+        }
 
         var babylon = new Country("Babylon", whiteColor);
         babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Babylon"));
         babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Mesopotamia"));
         babylon.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Aravia"));
         babylon.AddUnit(new Tower(), babylon.CapitalRegion);
+        foreach (var resource in babylon.Regions[1].Info.GetResources(resourceTile))
+        {
+            babylon.AddBuilding(resource);
+        }
 
         var egypt = new Country("Egypt", yellowColor);
         egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Lower Egypt"));
         egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "Upper Egypt"));
         egypt.Regions.Add(MapCreator.Regions.First(r => r.Area.name == "South Kirenaika"));
         egypt.AddUnit(new Tower(), egypt.CapitalRegion);
+        foreach (var city in egypt.Regions[1].Info.GetCities(cityTile))
+        {
+            egypt.AddBuilding(city);
+        }
+        foreach (var resource in egypt.Regions[1].Info.GetResources(resourceTile))
+        {
+            egypt.AddBuilding(resource);
+        }
 
         Countries.Add(greece);
         Countries.Add(rome);
         Countries.Add(carthago);
         Countries.Add(babylon);
         Countries.Add(egypt);
+
+        CurrentCountry = Countries[0];
+
+        AddInitialTokens();
+    }
+
+    private void AddInitialTokens()
+    {
+        foreach (var country in Countries)
+        {
+            foreach (var city in country.CapitalRegion.Info.GetCities(cityTile))
+            {
+                country.AddBuilding(city);
+            }
+
+            foreach (var resource in country.CapitalRegion.Info.GetResources(resourceTile))
+            {
+                country.AddBuilding(resource);
+            }
+        }
     }
 
     private void DrawInitialSets()
     {
         foreach (var country in Countries)
         {
+            foreach (var unit in country.Units)
+            {
+                DrawTower(unit.Location, country.Material);
+            }
             foreach (var region in country.Regions)
             {
                 DrawInfluence(region, country.Material);
-                DrawTower(region, country.Material);
-                foreach (var city in country.Buildings)
+
+                foreach (var building in country.Buildings)
                 {
-                    DrawCity(region, city);
+                    DrawBuilding(region, building);
                 }
             }
         }
@@ -200,9 +288,54 @@ public class Map : MonoBehaviour
         tower.transform.parent = region.Area.transform;
     }
 
-    private void DrawCity(Region region, Building city)
+    private void DrawLegion(Region region)
     {
-        var building = Instantiate(cityTile, region.Area.transform.localPosition + city.Position, Quaternion.identity);
-        building.transform.parent = region.Area.transform;
+        var legion = Instantiate(armyFigure, region.Area.transform.localPosition + region.Info.GetArmy().Value, Quaternion.Euler(0, -60, 0));
+        legion.transform.parent = region.Area.transform;
+    }
+
+    private void DrawFleet(Region region, Material material)
+    {
+        var fleet = Instantiate(fleetFigure, region.Area.transform.localPosition + region.Info.GetFleet().Value, Quaternion.Euler(0, 0, 45));
+        fleet.GetComponent<MeshRenderer>().material = material;
+        foreach (Transform child in fleet.transform)
+        {
+            child.GetComponent<MeshRenderer>().material = material;
+        }
+        fleet.transform.parent = region.Area.transform;
+    }
+
+    private void DrawBuilding(Region region, Building building)
+    {
+        var buildingObj = Instantiate(building.Tile, region.Area.transform.localPosition + building.Position, Quaternion.identity);
+        buildingObj.transform.parent = region.Area.transform;
+    }
+
+    public void AddInfluenceToken()
+    {
+        var region = MapCreator.Regions.First(r => r.Area.name == Map.Highligthed.name);
+        CurrentCountry.Regions.Add(region);
+        DrawInfluence(region, CurrentCountry.Material);
+    }
+
+    public void AddLegion()
+    {
+        var region = MapCreator.Regions.First(r => r.Area.name == Map.Highligthed.name);
+        CurrentCountry.AddUnit(new Legion(), region);
+        DrawLegion(region);
+    }
+
+    public void AddShip()
+    {
+        var region = MapCreator.Regions.First(r => r.Area.name == Map.Highligthed.name);
+        CurrentCountry.AddUnit(new Fleet(), region);
+        DrawFleet(region, CurrentCountry.Material);
+    }
+
+    public void AddTower()
+    {
+        var region = MapCreator.Regions.First(r => r.Area.name == Map.Highligthed.name);
+        CurrentCountry.AddUnit(new Tower(), region);
+        DrawTower(region, CurrentCountry.Material);
     }
 }

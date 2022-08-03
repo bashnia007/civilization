@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Buildings;
+using Assets.Scripts.Enums;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using UnityEngine;
@@ -80,24 +83,74 @@ namespace Assets.Scripts.Regions
             return ParseVector(Fleet);
         }
 
-        public List<Vector3?> GetCities()
+        public List<City> GetCities(GameObject cityTile)
         {
-            var result = new List<Vector3?>();
+            var result = new List<City>();
             if (Cities == null) return result;
 
-            int count = Cities.Count(x => x == ':')-1;
-            switch (count)
+            string[] substrings = Cities.Split(new[] { ':', ';' });
+
+            if (substrings.Length == 5)
             {
-                case 1:
-                    result.Add(ParseVector(Cities));
-                    break;
-                case 2:
-                    int position = Cities.LastIndexOf(':');
-                    result.Add(ParseVector(Cities.Substring(0, position-3)));
-                    result.Add(ParseVector(Cities.Substring(position)));
-                    break;
+                var city1 = ParseToken<City>(substrings[1], substrings[2]);
+                city1.Tile = cityTile;
+                result.Add(city1);
+
+                var city2 = ParseToken<City>(substrings[3], substrings[4]);
+                city2.Tile = cityTile;
+                result.Add(city2);
+            }
+            else if (substrings.Length == 3)
+            {
+                var city1 = ParseToken<City>(substrings[1], substrings[2]);
+                city1.Tile = cityTile;
+                result.Add(city1);
             }
             return result;
+        }
+
+        public List<Resource> GetResources(GameObject resourceTile)
+        {
+            var result = new List<Resource>();
+            if (Resources == null) return result;
+
+            string[] substrings = Resources.Split(new[] { ':', ';' });
+
+            if (substrings.Length == 4)
+            {
+                Resource resource = ParseToken<Resource>(substrings[1], substrings[2]);
+                resource.Tile = resourceTile;
+                resource.ResourceType = (ResourceType)Enum.Parse(typeof(ResourceType), substrings[3]);
+                result.Add(resource);
+            }
+            else if (substrings.Length == 7)
+            {
+                Resource resource1 = ParseToken<Resource>(substrings[1], substrings[2]);
+                resource1.Tile = resourceTile;
+                resource1.ResourceType = (ResourceType)Enum.Parse(typeof(ResourceType), substrings[3]);
+                result.Add(resource1);
+
+                Resource resource2 = ParseToken<Resource>(substrings[4], substrings[5]);
+                resource2.Tile = resourceTile;
+                resource2.ResourceType = (ResourceType)Enum.Parse(typeof(ResourceType), substrings[6]);
+                result.Add(resource2);
+            }
+            return result;
+        }
+
+        private T ParseToken<T>(string id, string coordsStr) where T : Building , new()
+        {
+            T building = new T();
+            building.Id = int.Parse(id);
+            string substr = coordsStr.Replace("f", "");
+            string[] coords = substr.Split(',');
+            float x = float.Parse(coords[0], CultureInfo.InvariantCulture.NumberFormat);
+            float y = float.Parse(coords[1], CultureInfo.InvariantCulture.NumberFormat);
+            float z = float.Parse(coords[2], CultureInfo.InvariantCulture.NumberFormat);
+
+            building.Position = new Vector3(x, y, z);
+
+            return building;
         }
 
         private Vector3? ParseVector(string str)

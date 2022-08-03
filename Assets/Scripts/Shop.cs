@@ -1,5 +1,7 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -7,33 +9,44 @@ public class Shop : MonoBehaviour
     #region Art stuff
 
     [SerializeField] private GameObject BuyMenu;
+    [SerializeField] private GameObject Map;
 
     #endregion
 
+    public static bool AdministrationToBuild;
+    public static bool LegionToBuild;
+    public static bool ShipToBuild;
+    public static bool TowerToBuild;
+
     void Start()
     {
-        BuyMenu.SetActive(false);
+        BuyMenu.SetActive(true);
+        AdministrationToBuild = false;
     }
 
     #region Buy Menu
     public void OnBuyAdministrationButton()
     {
         BuyMenu.SetActive(false);
+        AdministrationToBuild = true;
     }
 
     public void OnBuyLegionButton()
     {
-
+        BuyMenu.SetActive(false);
+        LegionToBuild = true;
     }
 
     public void OnBuyTriremeButton()
     {
-
+        BuyMenu.SetActive(false);
+        ShipToBuild = true;
     }
 
     public void OnBuyTowerButton()
     {
-
+        BuyMenu.SetActive(false);
+        TowerToBuild = true;
     }
 
     public void OnBuyCityButton()
@@ -90,4 +103,5 @@ public class Shop : MonoBehaviour
     {
 
     }
+
 }

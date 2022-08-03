@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Buildings;
+using Assets.Scripts.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Assets.Scripts
             Units = new List<Unit>();
             Buildings = new List<Building>();
         }
+
         public bool AddUnit(Unit unit, Region region)
         {
             Type type = unit.GetType();
@@ -35,6 +37,27 @@ namespace Assets.Scripts
                 return true;
             }
 
+            return false;
+        }
+
+        public bool AddBuilding(Building building)
+        {
+            if (building.Add())
+            {
+                Buildings.Add(building);
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddResource(Token token)
+        {
+            if (MapSettings.ResourcesAvailable > 0)
+            {
+                MapSettings.ResourcesAvailable--;
+                Buildings.Add(new Resource { Position = token.Position, Id = token.Id });
+                return true;
+            }
             return false;
         }
 

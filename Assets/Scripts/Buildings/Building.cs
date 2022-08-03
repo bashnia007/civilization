@@ -9,8 +9,11 @@ namespace Assets.Scripts.Buildings
 {
     public abstract class Building
     {
+        public int Id { get; set; }
         public virtual int Price { get; set; }
         public abstract bool Add();
         public virtual Vector3 Position { get; set; }
+
+        public GameObject Tile { get; set; }
     }
 }
