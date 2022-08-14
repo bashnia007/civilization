@@ -31,10 +31,12 @@ public class Map : MonoBehaviour
 
     private Camera currentCamera;
     private GameObject hoveredMapTile;
+    private GameObject hoveredPlaceTile;
 
     public static List<Country> Countries = new List<Country>();
     public static List<GameObject> Places = new List<GameObject>();
     public static GameObject Highligthed;
+    public static GameObject HighligthedPlace;
     public static Country CurrentCountry;
 
     void Start()
@@ -110,9 +112,9 @@ public class Map : MonoBehaviour
             HighligtHoverRegion();
             BuildOnMap();
         } 
-        else if (Shop.ResourceToBuild)
+        else if (Shop.ResourceToBuild || Shop.CityToBuild)
         {
-
+            //HighlightHoverResource();
         }
     }
 
@@ -170,6 +172,41 @@ public class Map : MonoBehaviour
         }
     }
 
+    private void HighlightHoverResource()
+    {
+        RaycastHit info;
+        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out info, 100, LayerMask.GetMask("PlaceTile", "HoverTile")))
+        {
+            HighligthedPlace = info.transform.gameObject;
+
+            if (hoveredPlaceTile == null)
+            {
+                HighligthedPlace.layer = LayerMask.NameToLayer("HoverTile");
+                hoveredPlaceTile = HighligthedPlace;
+            }
+            else
+            {
+                if (hoveredPlaceTile.name != HighligthedPlace.name)
+                {
+                    hoveredPlaceTile.layer = LayerMask.NameToLayer("PlaceTile");
+
+                    HighligthedPlace.layer = LayerMask.NameToLayer("HoverTile");
+                    hoveredPlaceTile = HighligthedPlace;
+                }
+            }
+        }
+        else
+        {
+            if (hoveredPlaceTile != null)
+            {
+                hoveredPlaceTile.layer = LayerMask.NameToLayer("PlaceTile");
+                hoveredPlaceTile = null;
+            }
+        }
+    }
+
     private void BuildOnMap()
     {
         if (!Input.GetMouseButtonDown(0) || Highligthed == null)
@@ -192,6 +229,9 @@ public class Map : MonoBehaviour
         if (Shop.TowerToBuild)
         {
             AddTower();
+        }
+        if (Shop.TempleToBuild)
+        {
         }
     }
 
@@ -363,7 +403,7 @@ public class Map : MonoBehaviour
 
     public void AddTower()
     {
-        var region = MapCreator.Regions.First(r => r.Area.name == Map.Highligthed.name);
+        var region = MapCreator.Regions.First(r => r.Area.name == Highligthed.name);
         CurrentCountry.AddUnit(new Tower(), region);
         DrawTower(region, CurrentCountry.Material);
     }

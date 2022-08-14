@@ -18,6 +18,9 @@ public class Shop : MonoBehaviour
     public static bool ShipToBuild;
     public static bool TowerToBuild;
     public static bool ResourceToBuild;
+    public static bool CityToBuild;
+    public static bool TempleToBuild;
+    public static bool MarketToBuild;
 
     void Start()
     {
@@ -52,22 +55,26 @@ public class Shop : MonoBehaviour
 
     public void OnBuyCityButton()
     {
-
+        BuyMenu.SetActive(false);
+        CityToBuild = true;
     }
 
     public void OnBuyCaravanButton()
     {
-
+        BuyMenu.SetActive(false);
+        ResourceToBuild = true;
     }
 
     public void OnBuyTempleButton()
     {
-
+        BuyMenu.SetActive(false);
+        TempleToBuild = true;
     }
 
     public void OnBuyMarketButton()
     {
-
+        BuyMenu.SetActive(false);
+        MarketToBuild = true;
     }
 
     public void OnBuyHeroButton()
