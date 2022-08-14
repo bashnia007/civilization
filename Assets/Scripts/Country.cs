@@ -50,7 +50,12 @@ namespace Assets.Scripts
             return false;
         }
 
-        public bool AddResource(Token token)
+        public List<Resource> GatherResources()
+        {
+            return Buildings.Where(b => b.GetType() == typeof(Resource)).Cast<Resource>().ToList();
+        }
+
+        /*public bool AddResource(Token token)
         {
             if (MapSettings.ResourcesAvailable > 0)
             {
@@ -59,9 +64,9 @@ namespace Assets.Scripts
                 return true;
             }
             return false;
-        }
+        }*/
 
-        public bool ConstructBuilding(Building building, Region region, Vector3 position)
+        /*public bool ConstructBuilding(Building building, Region region, Vector3 position)
         {
             if (building.Add())
             {
@@ -70,6 +75,6 @@ namespace Assets.Scripts
                 return true;
             }
             return false;
-        }
+        }*/
     }
 }

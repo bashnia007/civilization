@@ -4652,8 +4652,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+      - m_Target: {fileID: 283687740}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
         m_MethodName: OnBuyMarketButton
         m_Mode: 1
         m_Arguments:
@@ -6256,8 +6256,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+      - m_Target: {fileID: 283687740}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
         m_MethodName: OnBuyTempleButton
         m_Mode: 1
         m_Arguments:

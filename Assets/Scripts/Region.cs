@@ -13,6 +13,8 @@ namespace Assets.Scripts
     {
         public GameObject Area { get; private set; }
         public RegionInfo Info { get; private set; }
+        public bool HasTemple { get; set; }
+        public bool HasMarket { get; set; }
 
         public Region(GameObject area, RegionInfo info)
         {

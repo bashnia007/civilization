@@ -107,14 +107,15 @@ public class Map : MonoBehaviour
             return;
         }
 
-        if (Shop.AdministrationToBuild || Shop.LegionToBuild || Shop.ShipToBuild || Shop.TowerToBuild)
+        if (Shop.AdministrationToBuild || Shop.LegionToBuild || Shop.ShipToBuild || Shop.TowerToBuild || Shop.MarketToBuild || Shop.TempleToBuild)
         {
             HighligtHoverRegion();
             BuildOnMap();
         } 
         else if (Shop.ResourceToBuild || Shop.CityToBuild)
         {
-            //HighlightHoverResource();
+            HighlightHoverResource();
+            BuildOnMap();
         }
     }
 
@@ -123,6 +124,7 @@ public class Map : MonoBehaviour
         foreach (var region in MapCreator.Regions)
         {
             var resources = region.Info.GetResources(resourceTile);
+            var cities = region.Info.GetCities(resourceTile);
 
             foreach (var resource in resources)
             {
@@ -130,9 +132,16 @@ public class Map : MonoBehaviour
                 buildingObj.transform.parent = region.Area.transform;
                 buildingObj.layer = LayerMask.NameToLayer("PlaceTile");
                 buildingObj.name = resource.Id.ToString();
-
                 Places.Add(buildingObj);
+            }
 
+            foreach (var city in cities)
+            {
+                var buildingObj = Instantiate(placeTile, region.Area.transform.localPosition + city.Position, Quaternion.identity);
+                buildingObj.transform.parent = region.Area.transform;
+                buildingObj.layer = LayerMask.NameToLayer("PlaceTile");
+                buildingObj.name = city.Id.ToString();
+                Places.Add(buildingObj);
             }
         }
     }
@@ -209,7 +218,7 @@ public class Map : MonoBehaviour
 
     private void BuildOnMap()
     {
-        if (!Input.GetMouseButtonDown(0) || Highligthed == null)
+        if (!Input.GetMouseButtonDown(0) || (Highligthed == null && HighligthedPlace == null))
         {
             return;
         }
@@ -230,8 +239,21 @@ public class Map : MonoBehaviour
         {
             AddTower();
         }
+        if (Shop.ResourceToBuild)
+        {
+            AddResource();
+        }
+        if (Shop.CityToBuild)
+        {
+            AddCity();
+        }
+        if (Shop.MarketToBuild)
+        {
+            AddMarket();
+        }
         if (Shop.TempleToBuild)
         {
+            AddTemple();
         }
     }
 
@@ -347,6 +369,18 @@ public class Map : MonoBehaviour
         influence.transform.parent = region.Area.transform;
     }
 
+    private void DrawMarket(Region region)
+    {
+        var market = Instantiate(marketTile, region.Area.transform.localPosition + region.Info.GetMarket().Value, Quaternion.identity);
+        market.transform.parent = region.Area.transform;
+    }
+
+    private void DrawTemple(Region region)
+    {
+        var temple = Instantiate(templeTile, region.Area.transform.localPosition + region.Info.GetTemple().Value, Quaternion.identity);
+        temple.transform.parent = region.Area.transform;
+    }
+
     private void DrawTower(Region region, Material material)
     {
         var tower = Instantiate(towerFigure, region.Area.transform.localPosition + region.Info.GetTower().Value, Quaternion.identity);
@@ -380,11 +414,45 @@ public class Map : MonoBehaviour
         buildingObj.transform.parent = region.Area.transform;
     }
 
+    private void AddResource()
+    {
+        var regionGo = HighligthedPlace.transform.parent.gameObject;
+        var region = MapCreator.Regions.First(r => r.Area.name == regionGo.name);
+        var resources = region.Info.GetResources(resourceTile);
+        var building = resources.First(r => r.Id.ToString() == HighligthedPlace.name);
+        CurrentCountry.AddBuilding(building);
+        DrawBuilding(region, building);
+    }
+
+    private void AddCity()
+    {
+        var regionGo = HighligthedPlace.transform.parent.gameObject;
+        var region = MapCreator.Regions.First(r => r.Area.name == regionGo.name);
+        var cities = region.Info.GetCities(cityTile);
+        var building = cities.First(r => r.Id.ToString() == HighligthedPlace.name);
+        CurrentCountry.AddBuilding(building);
+        DrawBuilding(region, building);
+    }
+
     public void AddInfluenceToken()
     {
         var region = MapCreator.Regions.First(r => r.Area.name == Map.Highligthed.name);
         CurrentCountry.Regions.Add(region);
         DrawInfluence(region, CurrentCountry.Material);
+    }
+
+    public void AddMarket()
+    {
+        var region = CurrentCountry.Regions.First(r => r.Area.name == Highligthed.name);
+        region.HasMarket = true;
+        DrawMarket(region);
+    }
+
+    public void AddTemple()
+    {
+        var region = CurrentCountry.Regions.First(r => r.Area.name == Highligthed.name);
+        region.HasTemple = true;
+        DrawTemple(region);
     }
 
     public void AddLegion()
