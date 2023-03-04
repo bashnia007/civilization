@@ -17,15 +17,17 @@ namespace Assets.Scripts
         public List<Region> Regions { get; set; }
         public List<Unit> Units { get; set; }
         public List<Building> Buildings { get; set; }
+        public List<Resource> Resources { get; set; }
+		public List<Resource> OccupiedResources { get; set; }
 
-        public Country(string name, Material material)
+		public Country(string name, Material material)
         {
             Name = name;
             Material = material;
             Regions = new List<Region>();
             Units = new List<Unit>();
             Buildings = new List<Building>();
-        }
+		}
 
         public bool AddUnit(Unit unit, Region region)
         {
@@ -54,6 +56,12 @@ namespace Assets.Scripts
         {
             return Buildings.Where(b => b.GetType() == typeof(Resource)).Cast<Resource>().ToList();
         }
+
+        public int GatherTaxes()
+        {
+            return Buildings.Where(b => b.GetType() == typeof(City)).Count();
+        }
+
 
         /*public bool AddResource(Token token)
         {

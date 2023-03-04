@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Buildings;
+using Assets.Scripts.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,22 @@ namespace Assets.Scripts
     public class Player
     {
         public Country Country { get; set; }
-        public List<ResourceType> AvailableResources { get; private set; }
+        public List<Resource> AvailableResources { get; private set; }
         public int MoneyAmount { get; private set; }
 
-        public void AddResourceCard(ResourceType resourceType)
+        public void AddResource(Resource resourceType)
         {
             this.AvailableResources.Add(resourceType);
         }
 
-        public void AddMoney(int amount)
+        public void GetResources()
         {
-            MoneyAmount += amount;
+            AvailableResources = Country.GatherResources();
+        }
+
+        public void GetTaxes()
+        {
+            MoneyAmount = Country.GatherTaxes();
         }
     }
 }

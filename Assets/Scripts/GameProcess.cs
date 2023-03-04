@@ -11,7 +11,19 @@ public class GameProcess : MonoBehaviour
     public List<Country> Countries = new List<Country>();
 
     public List<Player> Players = new List<Player>();
-    void Start()
+    
+    public GameProcess(List<Country> countries)
+    {
+        Countries = countries;
+        for (int i = 0; i < 5; i++)
+        {
+            var player = new Player();
+            player.Country = countries[i];
+            Players.Add(player);
+        }
+    }
+    
+    public void Start()
     {
         GenerateMap();
 
@@ -25,13 +37,14 @@ public class GameProcess : MonoBehaviour
 
     private void StartGame()
     {
-    }
+        Processing();
+	}
 
 	private void Processing()
 	{
 		while (!IsAnyoneWin())
         {
-            GatheringPhase();
+            ResourcesPhase();
 			TradingPhase();
             BuildingPhase();
             MovingPhase();
@@ -43,12 +56,13 @@ public class GameProcess : MonoBehaviour
         return false;
     }
 
-	private void GatheringPhase()
+	private void ResourcesPhase()
 	{
 		foreach (var player in Players)
         {
-
-        }
+            player.GetResources();
+            player.GetTaxes();
+		}
 	}
 
     private void TradingPhase()

@@ -46,7 +46,11 @@ public class Map : MonoBehaviour
         DrawInitialPlaces();
         PrepareInitialSets();
         DrawInitialSets();
-    }
+
+		GameProcess process= new GameProcess(Countries);
+        process.Start();
+
+	}
     /*
     private void PlaceFigures()
     {
