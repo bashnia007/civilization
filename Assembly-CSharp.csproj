@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Units\Legion.cs" />
     <Compile Include="Assets\Scripts\InternalPositions.cs" />
+    <Compile Include="Assets\Scripts\Trading.cs" />
     <Compile Include="Assets\Scripts\Units\Fleet.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Buildings\Building.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="Assets\Scripts\Enums\ResourceType.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Units\Tower.cs" />
-    <Compile Include="Assets\Scripts\Trading.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

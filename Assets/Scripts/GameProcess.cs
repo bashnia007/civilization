@@ -11,10 +11,17 @@ public class GameProcess : MonoBehaviour
     public List<Country> Countries = new List<Country>();
 
     public List<Player> Players = new List<Player>();
-    
-    public GameProcess(List<Country> countries)
+    private GameObject tradingCanvas;
+    private GameObject handPrefab;
+	private GameObject cardPrefab;
+
+	public GameProcess(List<Country> countries, GameObject tradingCanvas, GameObject cardPrefab, GameObject handPrefab)
     {
         Countries = countries;
+        this.tradingCanvas = tradingCanvas;
+        this.handPrefab = handPrefab;
+        this.cardPrefab = cardPrefab;
+
         for (int i = 0; i < 5; i++)
         {
             var player = new Player();
@@ -23,26 +30,26 @@ public class GameProcess : MonoBehaviour
         }
     }
     
-    public void Start()
-    {
-        GenerateMap();
-
-        StartGame();
-    }
+    //public void Start()
+    //{
+    //    GenerateMap();
+    //
+    //    StartGame();
+    //}
 
 
     private void GenerateMap()
     {
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         Processing();
 	}
 
 	private void Processing()
 	{
-		while (!IsAnyoneWin())
+		//while (!IsAnyoneWin())
         {
             ResourcesPhase();
 			TradingPhase();
@@ -67,8 +74,10 @@ public class GameProcess : MonoBehaviour
 
     private void TradingPhase()
     {
+        var trading = new Trading(tradingCanvas, cardPrefab, handPrefab);
+        trading.TradingPhase(Players);
 
-    }
+	}
 
     private void BuildingPhase()
     {

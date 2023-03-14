@@ -29,7 +29,11 @@ public class Map : MonoBehaviour
 
     [SerializeField] private GameObject placeTile;
 
-    private Camera currentCamera;
+	[SerializeField] private GameObject tradingCanvas;
+	[SerializeField] private GameObject handPrefab;
+	[SerializeField] private GameObject cardPrefab;
+
+	private Camera currentCamera;
     private GameObject hoveredMapTile;
     private GameObject hoveredPlaceTile;
 
@@ -45,10 +49,10 @@ public class Map : MonoBehaviour
         MapCreator.DrawMap(transform, material);
         DrawInitialPlaces();
         PrepareInitialSets();
-        DrawInitialSets();
+        //DrawInitialSets();
 
-		GameProcess process= new GameProcess(Countries);
-        process.Start();
+		GameProcess process= new GameProcess(Countries, tradingCanvas, cardPrefab, handPrefab);
+        process.StartGame();
 
 	}
     /*
