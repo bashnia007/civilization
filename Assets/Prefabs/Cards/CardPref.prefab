@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7573004323164778214}
   - component: {fileID: 7573004323164778212}
   - component: {fileID: 7573004323164778215}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: CardPref
   m_TagString: Untagged
   m_Icon: {fileID: 0}

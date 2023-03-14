@@ -30,14 +30,6 @@ public class GameProcess : MonoBehaviour
         }
     }
     
-    //public void Start()
-    //{
-    //    GenerateMap();
-    //
-    //    StartGame();
-    //}
-
-
     private void GenerateMap()
     {
     }
@@ -74,7 +66,7 @@ public class GameProcess : MonoBehaviour
 
     private void TradingPhase()
     {
-        var trading = new Trading(tradingCanvas, cardPrefab, handPrefab);
+        var trading = tradingCanvas.GetComponent<Trading>();
         trading.TradingPhase(Players);
 
 	}

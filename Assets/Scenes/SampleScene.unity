@@ -2783,6 +2783,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05c443cf92ee9f46810cf59e68e8473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 7573004323164778209, guid: 05f8a5874d73b134f97655716dffaf96, type: 3}
+  handPrefab: {fileID: 4752221895076455186, guid: 3bd64cd537e24644a9bc97f948c60606, type: 3}
+  cardsForTradingSelectorPrefab: {fileID: 7634251370160579149, guid: 5d2aae75eecdb584f9ac5eb01238f9d2, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
