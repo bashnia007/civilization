@@ -30,7 +30,7 @@ public class GameUI : MonoBehaviour
 
 	public void OnStartGameButton()
 	{
-		menuAnimator.SetTrigger("InGameMenu"); // TODO
+		menuAnimator.SetTrigger("OpenGame"); // TODO
 	}
 
 	public void OnCreateNewGameButton()
