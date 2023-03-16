@@ -43,10 +43,10 @@ public class GameProcess : MonoBehaviour
 	{
 		//while (!IsAnyoneWin())
         {
-            ResourcesPhase();
-			TradingPhase();
-            BuildingPhase();
-            MovingPhase();
+            //ResourcesPhase();
+			//TradingPhase();
+            //BuildingPhase();
+            //MovingPhase();
 		}
 	}
 

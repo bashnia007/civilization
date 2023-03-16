@@ -68,8 +68,10 @@
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Buildings\Building.cs" />
     <Compile Include="Assets\Scripts\Region.cs" />
+    <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\Scripts\Buildings\Market.cs" />
     <Compile Include="Assets\Scripts\Buildings\Resource.cs" />
+    <Compile Include="Assets\Scripts\Enums\TradingPhase.cs" />
     <Compile Include="Assets\Scripts\Country.cs" />
     <Compile Include="Assets\Scripts\Regions\RegionInfo.cs" />
     <Compile Include="Assets\Scripts\Regions\Tile.cs" />
@@ -79,7 +81,6 @@
     <Compile Include="Assets\Scripts\Enums\ResourceType.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Units\Tower.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
