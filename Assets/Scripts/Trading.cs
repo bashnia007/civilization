@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR;
-using static UnityEditor.PlayerSettings.SplashScreen;
+//using static UnityEditor.PlayerSettings.SplashScreen;
 
 namespace Assets.Scripts
 {

@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Assets.Scripts.Enums;
+using Unity.Networking.Transport;
 
-public class NetMessage : MonoBehaviour
+public class NetMessage
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public OpCode Code { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public virtual void Serialize(ref DataStreamWriter writer) 
+	{
+		writer.WriteByte((byte)Code);
+	}
+
+	public virtual void Deserialize(DataStreamReader reader)
+	{
+
+	}
+
+	public virtual void ReceivedOnClient()
+	{
+
+	}
+
+	public virtual void ReceivedOnServer(NetworkConnection connection) 
+	{
+
+	}
 }

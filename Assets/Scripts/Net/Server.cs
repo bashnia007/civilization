@@ -44,7 +44,7 @@ public class Server : MonoBehaviour
 			Debug.Log("Listening to port " + endpoint.Port);
 		}
 
-		connections = new NativeList<NetworkConnection>();
+		connections = new NativeList<NetworkConnection>(10, Allocator.Persistent);
 		isActive = true;
 	}
 
@@ -70,12 +70,21 @@ public class Server : MonoBehaviour
 			return;
 		}
 
-		//KeepAlive();
+		KeepAlive();
 
 		driver.ScheduleUpdate().Complete();
 		CleanupConnections();
 		AcceptNewConnections();
 		UpdateMessagePump();
+	}
+
+	private void KeepAlive()
+	{
+		if (Time.time - lastKeepAlive > keepAliveTickRate)
+		{
+			lastKeepAlive = Time.time;
+			Broadcast(new NetKeepAliveMessage());
+		}
 	}
 
 	private void CleanupConnections()
@@ -109,7 +118,7 @@ public class Server : MonoBehaviour
 			{
 				if (cmd == NetworkEvent.Type.Data) 
 				{
-					///NetUtility.OnData(stream, connections[i], this);
+					NetUtility.OnData(stream, connections[i], this);
 				}
 				else if (cmd == NetworkEvent.Type.Disconnect)
 				{
@@ -126,7 +135,7 @@ public class Server : MonoBehaviour
 	{
 		DataStreamWriter writer;
 		driver.BeginSend(connection, out writer);
-		//message.Serialize(ref writer);
+		message.Serialize(ref writer);
 		driver.EndSend(writer);
 	}
 
@@ -136,7 +145,7 @@ public class Server : MonoBehaviour
 		{
 			if (connections[i].IsCreated)
 			{
-				//Debug.Log($"Sending {message.Code} to : {connections[i].InternalId}");
+				Debug.Log($"Sending {message.Code} to : {connections[i].InternalId}");
 				SendToClient(connections[i], message);
 			}
 		}

@@ -1,9 +1,6 @@
+using Assets.Scripts.Net.NetMessages;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Networking.Transport;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class Client : MonoBehaviour
@@ -90,11 +87,12 @@ public class Client : MonoBehaviour
 		{
 			if (cmd == NetworkEvent.Type.Connect)
 			{
-				//SendToServer(new NetWelcome());
+				SendToServer(new NetWelcomeMessage());
+				Debug.Log("We are connected!");
 			}
 			else if (cmd == NetworkEvent.Type.Data)
 			{
-				//NetUtility.OnData(stream, default));
+				NetUtility.OnData(stream, default);
 			}
 			else if (cmd == NetworkEvent.Type.Disconnect)
 			{
@@ -110,19 +108,19 @@ public class Client : MonoBehaviour
 	{
 		DataStreamWriter writer;
 		driver.BeginSend(connection, out writer);
-		//msg.Serialize(ref writer);
+		message.Serialize(ref writer);
 		driver.EndSend(writer);
 	}
 
 	// Event parsing
 	private void RegisterToEvent()
 	{
-		//NetUtility.C_KEEP_ALIVE += OnKeepAlive;
+		NetUtility.C_KEEP_ALIVE += OnKeepAlive;
 	}
 
 	private void UnregisterToEvent()
 	{
-		//NetUtility.C_KEEP_ALIVE -= OnKeepAlive;
+		NetUtility.C_KEEP_ALIVE -= OnKeepAlive;
 	}
 
 	private void OnKeepAlive(NetMessage message)

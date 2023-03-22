@@ -62,28 +62,35 @@
     <Compile Include="Assets\Scripts\Regions\Token.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\Units\Legion.cs" />
+    <Compile Include="Assets\Scripts\Enums\OpCode.cs" />
+    <Compile Include="Assets\Scripts\Net\NetUtility.cs" />
     <Compile Include="Assets\Scripts\InternalPositions.cs" />
     <Compile Include="Assets\Scripts\Trading.cs" />
     <Compile Include="Assets\Scripts\Units\Fleet.cs" />
     <Compile Include="Assets\Scripts\Shop.cs" />
     <Compile Include="Assets\Scripts\Buildings\Building.cs" />
     <Compile Include="Assets\Scripts\Region.cs" />
+    <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\Scripts\Buildings\Market.cs" />
     <Compile Include="Assets\Scripts\Buildings\Resource.cs" />
     <Compile Include="Assets\Scripts\Enums\TradingPhase.cs" />
+    <Compile Include="Assets\Scripts\Net\NetMessages\NetKeepAliveMessage.cs" />
     <Compile Include="Assets\Scripts\Country.cs" />
     <Compile Include="Assets\Scripts\Regions\RegionInfo.cs" />
     <Compile Include="Assets\Scripts\Regions\Tile.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Net\Server.cs" />
+    <Compile Include="Assets\Scripts\Net\NetMessages\NetMessage.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\GameProcess.cs" />
     <Compile Include="Assets\Scripts\Enums\ResourceType.cs" />
     <Compile Include="Assets\Scripts\Units\Unit.cs" />
     <Compile Include="Assets\Scripts\Units\Tower.cs" />
     <Compile Include="Assets\Scripts\Net\Client.cs" />
-    <Compile Include="Assets\Scripts\Net\NetMessages\NetMessage.cs" />
+    <Compile Include="Assets\Scripts\Net\NetMessages\NetLobbyMessage.cs" />
+    <Compile Include="Assets\Scripts\Net\NetMessages\NetWelcomeMessage.cs" />
+    <Compile Include="Assets\Scripts\Net\NetMessages\NetCreateGameMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
