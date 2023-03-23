@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Buildings\City.cs" />
     <Compile Include="Assets\Scripts\Regions\Token.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
+    <Compile Include="Assets\Scripts\RoomItemView.cs" />
     <Compile Include="Assets\Scripts\Units\Legion.cs" />
     <Compile Include="Assets\Scripts\Enums\OpCode.cs" />
     <Compile Include="Assets\Scripts\Net\NetUtility.cs" />
@@ -92,7 +93,6 @@
     <Compile Include="Assets\Scripts\Units\Tower.cs" />
     <Compile Include="Assets\Scripts\Net\Client.cs" />
     <Compile Include="Assets\Scripts\Net\NetMessages\NetJoinGameMessage.cs" />
-    <Compile Include="Assets\Scripts\RoomItemView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

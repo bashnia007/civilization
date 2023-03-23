@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Networking.Transport;
-using UnityEditor;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
@@ -101,8 +100,18 @@ public class GameUI : MonoBehaviour
 
 	#endregion
 
+	private void CleanAvailableGamesScreen()
+	{
+		// Cleaning games list
+		foreach (Transform child in AvailableGamesView.transform)
+		{
+			Destroy(child.gameObject);
+		}
+	}
+
 	private void DrawAvailableGames()
 	{
+		CleanAvailableGamesScreen();
 		foreach (var game in Games)
 		{
 			var availableGame = Instantiate(AvailableGamePrefab);
