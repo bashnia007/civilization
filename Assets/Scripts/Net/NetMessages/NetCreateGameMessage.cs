@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.Enums;
+using System;
 using Unity.Networking.Transport;
 
 public class NetCreateGameMessage : NetMessage
@@ -23,6 +24,7 @@ public class NetCreateGameMessage : NetMessage
 		writer.WriteByte((byte)Game.CurrentPlayersConnected);
 		writer.WriteByte((byte)Game.Players);
 		writer.WriteFixedString32(Game.Creator);
+		writer.WriteFixedString64(Game.GuidId.ToString());
 	}
 
 	public override void Deserialize(DataStreamReader reader)
@@ -31,6 +33,7 @@ public class NetCreateGameMessage : NetMessage
 		Game.CurrentPlayersConnected = reader.ReadByte();
 		Game.Players = reader.ReadByte();
 		Game.Creator = reader.ReadFixedString32().ToString();
+		Game.GuidId = Guid.Parse(reader.ReadFixedString64().ToString());
 	}
 
 	public override void ReceivedOnClient()

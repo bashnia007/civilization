@@ -6,10 +6,9 @@ namespace Assets.Scripts
 	{
 		public Game()
 		{
-			GuidId = Guid.NewGuid();
 		}
 
-		public Guid GuidId { get; }
+		public Guid GuidId { get; set; }
 		public string Creator { get; set; }
 		public byte Players { get; set; }
 		public byte CurrentPlayersConnected { get; set; }

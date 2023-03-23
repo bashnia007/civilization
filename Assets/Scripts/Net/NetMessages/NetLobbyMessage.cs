@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts.Enums;
+using System;
 using System.Collections.Generic;
 using Unity.Networking.Transport;
 
@@ -27,6 +28,7 @@ public class NetLobbyMessage : NetMessage
 			writer.WriteByte((byte)game.CurrentPlayersConnected);
 			writer.WriteByte((byte)game.Players);
 			writer.WriteFixedString32(game.Creator);
+			writer.WriteFixedString64(game.GuidId.ToString());
 		}
 	}
 
@@ -40,6 +42,7 @@ public class NetLobbyMessage : NetMessage
 			game.CurrentPlayersConnected = reader.ReadByte();
 			game.Players = reader.ReadByte();
 			game.Creator = reader.ReadFixedString32().ToString();
+			game.GuidId = Guid.Parse(reader.ReadFixedString64().ToString());
 			Games.Add(game);
 		}
 	}
