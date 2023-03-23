@@ -2,8 +2,10 @@ using Assets.Scripts;
 using Assets.Scripts.Net.NetMessages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Networking.Transport;
+using UnityEditor;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
@@ -76,6 +78,7 @@ public class GameUI : MonoBehaviour
 		AvailableGames.Add(availableGame);
 
 		var game = new Game();
+		game.GuidId = Guid.NewGuid();
 		game.Creator = login.text;
 
 		// don't like it. Maybe it is possible to do it in a better way?
@@ -106,6 +109,7 @@ public class GameUI : MonoBehaviour
 			availableGame.transform.SetParent(AvailableGamesView.transform, false);
 			availableGame.transform.GetChild(0).GetComponent<TMP_Text>().text = game.Creator;
 			availableGame.transform.GetChild(1).GetComponent<TMP_Text>().text = $"{game.CurrentPlayersConnected}/{game.Players}";
+			availableGame.GetComponent<RoomItemView>().GameId = game.GuidId;
 		}
 	}
 
@@ -116,6 +120,8 @@ public class GameUI : MonoBehaviour
 		NetUtility.S_WELCOME += OnWelcomeServer;
 		NetUtility.C_WELCOME += OnWelcomeClient;
 		NetUtility.S_CREATE_GAME += OnCreateGameServer;
+		NetUtility.S_JOIN_GAME += OnJoinGameServer;
+		NetUtility.C_JOIN_GAME += OnJoinGameClient;
 	}
 
 	private void UnRegisterEvents()
@@ -125,6 +131,8 @@ public class GameUI : MonoBehaviour
 		NetUtility.S_WELCOME -= OnWelcomeServer;
 		NetUtility.C_WELCOME -= OnWelcomeClient;
 		NetUtility.S_CREATE_GAME -= OnCreateGameServer;
+		NetUtility.S_JOIN_GAME -= OnJoinGameServer;
+		NetUtility.C_JOIN_GAME -= OnJoinGameClient;
 	}
 
 	private void OnLobbyServer(NetMessage msg, NetworkConnection cnn)
@@ -164,5 +172,31 @@ public class GameUI : MonoBehaviour
 		Debug.Log($"Server received CREATE GAME message from {createGameMsg.Game.Creator}");
 
 		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
+	}
+
+	private void OnJoinGameServer(NetMessage msg, NetworkConnection cnn)
+	{
+		Debug.Log("Join message on server");
+		var joinGameMessage = msg as NetJoinGameMessage;
+		var game = Games.First(g => g.GuidId == joinGameMessage.GameId);
+		game.CurrentPlayersConnected++;
+
+		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
+		Server.Instance.SendToClient(cnn, joinGameMessage);
+	}
+
+	private void OnJoinGameClient(NetMessage msg)
+	{
+		Debug.Log("Join message on client");
+		DrawSelectors();
+		menuAnimator.SetTrigger("OpenSelectedGameMenu");
+	}
+
+	// TODO draw all players
+	private void DrawSelectors()
+	{
+		var countrySelector = Instantiate(CountrySelectorPrefab);
+		countrySelector.transform.SetParent(ListOfPlayersToJoinView.transform, false);
+		countrySelector.transform.GetChild(0).GetComponent<TMP_Text>().text = login.text;
 	}
 }

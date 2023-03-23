@@ -7,5 +7,6 @@
 		CREATE_GAME = 2,
 		START_GAME = 3,
 		LOBBY = 4,
+		JOIN_GAME = 5,
 	}
 }

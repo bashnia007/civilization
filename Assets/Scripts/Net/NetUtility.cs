@@ -11,12 +11,14 @@ public static class NetUtility
 	public static Action<NetMessage> C_CREATE_GAME;
 	public static Action<NetMessage> C_START_GAME;
 	public static Action<NetMessage> C_LOBBY;
+	public static Action<NetMessage> C_JOIN_GAME;
 
 	public static Action<NetMessage, NetworkConnection> S_KEEP_ALIVE;
 	public static Action<NetMessage, NetworkConnection> S_WELCOME;
 	public static Action<NetMessage, NetworkConnection> S_CREATE_GAME;
 	public static Action<NetMessage, NetworkConnection> S_START_GAME;
 	public static Action<NetMessage, NetworkConnection> S_LOBBY;
+	public static Action<NetMessage, NetworkConnection> S_JOIN_GAME;
 
 	public static void OnData(DataStreamReader reader, NetworkConnection connection, Server server = null)
 	{
@@ -38,6 +40,9 @@ public static class NetUtility
 			//	break;
 			case OpCode.LOBBY:
 				message = new NetLobbyMessage(reader);
+				break;
+			case OpCode.JOIN_GAME:
+				message = new NetJoinGameMessage(reader);
 				break;
 			default:
 				Debug.LogError("Message received has incorrect OpCode!");
