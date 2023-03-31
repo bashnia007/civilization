@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Scripts
 {
@@ -20,6 +21,12 @@ namespace Assets.Scripts
 		{
 			ConnectedPlayers.Add(player);
 			//CurrentPlayersConnected++;
+		}
+
+		public void RemovePlayer(string playerLogin)
+		{
+			var player = ConnectedPlayers.First(p => p.Login == playerLogin);
+			ConnectedPlayers.Remove(player);
 		}
 	}
 }

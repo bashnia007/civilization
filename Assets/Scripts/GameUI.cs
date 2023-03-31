@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
 	[SerializeField] private GameObject CountrySelectorPrefab;
 
 	private ConnectedPlayer CurrentUser;
+	private Game CurrentGame;
 
 	private void Awake()
 	{
@@ -78,6 +79,7 @@ public class GameUI : MonoBehaviour
 
 	public void OnBackToAvailableGamesButton()
 	{
+		LeaveGameLobby();
 		menuAnimator.SetTrigger("OpenAvailableGamesMenu");
 	}
 
@@ -119,6 +121,14 @@ public class GameUI : MonoBehaviour
 
 	#endregion
 
+	private void LeaveGameLobby()
+	{
+		var leaveGameMessage = new NetLeaveGameMessage();
+		leaveGameMessage.GameId = CurrentGame.GuidId;
+		leaveGameMessage.Login = CurrentUser.Login;
+		Client.Instance.SendToServer(leaveGameMessage);
+	}
+
 	private void AddNewGameOnAvailabeGamesList(Game game)
 	{
 		var availableGame = Instantiate(AvailableGamePrefab);
@@ -159,6 +169,7 @@ public class GameUI : MonoBehaviour
 		NetUtility.C_CREATE_GAME += OnCreateGameClient;
 		NetUtility.S_JOIN_GAME += OnJoinGameServer;
 		NetUtility.C_JOIN_GAME += OnJoinGameClient;
+		NetUtility.S_LEAVE_GAME += OnLeaveGameServer;
 	}
 
 	private void UnRegisterEvents()
@@ -171,6 +182,7 @@ public class GameUI : MonoBehaviour
 		NetUtility.C_CREATE_GAME -= OnCreateGameClient;
 		NetUtility.S_JOIN_GAME -= OnJoinGameServer;
 		NetUtility.C_JOIN_GAME -= OnJoinGameClient;
+		NetUtility.S_LEAVE_GAME += OnLeaveGameServer;
 	}
 
 	private void OnLobbyServer(NetMessage msg, NetworkConnection cnn)
@@ -239,6 +251,7 @@ public class GameUI : MonoBehaviour
 	{
 		Debug.Log("Create game message on client");
 		var createGameMsg = msg as NetCreateGameMessage;
+		CurrentGame = createGameMsg.Game;
 		foreach (var player in createGameMsg.Game.ConnectedPlayers)
 		{
 			var countrySelector = Instantiate(CountrySelectorPrefab);
@@ -246,6 +259,18 @@ public class GameUI : MonoBehaviour
 			countrySelector.transform.GetChild(0).GetComponent<TMP_Text>().text = player.Login;
 		}
 		menuAnimator.SetTrigger("OpenSelectedGameMenu");
+	}
+
+	private void OnLeaveGameServer(NetMessage msg, NetworkConnection cnn)
+	{
+		var leaveGameMsg = msg as NetLeaveGameMessage;
+		var game = Games.First(x => x.GuidId == leaveGameMsg.GameId);
+		game.RemovePlayer(leaveGameMsg.Login);
+		if (game.ConnectedPlayers.Count == 0)
+		{
+			Games.Remove(game);
+		}
+		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
 	}
 
 	// TODO draw all players

@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Units\Tower.cs" />
     <Compile Include="Assets\Scripts\Net\Client.cs" />
     <Compile Include="Assets\Scripts\Net\NetMessages\NetJoinGameMessage.cs" />
+    <Compile Include="Assets\Scripts\Net\NetMessages\NetLeaveGameMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -8,5 +8,6 @@
 		START_GAME = 3,
 		LOBBY = 4,
 		JOIN_GAME = 5,
+		LEAVE_GAME = 6,
 	}
 }

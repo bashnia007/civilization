@@ -28,7 +28,6 @@ public class NetCreateGameMessage : NetMessage
 		foreach (var user in Game.ConnectedPlayers)
 		{
 			writer.WriteFixedString32(user.Login);
-			//writer.WriteFixedString32(user.SelectedCountry);
 			writer.WriteByte(Convert.ToByte(user.IsReady));
 		}
 	}
@@ -45,7 +44,6 @@ public class NetCreateGameMessage : NetMessage
 		{
 			var connectedPlayer = new ConnectedPlayer();
 			connectedPlayer.Login = reader.ReadFixedString32().ToString();
-			//connectedPlayer.SelectedCountry = reader.ReadFixedString32().ToString();
 			connectedPlayer.IsReady = reader.ReadByte() != 0;
 			Game.AddPlayer(connectedPlayer);
 		}
