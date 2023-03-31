@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Assets.Scripts.Enums;
 using System;
 using Unity.Networking.Transport;
@@ -5,6 +6,8 @@ using Unity.Networking.Transport;
 public class NetJoinGameMessage : NetMessage
 {
 	public Guid GameId { get; set; }
+	public Game Game { get; set; }
+
 	// Creating
 	public NetJoinGameMessage()
 	{

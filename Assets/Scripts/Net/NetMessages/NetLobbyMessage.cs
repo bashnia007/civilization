@@ -26,7 +26,7 @@ public class NetLobbyMessage : NetMessage
 		foreach (Game game in Games)
 		{
 			writer.WriteByte((byte)game.CurrentPlayersConnected);
-			writer.WriteByte((byte)game.Players);
+			writer.WriteByte((byte)game.MaxPlayers);
 			writer.WriteFixedString32(game.Creator);
 			writer.WriteFixedString64(game.GuidId.ToString());
 		}
@@ -40,7 +40,7 @@ public class NetLobbyMessage : NetMessage
 		{
 			var game = new Game();
 			game.CurrentPlayersConnected = reader.ReadByte();
-			game.Players = reader.ReadByte();
+			game.MaxPlayers = reader.ReadByte();
 			game.Creator = reader.ReadFixedString32().ToString();
 			game.GuidId = Guid.Parse(reader.ReadFixedString64().ToString());
 			Games.Add(game);

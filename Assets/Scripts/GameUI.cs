@@ -26,12 +26,15 @@ public class GameUI : MonoBehaviour
 	[SerializeField] private TMP_Dropdown SelectedPlayersAmount;
 	[SerializeField] private GameObject CountrySelectorPrefab;
 
+	private ConnectedPlayer CurrentUser;
+
 	private void Awake()
 	{
 		Instance = this;
 		AvailableGames = new List<GameObject>();
 		Games = new List<Game>();
 		RegisterEvents();
+		CurrentUser = new ConnectedPlayer();
 	}
 
 	private void OnDestroy()
@@ -44,6 +47,7 @@ public class GameUI : MonoBehaviour
 	{
 		if (login.text.Length > 0)
 		{
+			CurrentUser.Login = login.text;
 			menuAnimator.SetTrigger("OpenCreateGameMenu");
 			client.Init("127.0.0.1", 8007);
 		}
@@ -53,6 +57,7 @@ public class GameUI : MonoBehaviour
 	{
 		if (login.text.Length > 0)
 		{
+			CurrentUser.Login = login.text;
 			client.Init("127.0.0.1", 8007);
 			menuAnimator.SetTrigger("OpenAvailableGamesMenu");
 		}
@@ -63,6 +68,17 @@ public class GameUI : MonoBehaviour
 		server.Shutdown();
 		client.Shutdown();
 		menuAnimator.SetTrigger("OpenMainMenu");
+	}
+
+	public void OnBackToMainButton()
+	{
+		client.Shutdown();
+		menuAnimator.SetTrigger("OpenMainMenu");
+	}
+
+	public void OnBackToAvailableGamesButton()
+	{
+		menuAnimator.SetTrigger("OpenAvailableGamesMenu");
 	}
 
 	public void OnStartGameButton()
@@ -79,9 +95,10 @@ public class GameUI : MonoBehaviour
 		var game = new Game();
 		game.GuidId = Guid.NewGuid();
 		game.Creator = login.text;
+		game.AddPlayer(CurrentUser);
 
 		// don't like it. Maybe it is possible to do it in a better way?
-		game.Players = byte.Parse(SelectedPlayersAmount.options[SelectedPlayersAmount.value].text);
+		game.MaxPlayers = byte.Parse(SelectedPlayersAmount.options[SelectedPlayersAmount.value].text);
 		game.CurrentPlayersConnected++;
 
 		var countrySelector = Instantiate(CountrySelectorPrefab);
@@ -117,7 +134,7 @@ public class GameUI : MonoBehaviour
 			var availableGame = Instantiate(AvailableGamePrefab);
 			availableGame.transform.SetParent(AvailableGamesView.transform, false);
 			availableGame.transform.GetChild(0).GetComponent<TMP_Text>().text = game.Creator;
-			availableGame.transform.GetChild(1).GetComponent<TMP_Text>().text = $"{game.CurrentPlayersConnected}/{game.Players}";
+			availableGame.transform.GetChild(1).GetComponent<TMP_Text>().text = $"{game.CurrentPlayersConnected}/{game.MaxPlayers}";
 			availableGame.GetComponent<RoomItemView>().GameId = game.GuidId;
 		}
 	}
@@ -131,6 +148,7 @@ public class GameUI : MonoBehaviour
 		NetUtility.S_CREATE_GAME += OnCreateGameServer;
 		NetUtility.S_JOIN_GAME += OnJoinGameServer;
 		NetUtility.C_JOIN_GAME += OnJoinGameClient;
+		//NetUtility.C_CREATE_GAME += OnCreateGameClient;
 	}
 
 	private void UnRegisterEvents()
@@ -188,16 +206,33 @@ public class GameUI : MonoBehaviour
 		Debug.Log("Join message on server");
 		var joinGameMessage = msg as NetJoinGameMessage;
 		var game = Games.First(g => g.GuidId == joinGameMessage.GameId);
-		game.CurrentPlayersConnected++;
+		game.AddPlayer(CurrentUser);
+		//game.CurrentPlayersConnected++;
+		var createGameMsg = new NetCreateGameMessage { Game = game };
 
 		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
+		//Server.Instance.SendToClient(cnn, createGameMsg);
 		Server.Instance.SendToClient(cnn, joinGameMessage);
 	}
 
 	private void OnJoinGameClient(NetMessage msg)
 	{
 		Debug.Log("Join message on client");
+		var joinGameMsg = msg as NetJoinGameMessage;
 		DrawSelectors();
+		menuAnimator.SetTrigger("OpenSelectedGameMenu");
+	}
+
+	private void OnCreateGameClient(NetMessage msg)
+	{
+		Debug.Log("Create game message on client");
+		var createGameMsg = msg as NetCreateGameMessage;
+		foreach (var player in createGameMsg.Game.ConnectedPlayers)
+		{
+			var countrySelector = Instantiate(CountrySelectorPrefab);
+			countrySelector.transform.SetParent(ListOfPlayersToJoinView.transform, false);
+			countrySelector.transform.GetChild(0).GetComponent<TMP_Text>().text = player.Login;
+		}
 		menuAnimator.SetTrigger("OpenSelectedGameMenu");
 	}
 

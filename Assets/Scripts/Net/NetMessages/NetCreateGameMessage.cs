@@ -22,18 +22,32 @@ public class NetCreateGameMessage : NetMessage
 	{
 		writer.WriteByte((byte)Code);
 		writer.WriteByte((byte)Game.CurrentPlayersConnected);
-		writer.WriteByte((byte)Game.Players);
+		writer.WriteByte((byte)Game.MaxPlayers);
 		writer.WriteFixedString32(Game.Creator);
 		writer.WriteFixedString64(Game.GuidId.ToString());
+		/*foreach (var user in Game.ConnectedPlayers)
+		{
+			writer.WriteFixedString32(user.Login);
+			writer.WriteFixedString32(user.SelectedCountry);
+			writer.WriteByte(Convert.ToByte(user.IsReady));
+		}*/
 	}
 
 	public override void Deserialize(DataStreamReader reader)
 	{
 		Game = new Game();
 		Game.CurrentPlayersConnected = reader.ReadByte();
-		Game.Players = reader.ReadByte();
+		Game.MaxPlayers = reader.ReadByte();
 		Game.Creator = reader.ReadFixedString32().ToString();
 		Game.GuidId = Guid.Parse(reader.ReadFixedString64().ToString());
+		/*for (int i = 0; i < Game.CurrentPlayersConnected; i++)
+		{
+			var connectedPlayer = new ConnectedPlayer();
+			connectedPlayer.Login = reader.ReadFixedString32().ToString();
+			connectedPlayer.SelectedCountry = reader.ReadFixedString32().ToString();
+			connectedPlayer.IsReady = reader.ReadByte() != 0;
+			Game.AddPlayer(connectedPlayer);
+		}*/
 	}
 
 	public override void ReceivedOnClient()

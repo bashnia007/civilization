@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MapSettings.cs" />
+    <Compile Include="Assets\Scripts\ConnectedPlayer.cs" />
     <Compile Include="Assets\Scripts\MapCreator.cs" />
     <Compile Include="Assets\Scripts\Buildings\City.cs" />
     <Compile Include="Assets\Scripts\Regions\Token.cs" />
