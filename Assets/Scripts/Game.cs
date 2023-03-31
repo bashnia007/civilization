@@ -19,7 +19,7 @@ namespace Assets.Scripts
 		public void AddPlayer(ConnectedPlayer player)
 		{
 			ConnectedPlayers.Add(player);
-			CurrentPlayersConnected++;
+			//CurrentPlayersConnected++;
 		}
 	}
 }

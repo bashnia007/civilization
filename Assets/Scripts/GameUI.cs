@@ -88,24 +88,26 @@ public class GameUI : MonoBehaviour
 
 	public void OnCreateNewGameButton()
 	{
-		var availableGame = Instantiate(AvailableGamePrefab);
-		availableGame.transform.SetParent(AvailableGamesView.transform, false);
-		AvailableGames.Add(availableGame);
+		//var availableGame = Instantiate(AvailableGamePrefab);
+		//availableGame.transform.SetParent(AvailableGamesView.transform, false);
+		//AvailableGames.Add(availableGame);
 
 		var game = new Game();
 		game.GuidId = Guid.NewGuid();
 		game.Creator = login.text;
 		game.AddPlayer(CurrentUser);
-
-		// don't like it. Maybe it is possible to do it in a better way?
 		game.MaxPlayers = byte.Parse(SelectedPlayersAmount.options[SelectedPlayersAmount.value].text);
 		game.CurrentPlayersConnected++;
 
-		var countrySelector = Instantiate(CountrySelectorPrefab);
-		countrySelector.transform.SetParent(ListOfPlayersToJoinView.transform, false);
-		countrySelector.transform.GetChild(0).GetComponent<TMP_Text>().text = login.text;
+		//AddNewGameOnAvailabeGamesList(game);
 
-		menuAnimator.SetTrigger("OpenSelectedGameMenu");
+		// don't like it. Maybe it is possible to do it in a better way?
+		//
+		//var countrySelector = Instantiate(CountrySelectorPrefab);
+		//countrySelector.transform.SetParent(ListOfPlayersToJoinView.transform, false);
+		//countrySelector.transform.GetChild(0).GetComponent<TMP_Text>().text = login.text;
+		//
+		//menuAnimator.SetTrigger("OpenSelectedGameMenu");
 
 		client.SendToServer(new NetCreateGameMessage { Game = game });
 	}
@@ -116,6 +118,14 @@ public class GameUI : MonoBehaviour
 	}
 
 	#endregion
+
+	private void AddNewGameOnAvailabeGamesList(Game game)
+	{
+		var availableGame = Instantiate(AvailableGamePrefab);
+		availableGame.transform.SetParent(AvailableGamesView.transform, false);
+		AvailableGames.Add(availableGame);
+
+	}
 
 	private void CleanAvailableGamesScreen()
 	{
@@ -146,9 +156,9 @@ public class GameUI : MonoBehaviour
 		NetUtility.S_WELCOME += OnWelcomeServer;
 		NetUtility.C_WELCOME += OnWelcomeClient;
 		NetUtility.S_CREATE_GAME += OnCreateGameServer;
+		NetUtility.C_CREATE_GAME += OnCreateGameClient;
 		NetUtility.S_JOIN_GAME += OnJoinGameServer;
 		NetUtility.C_JOIN_GAME += OnJoinGameClient;
-		//NetUtility.C_CREATE_GAME += OnCreateGameClient;
 	}
 
 	private void UnRegisterEvents()
@@ -158,6 +168,7 @@ public class GameUI : MonoBehaviour
 		NetUtility.S_WELCOME -= OnWelcomeServer;
 		NetUtility.C_WELCOME -= OnWelcomeClient;
 		NetUtility.S_CREATE_GAME -= OnCreateGameServer;
+		NetUtility.C_CREATE_GAME -= OnCreateGameClient;
 		NetUtility.S_JOIN_GAME -= OnJoinGameServer;
 		NetUtility.C_JOIN_GAME -= OnJoinGameClient;
 	}
@@ -199,6 +210,7 @@ public class GameUI : MonoBehaviour
 		Debug.Log($"Server received CREATE GAME message from {createGameMsg.Game.Creator}");
 
 		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
+		Server.Instance.SendToClient(cnn, createGameMsg);
 	}
 
 	private void OnJoinGameServer(NetMessage msg, NetworkConnection cnn)
@@ -207,7 +219,7 @@ public class GameUI : MonoBehaviour
 		var joinGameMessage = msg as NetJoinGameMessage;
 		var game = Games.First(g => g.GuidId == joinGameMessage.GameId);
 		game.AddPlayer(CurrentUser);
-		//game.CurrentPlayersConnected++;
+		game.CurrentPlayersConnected++;
 		var createGameMsg = new NetCreateGameMessage { Game = game };
 
 		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
