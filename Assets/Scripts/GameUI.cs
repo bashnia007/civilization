@@ -156,6 +156,7 @@ public class GameUI : MonoBehaviour
 			availableGame.transform.GetChild(0).GetComponent<TMP_Text>().text = game.Creator;
 			availableGame.transform.GetChild(1).GetComponent<TMP_Text>().text = $"{game.CurrentPlayersConnected}/{game.MaxPlayers}";
 			availableGame.GetComponent<RoomItemView>().GameId = game.GuidId;
+			availableGame.GetComponent<RoomItemView>().Login= CurrentUser.Login;
 		}
 	}
 
@@ -230,9 +231,14 @@ public class GameUI : MonoBehaviour
 		Debug.Log("Join message on server");
 		var joinGameMessage = msg as NetJoinGameMessage;
 		var game = Games.First(g => g.GuidId == joinGameMessage.GameId);
-		game.AddPlayer(CurrentUser);
+		var newPlayer = new ConnectedPlayer
+		{
+			Login = joinGameMessage.Login,
+		};
+		game.AddPlayer(newPlayer);
 		game.CurrentPlayersConnected++;
-		var createGameMsg = new NetCreateGameMessage { Game = game };
+		joinGameMessage.Game = game;
+		//var createGameMsg = new NetCreateGameMessage { Game = game };
 
 		Server.Instance.Broadcast(new NetLobbyMessage { Games = Games });
 		//Server.Instance.SendToClient(cnn, createGameMsg);
@@ -243,8 +249,17 @@ public class GameUI : MonoBehaviour
 	{
 		Debug.Log("Join message on client");
 		var joinGameMsg = msg as NetJoinGameMessage;
-		DrawSelectors();
+		//DrawSelectors();
 		menuAnimator.SetTrigger("OpenSelectedGameMenu");
+
+		CurrentGame = joinGameMsg.Game;
+
+		foreach (var player in CurrentGame.ConnectedPlayers)
+		{
+			var countrySelector = Instantiate(CountrySelectorPrefab);
+			countrySelector.transform.SetParent(ListOfPlayersToJoinView.transform, false);
+			countrySelector.transform.GetChild(0).GetComponent<TMP_Text>().text = player.Login;
+		}
 	}
 
 	private void OnCreateGameClient(NetMessage msg)
